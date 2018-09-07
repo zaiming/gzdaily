@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laypage插件的应用</title>
+    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="view"></div>  <!-- 内容显示部分 -->
+<div id="page"></div>  <!-- 分页码显示部分 -->
+
+<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/login/public/static/laypage/laypage.js"></script>
+<script>
+    //以下将以jquery.ajax为例，演示一个异步分页
+    function demo(curr){
+        $.getJSON("{:url('tools /laypage')}", {
+            page: curr || 1 //向服务端传的参数，此处只是演示
+        }, function(res){
+
+            //此处仅仅是为了演示变化的内容
+            var demoContent = (new Date().getTime()/Math.random()/1000)|0;
+            document.getElementById('view').innerHTML = res.content + demoContent;
+
+            //显示分页
+            laypage({
+                cont: 'page', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
+                pages: res.pages, //通过后台拿到的总页数
+                curr: curr || 1, //当前页
+                skin:'yahei',//加载内置皮肤，也可以直接赋值16进制颜色值,如#c00
+                jump: function(obj, first){ //触发分页后的回调
+                    if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                        demo(obj.curr);
+                    }
+                }
+            });
+        });
+    };
+
+    //运行
+    demo();
+</script>
+</body>
+</html>

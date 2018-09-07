@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>专题列表</title>
+    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>专题ID</th>
+                    <th>专题名</th>
+                    <th>是否可分享</th>
+                    <th>专题类型</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name="zt_list" item = "vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.yes_no}</td>
+                    <td>{$vo.type_name}</td>
+                    <td>
+                        <!--//window.open('http://localhost/login/public/index.php/gzck/Worldcup/show/id/{$vo.id}','_self')-->
+                        <button type="button" class="btn btn-primary" onclick="ztType({$vo.id},{$vo.type_id})">管理</button>
+                        <button type="button" class="btn btn-info" onclick="addZt({$vo.id})">增加</button>
+                        <button type="button" class="btn btn-primary" onclick="editZt({$vo.id})">编辑</button>
+                        <!--<a href="">-->
+                            <!--<button type="button" class="btn btn-danger">删除</button>-->
+                        <!--</a>-->
+                        <button type="button" class="btn btn-danger" onclick="delZt({$vo.id})">删除</button>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/login/public/static/layer/layer.js"></script>
+<!-- 页面层增加zt开始 -->
+<div class="form-horizontal col-sm-12" id="box" style="display:none;margin-top: 18px">
+    <div class="form-group">
+        <label for="name" class="col-sm-12 ">专题名：</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control"  id="name" placeholder="专题名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="yes_no" class="col-sm-12 ">是否可分享：</label>
+        <div class="col-sm-10" id="yes_no" >
+            <input type="radio"  name="yes_no"  value="是" checked="true" >是
+            <input type="radio"  name="yes_no"  value="否" >否
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="type_id" class="col-sm-12 ">专题类型：</label>
+        <div class="col-sm-12" >
+           <select id="type_id"  class="form-control">
+               <option value="1" selected="selected">时间轴类型</option>
+               <option value="2" selected="selected">亚运会类型</option>
+           </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="bg_image" class="col-sm-12 ">背景图链接：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="bg_image" placeholder="背景图链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="top_image" class="col-sm-12 ">顶部图链接：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="top_image" placeholder="顶部图链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="share_title" class="col-sm-12 ">分享标题：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="share_title" placeholder="分享标题">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="share_des" class="col-sm-12 ">分享描述：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="share_des" placeholder="分享描述">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="share_image" class="col-sm-12 ">分享图片：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="share_image" placeholder="分享图片">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-6 col-sm-6">
+            <button type="button" class="btn btn-info" id="btn">保存</button>
+        </div>
+    </div>
+</div>
+<!-- 页面层增加专题结束 -->
+
+<!-- 页面层编辑专题开始 -->
+<div class="form-horizontal col-sm-12" id="edit_box" style="display:none;margin-top: 15px">
+    <input type="hidden" id="id">
+    <div class="form-group">
+        <label for="e_name" class="col-sm-12 ">专题名：</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="e_name" placeholder="专题名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_yes_no" class="col-sm-12">是否可分享：</label>
+        <div class="col-sm-10" id="e_yes_no">
+            <input type="radio"  name="e_yes_no"  value="是" checked="true">是
+            <input type="radio"  name="e_yes_no"  value="否" >否
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_type_id" class="col-sm-12">专题类型：</label>
+        <div class="col-sm-12">
+           <select id="e_type_id" class="form-control" >
+               <option value="1" selected="selected">时间轴类型</option>
+               <option value="2" selected="selected">亚运会类型</option>
+           </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_bg_image" class="col-sm-12 ">背景图链接：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="e_bg_image" placeholder="背景图链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_top_image" class="col-sm-12 ">顶部图链接：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="e_top_image" placeholder="顶部图链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_share_title" class="col-sm-12 ">分享标题：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="e_share_title" placeholder="分享标题">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_share_des" class="col-sm-12 ">分享描述：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="e_share_des" placeholder="分享描述">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="e_share_image" class="col-sm-12 ">分享图片：</label>
+        <div class="col-sm-12" >
+                <input type="text" class="form-control"  id="e_share_image" placeholder="分享图片">
+        </div>
+    </div>
+    <div class="form-group" >
+        <div class="col-sm-offset-6 col-sm-6" >
+         <button type="button" class="btn btn-info" id="btn_edit">保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 页面层编辑专题结束 -->
+<script>
+    //专题类型判断
+    function ztType(uid,type_id) {
+        if(1==type_id){
+            window.open('http://localhost/login/public/index.php/gzck/Worldcup/show/id/'+uid,'_self');
+        }
+        if(2==type_id){
+            window.open('http://localhost/login/public/index.php/gzck/yayun2018/show','_self')
+        }
+    }
+</script>
+<script>
+    // 页面层增加专题
+    var box;
+    function addZt(uid){
+        $.getJSON("{:url('Zt/addZt')}", {uid: uid}, function(res) {
+            $("#id").val(res.data.id);
+            $("#name").val(res.data.name);
+         //   $("#is_share").val(res.data.is_share);
+            $("#yes_no").val(res.data.yes_no);
+            $("#type_id").val(res.data.type_id);
+            $("#bg_image").val(res.data.bg_image);
+            $("#top_image").val(res.data.top_image);
+            $("#share_title").val(res.data.share_title);
+            $("#share_des").val(res.data.share_des);
+            $("#share_image").val(res.data.share_image);
+
+            box = layer.open({
+                title: '增加同类专题',
+                type: 1,
+                skin: 'layui-layer-lan', //加上边框
+                area: ['450px', '700px'], //宽高
+                content: $("#box")
+            });
+        });
+    }
+</script>
+<script>
+
+    //对专题添加进行校验
+    $(function () {
+        $("#btn").click(function () {
+            console.log(1);
+            var name = $("#name").val();
+           // var yes_no = ($("#yes_no"));
+            var yes_no = $("input:radio[name='yes_no']:checked").val();
+            console.log({yes_no:yes_no});
+          //  var type_id = $("#type_id").val();
+            var type_id = $("#type_id").val();
+            var bg_image = $("#bg_image").val();
+            var top_image = $("#top_image").val();
+            var share_title = $("#share_title").val();
+            var share_des = $("#share_des").val();
+            var share_image = $("#share_image").val();
+            console.log({type_id:type_id});
+            if(''== name){
+                layer.tips('专题名不能为空','#name');
+                return false;
+            }
+            if(''== yes_no){
+                layer.tips('是否可分享不能为空','#yes_no');
+                return false;
+            }
+            if(''== type_id){
+                layer.tips('专题不能为空','#type_id');
+                return false;
+            }
+            if(''== bg_image){
+                layer.tips('背景图片不能为空','#bg_image');
+                return false;
+            }
+            if(''== top_image){
+                layer.tips('顶部图不能为空','#top_image');
+                return false;
+            }
+            if(''== share_title){
+                layer.tips('分享标题不能为空','#share_title');
+                return false;
+            }
+            if(''== share_des){
+                layer.tips('分享描述不能为空','#share_des');
+                return false;
+            }
+            if(''== share_image){
+                layer.tips('分享图片不能为空','#share_image');
+                return false;
+            }
+            console.log({name:name,yes_no:yes_no,type_id:type_id});
+            $.post("{:url('Zt/addZt')}",
+                {name:name,yes_no:yes_no,type_id:type_id,bg_image:bg_image,top_image:top_image,share_title:share_title,share_des:share_des,share_image:share_image},
+                function (res) {
+                if(1 == res.code){
+                    window.location.reload();
+                }else {
+                    layer.alert(res.msg,{icon:2,title: '错误提示'});
+                }
+
+            },'json');
+
+        });
+
+    });
+</script>
+<script>
+
+    // 页面层编辑专题
+    function editZt(uid){
+
+        $.getJSON("{:url('Zt/editZt')}", {uid: uid}, function(res){
+            $("#id").val(res.data.id);
+            $("#e_name").val(res.data.name);
+           // $("#e_is_share").val(res.data.is_share);
+            $("#e_yes_no").val(res.data.yes_no);
+            $("#e_type_id").val(res.data.type_id);
+            $("#e_bg_image").val(res.data.bg_image);
+            $("#e_top_image").val(res.data.top_image);
+            $("#e_share_title").val(res.data.share_title);
+            $("#e_share_des").val(res.data.share_des);
+            $("#e_share_image").val(res.data.share_image);
+
+            box = layer.open({
+                title: '编辑专题',
+                type: 1,
+                skin: 'layui-layer-lan', //加上边框
+                area: ['450px', '700px'], //宽高
+                content: $("#edit_box")
+            });
+        });
+    }
+    //点击编辑专题按钮
+    $("#btn_edit").click(function () {
+        var id = $("#id").val();
+        var name = $("#e_name").val();
+        //var is_share = $("#e_is_share").val();
+        var yes_no =  $("input:radio[name='e_yes_no']:checked").val();
+        var type_id = $("#e_type_id").val();
+        var bg_image = $("#e_bg_image").val();
+        var top_image = $("#e_top_image").val();
+        var share_title = $("#e_share_title").val();
+        var share_des = $("#e_share_des").val();
+        var share_image = $("#e_share_image").val();
+        if ('' == name){
+            layer.tips('专题名不能为空','#e_name');
+            return false;
+        }
+        if ('' == yes_no){
+            layer.tips('是否可分享不能为空','#yes_no');
+            return false;
+        }
+        if(''== type_id){
+            layer.tips('专题不能为空','#type_id');
+            return false;
+        }
+        if(''== bg_image){
+            layer.tips('背景图片不能为空','#bg_image');
+            return false;
+        }
+        if(''== top_image){
+            layer.tips('顶部图不能为空','#top_image');
+            return false;
+        }
+        if(''== share_title){
+            layer.tips('分享标题不能为空','#share_title');
+            return false;
+        }
+        if(''== share_des){
+            layer.tips('分享描述不能为空','#share_des');
+            return false;
+        }
+        if(''== share_image){
+            layer.tips('分享图片不能为空','#share_image');
+            return false;
+        }
+        console.log({name:name,yes_no:yes_no,type_id:type_id});
+        $.post("{:url('zt/editzt')}",
+            {
+                id:id,
+                name:name,
+                yes_no:yes_no,
+                type_id:type_id,
+                bg_image: bg_image,
+                top_image: top_image,
+                share_title: share_title,
+                share_des: share_des,
+                share_image: share_image
+            },function (res) {
+                if (1 == res.code){
+                    window.location.reload();
+                } else{
+                    layer.alert(res.msg,{icon:2,title:'错误提示'});
+                }
+            },'json');
+    });
+</script>
+<script>
+    //删除专题
+    function delZt(uid) {
+        //询问框
+        layer.confirm('确定删除此专题？',{
+            title:'友情提示',
+            icon:3,
+            closeBtn:0,
+            btn:['确定','取消']//按钮
+        },function () {
+            $.getJSON("{:url('zt/delzt')}",{uid:uid},function(res){
+                if (1== res.code){
+                    window.location.reload();
+                } else{
+                    layer.alert(res.msg,{icon:2,title:'错误提示'});
+                }
+            });
+        },function () {
+        });
+    }
+</script>
+</body>
+</html>

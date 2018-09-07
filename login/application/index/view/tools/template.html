@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传统方式渲染页面</title>
+</head>
+
+<body>
+
+<span id="title"></span>
+<ul id="content"></ul>
+
+<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
+<script>
+    $(function(){
+
+        $.getJSON("{:url('tools/template')}", function(res){
+
+            var _html = '';
+            $("#title").text(res.msg);
+            $.each(res.data, function(k, v){
+
+                _html += '<li> 车牌： 苏' + v.code + ', 城市： ' + v.name;
+            });
+
+            $("#content").html(_html);
+            //通过laytpl 进行渲染
+            var gettpl = document.getElementById('demo').innerHTML;
+            laytpl(gettpl).render(res,function (html) {
+                document.getElementById('view').innerHTML = html;
+            });
+        });
+    });
+</script>
+
+
+<div id="view"></div> <!-- laytpl渲染的数据展示区域 -->
+
+<!-- 需要渲染的模板结构 -->
+<script id="demo" type="text/html">
+    <span>{{ d.msg }}</span>
+    <ul>
+        {{# for(var i = 0, len = d.data.length; i < len; i++){ }}
+        <li>车牌： 苏{{ d.data[i].code }}, 城市： {{ d.data[i].name }}</li>
+        {{# } }}
+    </ul>
+</script>
+<!-- 需要渲染的模板结构  -->
+<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/login/public/static/laytpl/laytpl.js"></script>
+</body>
+</html>
