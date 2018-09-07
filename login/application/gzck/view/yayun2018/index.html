@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>亚运会</title>
+
+    <!-- bootstrap bootstrap-table  jquery -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table1/bootstrap-table.css">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table.js"></script>
+    <!-- put your locale files after bootstrap-table.js -->
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table-zh-CN.js"></script>
+
+    <!-- x-editable -->
+    <link href="__PUBLIC__/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="__PUBLIC__/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+    <!-- bootstrap extensions table-editable -->
+    <script src="__PUBLIC__/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
+    <!-- 所有文件加载结束 -->
+
+</head>
+
+<body style="margin: 50px;">
+<h1>
+    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/show"> 亚运会新闻管理页</a>
+    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow"> ---奖牌管理页</a>
+    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog"> ---奖牌修改记录</a>
+</h1>
+<h2> <a href="./showadd" target="_blank" >---添加文章</a></h2>
+<table id="tb_user"></table>
+</body>
+<script>
+    //php 变量
+    var apiUrl = "{$API_URL}";
+    var loadDataUrl = apiUrl + "/load";
+
+    var editUrl = apiUrl + "/edit";
+
+    var keyIdName = "id";
+
+    $table = $("#tb_user");
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="addlink" href="javascript:void(0)" title="添加附加文章链接">',
+            '<i class="glyphicon glyphicon-plus"></i>',
+            '</a>  | ',
+            '<a class="showlink" href="javascript:void(0)" title="显示所有附加文章">',
+            '<i class="glyphicon glyphicon-th-list"></i>',
+            '</a>  | ',
+            '<a class="changemap" href="javascript:void(0)" title="修改关联项目">',
+            '<i class="glyphicon glyphicon-th-list"></i>',
+            '</a>  | '
+        ].join('');
+    }
+
+    window.operateEvents = {
+        'click .addlink': function (e,value,row,index) {
+            var rowid = row.id;
+            window.location.href= apiUrl + "/showaddlink" + "/nid/" + rowid;
+        },
+        'click .showlink': function (e, val,row,index) {
+            var rowid = row.id
+            window.location.href= apiUrl + "/showlink" + "/nid/" + rowid;
+        },
+        'click .changemap': function (e, val,row,index) {
+            var rowid = row.id
+            window.location.href= apiUrl + "/changemap" + "/id/" + rowid;
+        }
+    };
+
+
+
+    $(function () {
+        $table.bootstrapTable({
+            toolbar: "#toolbar",
+            idField: keyIdName,
+            pagination: true,
+            showRefresh: true,
+            search: true,
+            clickToSelect: true,
+            queryParams: function (param) {
+                return {};
+            },
+            url: loadDataUrl,
+            pageSize: 20,
+            columns: [
+                {
+                    field: "id",
+                    title: "文章id"
+                },
+                {
+                    field: "date",
+                    title: "归类的日期",
+                    editable: {
+                        type: 'text',
+                        title :'归类的日期',
+                        validate:function (v) {
+                            var regx = /^(?:(?:0[1-9])|(?:1[0-2]))月(?:(?:[0-2][1-9])|(?:[1-3][0-1]))日$/;
+                            if (!regx.test(v)) {
+                                return "日期格式为  05月03日"
+                            }
+                        }
+
+                    }
+                },
+                {
+                    field: "title",
+                    title: "标题",
+                    editable: {
+                        type: 'text',
+                        title: '标题',
+                        validate: function (v) {
+                            if (!v) return '标题不能为空';
+
+                        }
+                    }
+                },
+                {
+                    field: "sub_title",
+                    title: "子标题",
+                    editable: {
+                        type: 'text',
+                        title: '子标题',
+                    }
+                },
+                {
+                    field: "link_ids",
+                    title: "附加的新闻"
+                },
+                {
+                    field: "map_a",
+                    title: "关联国家"
+                },
+                {
+                    field: "map_b",
+                    title: "关联项目"
+                },
+                {
+                    field: "status",
+                    title: "状态",
+                    editable: {
+                        type: 'text',
+                        title: '1为有效，0为失效'
+                    }
+                },
+                {
+                    field: "iorder",
+                    title: "排序号",
+                    editable: {
+                        type: 'number',
+                        title: '排序号，从高到低'
+                    }
+                },
+                {
+                    field: "ctime",
+                    title: "创建日期",
+                },
+                {
+                    field: 'operate',
+                    title: '附加文章操作选项',
+                    align: 'center',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                }
+            ],
+            onEditableSave: function (field, row, oldValue, $el) {
+                $.ajax({
+                    type: "post",
+                    url: editUrl,
+                    data: row,
+                    dataType: 'JSON',
+                    success: function (data, status) {
+                        if (status == "success") {
+                            console.log(data);
+                            alert('提交数据成功');
+                        }
+                    },
+                    error: function () {
+                        alert('编辑失败');
+                    },
+                    complete: function () {
+
+                    }
+
+                });
+            }
+
+
+        });
+    });
+</script>
+</html>

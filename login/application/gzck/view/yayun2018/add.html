@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>亚运会</title>
+    <!-- bootstrap bootstrap-table  jquery -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table/bootstrap-table.css">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/bootstrap-table/bootstrap-table.js"></script>
+    <!-- put your locale files after bootstrap-table.js -->
+    <script src="__PUBLIC__/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+
+    <!-- x-editable -->
+    <link href="__PUBLIC__/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="__PUBLIC__/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+    <!-- bootstrap extensions table-editable -->
+    <script src="__PUBLIC__/bootstrap-table/editable/bootstrap-table-editable.js"></script>
+    <!-- 所有文件加载结束 -->
+</head>
+<body>
+<div style="margin: 50px;">
+    <h1>亚运会</h1>
+    <form id="formid" method="post" action="{$POST_URL}" >
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label>子标题</label>
+            <textarea class="form-control" name="sub_title" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>归档日期</label>
+            <input type="text" class="form-control" name="date" placeholder="05月01日">
+        </div>
+        <div class="form-group">
+            <label>关联国家</label><br>
+            {volist name="map_a" id="vo"  mod="5" }
+            <input type="checkbox"  name="map_a[]" value="{$vo.id}" > {$vo.name}
+            {eq name="mod" value="4"}<br/>{/eq}
+            {/volist}
+            <input type="button" name="" value="全部选择" onclick="allSet('map_a[]',true)" >
+            <input type="button" name="" value="全选取消" onclick="allSet('map_a[]',false)" >
+
+        </div>
+        <div class="form-group">
+            <label>关联项目</label><br>
+            {volist name="map_b" id="vo"  mod="5" }
+            <input type="checkbox"  name="map_b[]" value="{$vo.id}" > {$vo.name}
+            {eq name="mod" value="4"}<br/>{/eq}
+            {/volist}
+            <input type="button" name="" value="全部选择" onclick="allSet('map_b[]',true)" >
+            <input type="button" name="" value="全选取消" onclick="allSet('map_b[]',false)" >
+        </div>
+        <div class="form-group">
+            <label>状态 1为有效 0为失效</label>
+            <input type="number" class="form-control" name="status" value="1" />
+        </div>
+        <div class="form-group">
+            <label>排序号</label>
+            <input type="number" class="form-control" name="iorder" value="1" />
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit" >提交</button>
+            <button class="btn btn-info" type="reset">重置</button>
+        </div>
+    </form>
+</div>
+<script>
+    function allSet(str,flag) {
+        console.log(str);
+        var cbox = document.getElementsByName(str);
+        console.log(cbox);
+        for(var i=0;i<cbox.length;i++){
+            cbox[i].checked = flag;
+        }
+    }
+</script>
+</body>
+</html>

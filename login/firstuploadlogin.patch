@@ -1,0 +1,2912 @@
+Index: application/index/controller/Index.php
+===================================================================
+--- application/index/controller/Index.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/index/controller/Index.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,15 +0,0 @@
+-<?php
+-namespace app\index\controller;
+-
+-class Index
+-{
+-    public function index()
+-    {
+-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12载初心不改（2006-2018） - 你值得信赖的PHP框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
+-    }
+-
+-    public function hello($name = 'ThinkPHP5')
+-    {
+-        return 'hello,' . $name;
+-    }
+-}
+Index: application/.htaccess
+===================================================================
+--- application/.htaccess	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/.htaccess	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,1 +0,0 @@
+-deny from all
+\ No newline at end of file
+Index: application/command.php
+===================================================================
+--- application/command.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/command.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,12 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: yunwuxin <448901948@qq.com>
+-// +----------------------------------------------------------------------
+-
+-return [];
+Index: application/common.php
+===================================================================
+--- application/common.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/common.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,12 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: 流年 <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// 应用公共文件
+Index: application/provider.php
+===================================================================
+--- application/provider.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/provider.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,14 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// 应用容器绑定定义
+-return [
+-];
+Index: application/tags.php
+===================================================================
+--- application/tags.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ application/tags.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,28 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// 应用行为扩展定义文件
+-return [
+-    // 应用初始化
+-    'app_init'     => [],
+-    // 应用开始
+-    'app_begin'    => [],
+-    // 模块初始化
+-    'module_init'  => [],
+-    // 操作开始执行
+-    'action_begin' => [],
+-    // 视图内容过滤
+-    'view_filter'  => [],
+-    // 日志写入
+-    'log_write'    => [],
+-    // 应用结束
+-    'app_end'      => [],
+-];
+Index: config/app.php
+===================================================================
+--- config/app.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/app.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,146 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 应用设置
+-// +----------------------------------------------------------------------
+-
+-return [
+-    // 应用名称
+-    'app_name'               => '',
+-    // 应用地址
+-    'app_host'               => '',
+-    // 应用调试模式
+-    'app_debug'              => false,
+-    // 应用Trace
+-    'app_trace'              => false,
+-    // 是否支持多模块
+-    'app_multi_module'       => true,
+-    // 入口自动绑定模块
+-    'auto_bind_module'       => false,
+-    // 注册的根命名空间
+-    'root_namespace'         => [],
+-    // 默认输出类型
+-    'default_return_type'    => 'html',
+-    // 默认AJAX 数据返回格式,可选json xml ...
+-    'default_ajax_return'    => 'json',
+-    // 默认JSONP格式返回的处理方法
+-    'default_jsonp_handler'  => 'jsonpReturn',
+-    // 默认JSONP处理方法
+-    'var_jsonp_handler'      => 'callback',
+-    // 默认时区
+-    'default_timezone'       => 'Asia/Shanghai',
+-    // 是否开启多语言
+-    'lang_switch_on'         => false,
+-    // 默认全局过滤方法 用逗号分隔多个
+-    'default_filter'         => '',
+-    // 默认语言
+-    'default_lang'           => 'zh-cn',
+-    // 应用类库后缀
+-    'class_suffix'           => false,
+-    // 控制器类后缀
+-    'controller_suffix'      => false,
+-
+-    // +----------------------------------------------------------------------
+-    // | 模块设置
+-    // +----------------------------------------------------------------------
+-
+-    // 默认模块名
+-    'default_module'         => 'index',
+-    // 禁止访问模块
+-    'deny_module_list'       => ['common'],
+-    // 默认控制器名
+-    'default_controller'     => 'Index',
+-    // 默认操作名
+-    'default_action'         => 'index',
+-    // 默认验证器
+-    'default_validate'       => '',
+-    // 默认的空模块名
+-    'empty_module'           => '',
+-    // 默认的空控制器名
+-    'empty_controller'       => 'Error',
+-    // 操作方法前缀
+-    'use_action_prefix'      => false,
+-    // 操作方法后缀
+-    'action_suffix'          => '',
+-    // 自动搜索控制器
+-    'controller_auto_search' => false,
+-
+-    // +----------------------------------------------------------------------
+-    // | URL设置
+-    // +----------------------------------------------------------------------
+-
+-    // PATHINFO变量名 用于兼容模式
+-    'var_pathinfo'           => 's',
+-    // 兼容PATH_INFO获取
+-    'pathinfo_fetch'         => ['ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL'],
+-    // pathinfo分隔符
+-    'pathinfo_depr'          => '/',
+-    // HTTPS代理标识
+-    'https_agent_name'       => '',
+-    // IP代理获取标识
+-    'http_agent_ip'          => 'X-REAL-IP',
+-    // URL伪静态后缀
+-    'url_html_suffix'        => 'html',
+-    // URL普通方式参数 用于自动生成
+-    'url_common_param'       => false,
+-    // URL参数方式 0 按名称成对解析 1 按顺序解析
+-    'url_param_type'         => 0,
+-    // 是否开启路由延迟解析
+-    'url_lazy_route'         => false,
+-    // 是否强制使用路由
+-    'url_route_must'         => false,
+-    // 合并路由规则
+-    'route_rule_merge'       => false,
+-    // 路由是否完全匹配
+-    'route_complete_match'   => false,
+-    // 使用注解路由
+-    'route_annotation'       => false,
+-    // 域名根，如thinkphp.cn
+-    'url_domain_root'        => '',
+-    // 是否自动转换URL中的控制器和操作名
+-    'url_convert'            => true,
+-    // 默认的访问控制器层
+-    'url_controller_layer'   => 'controller',
+-    // 表单请求类型伪装变量
+-    'var_method'             => '_method',
+-    // 表单ajax伪装变量
+-    'var_ajax'               => '_ajax',
+-    // 表单pjax伪装变量
+-    'var_pjax'               => '_pjax',
+-    // 是否开启请求缓存 true自动缓存 支持设置请求缓存规则
+-    'request_cache'          => false,
+-    // 请求缓存有效期
+-    'request_cache_expire'   => null,
+-    // 全局请求缓存排除规则
+-    'request_cache_except'   => [],
+-    // 是否开启路由缓存
+-    'route_check_cache'      => false,
+-    // 路由缓存的Key自定义设置（闭包），默认为当前URL和请求类型的md5
+-    'route_check_cache_key'  => '',
+-    // 路由缓存类型及参数
+-    'route_cache_option'     => [],
+-
+-    // 默认跳转页面对应的模板文件
+-    'dispatch_success_tmpl'  => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
+-    'dispatch_error_tmpl'    => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
+-
+-    // 异常页面的模板文件
+-    'exception_tmpl'         => Env::get('think_path') . 'tpl/think_exception.tpl',
+-
+-    // 错误显示信息,非调试模式有效
+-    'error_message'          => '页面错误！请稍后再试～',
+-    // 显示错误信息
+-    'show_error_msg'         => false,
+-    // 异常处理handle类 留空使用 \think\exception\Handle
+-    'exception_handle'       => '',
+-
+-];
+Index: config/cache.php
+===================================================================
+--- config/cache.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/cache.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,25 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 缓存设置
+-// +----------------------------------------------------------------------
+-
+-return [
+-    // 驱动方式
+-    'type'   => 'File',
+-    // 缓存保存目录
+-    'path'   => '',
+-    // 缓存前缀
+-    'prefix' => '',
+-    // 缓存有效期 0表示永久缓存
+-    'expire' => 0,
+-];
+Index: config/console.php
+===================================================================
+--- config/console.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/console.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,19 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 控制台配置
+-// +----------------------------------------------------------------------
+-return [
+-    'name'    => 'Think Console',
+-    'version' => '0.1',
+-    'user'    => null,
+-];
+Index: config/cookie.php
+===================================================================
+--- config/cookie.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/cookie.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,30 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | Cookie设置
+-// +----------------------------------------------------------------------
+-return [
+-    // cookie 名称前缀
+-    'prefix'    => '',
+-    // cookie 保存时间
+-    'expire'    => 0,
+-    // cookie 保存路径
+-    'path'      => '/',
+-    // cookie 有效域名
+-    'domain'    => '',
+-    //  cookie 启用安全传输
+-    'secure'    => false,
+-    // httponly设置
+-    'httponly'  => '',
+-    // 是否使用 setcookie
+-    'setcookie' => true,
+-];
+Index: config/database.php
+===================================================================
+--- config/database.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/database.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,63 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-return [
+-    // 数据库类型
+-    'type'            => 'mysql',
+-    // 服务器地址
+-    'hostname'        => '127.0.0.1',
+-    // 数据库名
+-    'database'        => '',
+-    // 用户名
+-    'username'        => 'root',
+-    // 密码
+-    'password'        => '',
+-    // 端口
+-    'hostport'        => '',
+-    // 连接dsn
+-    'dsn'             => '',
+-    // 数据库连接参数
+-    'params'          => [],
+-    // 数据库编码默认采用utf8
+-    'charset'         => 'utf8',
+-    // 数据库表前缀
+-    'prefix'          => '',
+-    // 数据库调试模式
+-    'debug'           => true,
+-    // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
+-    'deploy'          => 0,
+-    // 数据库读写是否分离 主从式有效
+-    'rw_separate'     => false,
+-    // 读写分离后 主服务器数量
+-    'master_num'      => 1,
+-    // 指定从服务器序号
+-    'slave_no'        => '',
+-    // 自动读取主库数据
+-    'read_master'     => false,
+-    // 是否严格检查字段是否存在
+-    'fields_strict'   => true,
+-    // 数据集返回类型
+-    'resultset_type'  => 'array',
+-    // 自动写入时间戳字段
+-    'auto_timestamp'  => false,
+-    // 时间字段取出后的默认时间格式
+-    'datetime_format' => 'Y-m-d H:i:s',
+-    // 是否需要进行SQL性能分析
+-    'sql_explain'     => false,
+-    // Builder类
+-    'builder'         => '',
+-    // Query类
+-    'query'           => '\\think\\db\\Query',
+-    // 是否需要断线重连
+-    'break_reconnect' => false,
+-    // 断线标识字符串
+-    'break_match_str' => [],
+-];
+Index: config/log.php
+===================================================================
+--- config/log.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/log.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,30 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 日志设置
+-// +----------------------------------------------------------------------
+-return [
+-    // 日志记录方式，内置 file socket 支持扩展
+-    'type'        => 'File',
+-    // 日志保存目录
+-    'path'        => '',
+-    // 日志记录级别
+-    'level'       => [],
+-    // 单文件日志写入
+-    'single'      => false,
+-    // 独立日志级别
+-    'apart_level' => [],
+-    // 最大日志文件数量
+-    'max_files'   => 0,
+-    // 是否关闭日志写入
+-    'close'       => false,
+-];
+Index: config/middleware.php
+===================================================================
+--- config/middleware.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/middleware.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,18 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 中间件配置
+-// +----------------------------------------------------------------------
+-return [
+-    // 默认中间件命名空间
+-    'default_namespace' => 'app\\http\\middleware\\',
+-];
+Index: config/session.php
+===================================================================
+--- config/session.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/session.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,26 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 会话设置
+-// +----------------------------------------------------------------------
+-
+-return [
+-    'id'             => '',
+-    // SESSION_ID的提交变量,解决flash上传跨域
+-    'var_session_id' => '',
+-    // SESSION 前缀
+-    'prefix'         => 'think',
+-    // 驱动方式 支持redis memcache memcached
+-    'type'           => '',
+-    // 是否自动开启 SESSION
+-    'auto_start'     => true,
+-];
+Index: config/template.php
+===================================================================
+--- config/template.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/template.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,35 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | 模板设置
+-// +----------------------------------------------------------------------
+-
+-return [
+-    // 模板引擎类型 支持 php think 支持扩展
+-    'type'         => 'Think',
+-    // 默认模板渲染规则 1 解析为小写+下划线 2 全部转换小写 3 保持操作方法
+-    'auto_rule'    => 1,
+-    // 模板路径
+-    'view_path'    => '',
+-    // 模板后缀
+-    'view_suffix'  => 'html',
+-    // 模板文件名分隔符
+-    'view_depr'    => DIRECTORY_SEPARATOR,
+-    // 模板引擎普通标签开始标记
+-    'tpl_begin'    => '{',
+-    // 模板引擎普通标签结束标记
+-    'tpl_end'      => '}',
+-    // 标签库标签开始标记
+-    'taglib_begin' => '{',
+-    // 标签库标签结束标记
+-    'taglib_end'   => '}',
+-];
+Index: config/trace.php
+===================================================================
+--- config/trace.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ config/trace.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,18 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// +----------------------------------------------------------------------
+-// | Trace设置 开启 app_trace 后 有效
+-// +----------------------------------------------------------------------
+-return [
+-    // 内置Html Console 支持扩展
+-    'type' => 'Html',
+-];
+Index: extend/.gitignore
+===================================================================
+--- extend/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ extend/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,2 +0,0 @@
+-*
+-!.gitignore
+\ No newline at end of file
+Index: public/static/.gitignore
+===================================================================
+--- public/static/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ public/static/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,2 +0,0 @@
+-*
+-!.gitignore
+\ No newline at end of file
+Index: public/.htaccess
+===================================================================
+--- public/.htaccess	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ public/.htaccess	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,8 +0,0 @@
+-<IfModule mod_rewrite.c>
+-  Options +FollowSymlinks -Multiviews
+-  RewriteEngine On
+-
+-  RewriteCond %{REQUEST_FILENAME} !-d
+-  RewriteCond %{REQUEST_FILENAME} !-f
+-  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+-</IfModule>
+Index: public/index.php
+===================================================================
+--- public/index.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ public/index.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,21 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006-2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-// [ 应用入口文件 ]
+-namespace think;
+-
+-// 加载基础文件
+-require __DIR__ . '/../thinkphp/base.php';
+-
+-// 支持事先使用静态方法设置Request对象和Config对象
+-
+-// 执行应用并响应
+-Container::get('app')->run()->send();
+Index: public/robots.txt
+===================================================================
+--- public/robots.txt	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ public/robots.txt	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,2 +0,0 @@
+-User-agent: *
+-Disallow:
+Index: public/router.php
+===================================================================
+--- public/router.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ public/router.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,17 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-// $Id$
+-
+-if (is_file($_SERVER["DOCUMENT_ROOT"] . $_SERVER["SCRIPT_NAME"])) {
+-    return false;
+-} else {
+-    require __DIR__ . "/index.php";
+-}
+Index: route/route.php
+===================================================================
+--- route/route.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ route/route.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,20 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-Route::get('think', function () {
+-    return 'hello,ThinkPHP5!';
+-});
+-
+-Route::get('hello/:name', 'index/hello');
+-
+-return [
+-
+-];
+Index: runtime/.gitignore
+===================================================================
+--- runtime/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ runtime/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,2 +0,0 @@
+-*
+-!.gitignore
+\ No newline at end of file
+Index: vendor/.gitignore
+===================================================================
+--- vendor/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ vendor/.gitignore	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,2 +0,0 @@
+-*
+-!.gitignore
+\ No newline at end of file
+Index: build.php
+===================================================================
+--- build.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ build.php	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,26 +0,0 @@
+-<?php
+-// +----------------------------------------------------------------------
+-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+-// +----------------------------------------------------------------------
+-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+-// +----------------------------------------------------------------------
+-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+-// +----------------------------------------------------------------------
+-// | Author: liu21st <liu21st@gmail.com>
+-// +----------------------------------------------------------------------
+-
+-return [
+-    // 生成应用公共文件
+-    '__file__' => ['common.php'],
+-
+-    // 定义demo模块的自动生成 （按照实际定义的文件名生成）
+-    'demo'     => [
+-        '__file__'   => ['common.php'],
+-        '__dir__'    => ['behavior', 'controller', 'model', 'view'],
+-        'controller' => ['Index', 'Test', 'UserType'],
+-        'model'      => ['User', 'UserType'],
+-        'view'       => ['index/index'],
+-    ],
+-
+-    // 其他更多的模块定义
+-];
+Index: composer.json
+===================================================================
+--- composer.json	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ composer.json	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,33 +0,0 @@
+-{
+-    "name": "topthink/think",
+-    "description": "the new thinkphp framework",
+-    "type": "project",
+-    "keywords": [
+-        "framework",
+-        "thinkphp",
+-        "ORM"
+-    ],
+-    "homepage": "http://thinkphp.cn/",
+-    "license": "Apache-2.0",
+-    "authors": [
+-        {
+-            "name": "liu21st",
+-            "email": "liu21st@gmail.com"
+-        }
+-    ],
+-    "require": {
+-        "php": ">=5.6.0",
+-        "topthink/framework": "5.1.*"
+-    },
+-    "autoload": {
+-        "psr-4": {
+-            "app\\": "application"
+-        }
+-    },
+-    "extra": {
+-        "think-path": "thinkphp"
+-    },
+-    "config": {
+-        "preferred-install": "dist"
+-    }
+-}
+Index: LICENSE.txt
+===================================================================
+--- LICENSE.txt	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ LICENSE.txt	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,32 +0,0 @@
+-
+-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
+-版权所有Copyright © 2006-2016 by ThinkPHP (http://thinkphp.cn)
+-All rights reserved。
+-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
+-
+-Apache Licence是著名的非盈利开源组织Apache采用的协议。
+-该协议和BSD类似，鼓励代码共享和尊重原作者的著作权，
+-允许代码修改，再作为开源或商业软件发布。需要满足
+-的条件： 
+-1． 需要给代码的用户一份Apache Licence ；
+-2． 如果你修改了代码，需要在被修改的文件中说明；
+-3． 在延伸的代码中（修改和有源代码衍生的代码中）需要
+-带有原来代码中的协议，商标，专利声明和其他原来作者规
+-定需要包含的说明；
+-4． 如果再发布的产品中包含一个Notice文件，则在Notice文
+-件中需要带有本协议内容。你可以在Notice中增加自己的
+-许可，但不可以表现为对Apache Licence构成更改。 
+-具体的协议参考：http://www.apache.org/licenses/LICENSE-2.0
+-
+-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+-FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+-COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+-POSSIBILITY OF SUCH DAMAGE.
+Index: README.md
+===================================================================
+--- README.md	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
++++ README.md	(revision 598340d5594b1e2b13600ffb3c412dc9dd1a27e6)
+@@ -1,180 +0,0 @@
+-![](http://www.thinkphp.cn/Uploads/editor/2016-06-23/576b4732a6e04.png) 
+-
+-ThinkPHP 5.1 —— 12载初心，你值得信赖的PHP框架
+-===============
+-
+-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/top-think/framework/badges/quality-score.png?b=5.1)](https://scrutinizer-ci.com/g/top-think/framework/?branch=5.1)
+-[![Build Status](https://travis-ci.org/top-think/framework.svg?branch=master)](https://travis-ci.org/top-think/framework)
+-[![Total Downloads](https://poser.pugx.org/topthink/framework/downloads)](https://packagist.org/packages/topthink/framework)
+-[![Latest Stable Version](https://poser.pugx.org/topthink/framework/v/stable)](https://packagist.org/packages/topthink/framework)
+-[![PHP Version](https://img.shields.io/badge/php-%3E%3D5.6-8892BF.svg)](http://www.php.net/)
+-[![License](https://poser.pugx.org/topthink/framework/license)](https://packagist.org/packages/topthink/framework)
+-
+-ThinkPHP5.1对底层架构做了进一步的改进，减少依赖，其主要特性包括：
+-
+- + 采用容器统一管理对象
+- + 支持Facade
+- + 注解路由支持
+- + 路由跨域请求支持
+- + 配置和路由目录独立
+- + 取消系统常量
+- + 助手函数增强
+- + 类库别名机制
+- + 增加条件查询
+- + 改进查询机制
+- + 配置采用二级
+- + 依赖注入完善
+- + 支持`PSR-3`日志规范
+- + 中间件支持（V5.1.6+）
+- + Swoole/Workerman支持（V5.1.18+）
+-
+-
+-> ThinkPHP5的运行环境要求PHP5.6以上。
+-
+-## 安装
+-
+-使用composer安装
+-
+-~~~
+-composer create-project topthink/think tp
+-~~~
+-
+-启动服务
+-
+-~~~
+-cd tp
+-php think run
+-~~~
+-
+-然后就可以在浏览器中访问
+-
+-~~~
+-http://localhost:8000
+-~~~
+-
+-更新框架
+-~~~
+-composer update topthink/framework
+-~~~
+-
+-
+-## 在线手册
+-
+-+ [完全开发手册](https://www.kancloud.cn/manual/thinkphp5_1/content)
+-+ [升级指导](https://www.kancloud.cn/manual/thinkphp5_1/354155) 
+-
+-## 目录结构
+-
+-初始的目录结构如下：
+-
+-~~~
+-www  WEB部署目录（或者子目录）
+-├─application           应用目录
+-│  ├─common             公共模块目录（可以更改）
+-│  ├─module_name        模块目录
+-│  │  ├─common.php      模块函数文件
+-│  │  ├─controller      控制器目录
+-│  │  ├─model           模型目录
+-│  │  ├─view            视图目录
+-│  │  └─ ...            更多类库目录
+-│  │
+-│  ├─command.php        命令行定义文件
+-│  ├─common.php         公共函数文件
+-│  └─tags.php           应用行为扩展定义文件
+-│
+-├─config                应用配置目录
+-│  ├─module_name        模块配置目录
+-│  │  ├─database.php    数据库配置
+-│  │  ├─cache           缓存配置
+-│  │  └─ ...            
+-│  │
+-│  ├─app.php            应用配置
+-│  ├─cache.php          缓存配置
+-│  ├─cookie.php         Cookie配置
+-│  ├─database.php       数据库配置
+-│  ├─log.php            日志配置
+-│  ├─session.php        Session配置
+-│  ├─template.php       模板引擎配置
+-│  └─trace.php          Trace配置
+-│
+-├─route                 路由定义目录
+-│  ├─route.php          路由定义
+-│  └─...                更多
+-│
+-├─public                WEB目录（对外访问目录）
+-│  ├─index.php          入口文件
+-│  ├─router.php         快速测试文件
+-│  └─.htaccess          用于apache的重写
+-│
+-├─thinkphp              框架系统目录
+-│  ├─lang               语言文件目录
+-│  ├─library            框架类库目录
+-│  │  ├─think           Think类库包目录
+-│  │  └─traits          系统Trait目录
+-│  │
+-│  ├─tpl                系统模板目录
+-│  ├─base.php           基础定义文件
+-│  ├─console.php        控制台入口文件
+-│  ├─convention.php     框架惯例配置文件
+-│  ├─helper.php         助手函数文件
+-│  ├─phpunit.xml        phpunit配置文件
+-│  └─start.php          框架入口文件
+-│
+-├─extend                扩展类库目录
+-├─runtime               应用的运行时目录（可写，可定制）
+-├─vendor                第三方类库目录（Composer依赖库）
+-├─build.php             自动生成定义文件（参考）
+-├─composer.json         composer 定义文件
+-├─LICENSE.txt           授权说明文件
+-├─README.md             README 文件
+-├─think                 命令行入口文件
+-~~~
+-
+-> 可以使用php自带webserver快速测试
+-> 切换到根目录后，启动命令：php think run
+-
+-## 命名规范
+-
+-`ThinkPHP5`遵循PSR-2命名规范和PSR-4自动加载规范，并且注意如下规范：
+-
+-### 目录和文件
+-
+-*   目录不强制规范，驼峰和小写+下划线模式均支持；
+-*   类库、函数文件统一以`.php`为后缀；
+-*   类的文件名均以命名空间定义，并且命名空间的路径和类库文件所在路径一致；
+-*   类名和类文件名保持一致，统一采用驼峰法命名（首字母大写）；
+-
+-### 函数和类、属性命名
+-
+-*   类的命名采用驼峰法，并且首字母大写，例如 `User`、`UserType`，默认不需要添加后缀，例如`UserController`应该直接命名为`User`；
+-*   函数的命名使用小写字母和下划线（小写字母开头）的方式，例如 `get_client_ip`；
+-*   方法的命名使用驼峰法，并且首字母小写，例如 `getUserName`；
+-*   属性的命名使用驼峰法，并且首字母小写，例如 `tableName`、`instance`；
+-*   以双下划线“__”打头的函数或方法作为魔法方法，例如 `__call` 和 `__autoload`；
+-
+-### 常量和配置
+-
+-*   常量以大写字母和下划线命名，例如 `APP_PATH`和 `THINK_PATH`；
+-*   配置参数以小写字母和下划线命名，例如 `url_route_on` 和`url_convert`；
+-
+-### 数据表和字段
+-
+-*   数据表和字段采用小写加下划线方式命名，并注意字段名不要以下划线开头，例如 `think_user` 表和 `user_name`字段，不建议使用驼峰和中文作为数据表字段命名。
+-
+-## 参与开发
+-
+-请参阅 [ThinkPHP5 核心框架包](https://github.com/top-think/framework)。
+-
+-## 版权信息
+-
+-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
+-
+-本项目包含的第三方源码和二进制文件之版权信息另行标注。
+-
+-版权所有Copyright © 2006-2018 by ThinkPHP (http://thinkphp.cn)
+-
+-All rights reserved。
+-
+-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
+-
+-更多细节参阅 [LICENSE.txt](LICENSE.txt)
+Index: login/application/index/view/user/adduser.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/user/adduser.html	(date 1535688626000)
++++ login/application/index/view/user/adduser.html	(date 1535688626000)
+@@ -0,0 +1,60 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>编辑用户</title>
++    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++</head>
++<body>
++<div class="form-horizontal col-sm-12" id="box">
++    <div class="form-group">
++        <label for="user_name" class="col-sm-2 control-label">用户名</label>
++        <div class="col-sm-10">
++            <input type="text" class="form-control" id="user_name" placeholder="用户名">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="user_pwd" class="col-sm-2 control-label">密码</label>
++        <div class="col-sm-10">
++            <input type="password" class="form-control" id="user_pwd" placeholder="密码">
++        </div>
++    </div>
++    <div class="form-group">
++        <div class="col-sm-offset-6 col-sm-6">
++            <button type="button" class="btn btn-default" id="btn">提交</button>
++        </div>
++    </div>
++</div>
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
++<script src="/login/public/static/layer/layer.js"></script>
++<script>
++    $(function(){
++        $("#btn").click(function(){
++
++             var user_name = $("#user_name").val();
++             var user_pwd = $("#user_pwd").val();
++            if('' == user_name){
++                layer.msg('用户名不能为空');
++                return false;
++            }
++            if('' == user_pwd){
++                layer.msg('密码不能为空');
++                return false;
++            }
++
++            $.post("{:url('User/addUser')}", {user_name: user_name, user_pwd: user_pwd}, function(res){
++                if(1 == res.code){
++                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
++                    parent.layer.close(index); //再执行关闭
++                    window.parent.refresh(); // 刷新列表
++                }else{
++                    layer.alert(res.msg, {icon:2, title: '错误提示'});
++                }
++            }, 'json');
++        });
++
++    });
++</script>
++</body>
++</html>
+\ No newline at end of file
+Index: login/application/index/view/login/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/login/index.html	(date 1535656174000)
++++ login/application/index/view/login/index.html	(date 1535656174000)
+@@ -0,0 +1,49 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>登录系统</title>
++    <link href="/login/public//static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++</head>
++
++<body class="gray-bg">
++<div class="container">
++    <div class="row">
++        <div class="col-sm-7">
++            <div class="ibox float-e-margins">
++                <div class="ibox-content">
++                    <div class="row">
++                        <div class="col-sm-6 b-r">
++                            <h3 class="m-t-none m-b">登录</h3>
++                            <p>欢迎登录本站(⊙o⊙)</p>
++                            <form role="form" action="{:url('login/dologin')}" method="post">
++                                <div class="form-group">
++                                    <label>用户名</label>
++                                    <input type="text" placeholder="请输入用户名" class="form-control" name="user_name">
++                                </div>
++                                <div class="form-group">
++                                    <label>密码</label>
++                                    <input type="password" placeholder="请输入密码" class="form-control" name="user_pwd">
++                                </div>
++                                <div class="form-group">
++                                    <label>验证码</label>
++                                    <input type="text" placeholder="请输入验证码" class="form-control" name="captcha">
++                                    <img src="{:captcha_src()}" alt="captcha" onclick="javascript:this.src='{:captcha_src()}?tm='+Math.random();" style="cursor: pointer"/>
++                                </div>
++                                <div>
++                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>登 录</strong>
++                                    </button>
++                                </div>
++                            </form>
++                        </div>
++                    </div>
++                </div>
++            </div>
++        </div>
++    </div>
++</div>
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
++</body>
++</html>
+\ No newline at end of file
+Index: login/application/index/view/tools/bootstraptable.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/tools/bootstraptable.html	(date 1535767670000)
++++ login/application/index/view/tools/bootstraptable.html	(date 1535767670000)
+@@ -0,0 +1,102 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>bootstrap-table 功能展示</title>
++    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++    <link href="/login/public/static/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
++</head>
++<body>
++<div class="wrapper wrapper-content animated fadeInRight">
++    <!-- Panel Other -->
++    <div class="ibox float-e-margins">
++        <div class="ibox-title">
++            <h5>城市列表</h5>
++        </div>
++        <div class="ibox-content">
++            <!--搜索框开始-->
++            <form id='commentForm' role="form" method="post" class="form-inline">
++                <div class="content clearfix m-b">
++                    <div class="form-group">
++                        <label>地区名称：</label>
++                        <input type="text" class="form-control" id="aname" name="aname">
++                    </div>
++                    <div class="form-group">
++                        <button class="btn btn-primary" type="button" id="search"><strong>搜 索</strong>
++                        </button>
++                    </div>
++                </div>
++            </form>
++            <!--搜索框结束-->
++            <div class="hr-line-dashed"></div>
++
++            <div class="example-wrap" style="margin-top:20px">
++                <div class="example">
++                    <table id="cusTable">
++                        <thead>
++                        <th data-field="id">地区ID</th>
++                        <th data-field="name">地区名称</th>
++                        <th data-field="operate">操作</th>
++                        </thead>
++                    </table>
++                </div>
++            </div>
++            <!-- End Example Pagination -->
++        </div>
++    </div>
++</div>
++
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap-table/bootstrap-table.min.js"></script>
++<script src="/login/public/static/bootstrap-table/bootstrap-table-mobile.min.js"></script>
++<script src="/login/public/static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
++<script src="/login/public/static/layer/layer.js"></script>
++<script>
++    function initTable() {
++        //先销毁表格
++        $('#cusTable').bootstrapTable('destroy');
++        //初始化表格,动态从服务器加载数据
++        $("#cusTable").bootstrapTable({
++            method: "get",  //使用get请求到服务器获取数据
++            url: "{:url('tools/bootstrapTable')}", //获取数据的地址
++            striped: true,  //表格显示条纹
++            pagination: true, //启动分页
++            pageSize: 10,  //每页显示的记录数
++            pageNumber:1, //当前第几页
++            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
++            sidePagination: "server", //表示服务端请求
++            paginationFirstText: "首页",
++            paginationPreText: "上一页",
++            paginationNextText: "下一页",
++            paginationLastText: "尾页",
++            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
++            //设置为limit可以获取limit, offset, search, sort, order
++            queryParamsType : "undefined",
++            queryParams: function queryParams(params) {   //设置查询参数
++                var param = {
++                    pageNumber: params.pageNumber,
++                    pageSize: params.pageSize,
++                    aname:$('#aname').val()
++                };
++                return param;
++            },
++            onLoadSuccess: function(){  //加载成功时执行
++                layer.msg("加载成功", {time : 1000});
++            },
++            onLoadError: function(){  //加载失败时执行
++                layer.msg("加载数据失败");
++            }
++        });
++    }
++
++    $(document).ready(function () {
++        //调用函数，初始化表格
++        initTable();
++
++        //当点击查询按钮的时候执行
++        $("#search").bind("click", initTable);
++    });
++</script>
++</body>
++</html>
+\ No newline at end of file
+Index: gzck/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/workspace.xml	(date 1536048653000)
++++ gzck/.idea/workspace.xml	(date 1536048653000)
+@@ -0,0 +1,278 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ChangeListManager">
++    <list default="true" id="1c5df4f8-acf1-4484-a8c7-62a3d0a7cda9" name="Default Changelist" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/gzck.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/.idea/login.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/controller/Login.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/controller/Tools.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/controller/User.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/controller/Zt.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/model/ImmSysUsers.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/model/ZtManage.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/model/ZtType.php" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/login/index.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/tools/bootstraptable.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/tools/laypage.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/tools/template.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/user/adduser.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/user/index.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/../login/application/index/view/zt/index.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.travis.yml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../LICENSE.txt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/.htaccess" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/command.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/common.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/index/controller/Index.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/provider.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../application/tags.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../build.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/app.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/cache.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/console.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/cookie.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/database.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/log.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/middleware.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/session.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/template.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../config/trace.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../extend/.gitignore" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/.htaccess" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/favicon.ico" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/index.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/robots.txt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/router.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../public/static/.gitignore" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../route/route.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../runtime/.gitignore" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../think" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/../vendor/.gitignore" beforeDir="false" />
++    </list>
++    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
++    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
++  </component>
++  <component name="FUSProjectUsageTrigger">
++    <session id="-1988741690">
++      <usages-collector id="statistics.lifecycle.project">
++        <counts>
++          <entry key="project.closed" value="2" />
++          <entry key="project.open.time.0" value="2" />
++          <entry key="project.opened" value="2" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.extensions.open">
++        <counts>
++          <entry key="php" value="2" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.types.open">
++        <counts>
++          <entry key="PHP" value="2" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.extensions.edit">
++        <counts>
++          <entry key="php" value="13" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.types.edit">
++        <counts>
++          <entry key="PHP" value="13" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.php.new.test" />
++      <usages-collector id="statistics.php.rename.constructor" />
++      <usages-collector id="statistics.php.composer.command.options" />
++      <usages-collector id="statistics.php.new.class" />
++      <usages-collector id="statistics.js.language.service.starts" />
++      <usages-collector id="statistics.php.composer.actions" />
++    </session>
++  </component>
++  <component name="FileEditorManager">
++    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
++      <file pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/application/gzck/controller/Worldcup.php">
++          <provider selected="true" editor-type-id="text-editor" />
++        </entry>
++      </file>
++      <file pinned="false" current-in-tab="true">
++        <entry file="file://$PROJECT_DIR$/application/database.php">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="306">
++              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
++            </state>
++          </provider>
++        </entry>
++      </file>
++    </leaf>
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
++  </component>
++  <component name="IdeDocumentHistory">
++    <option name="CHANGED_PATHS">
++      <list>
++        <option value="$PROJECT_DIR$/application/database.php" />
++      </list>
++    </option>
++  </component>
++  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
++  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
++  <component name="JsGulpfileManager">
++    <detection-done>true</detection-done>
++    <sorting>DEFINITION_ORDER</sorting>
++  </component>
++  <component name="PhpServers">
++    <servers />
++  </component>
++  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
++    <include_path>
++      <path value="$PROJECT_DIR$/vendor/topthink/think-image" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-mongo" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-queue" />
++      <path value="$PROJECT_DIR$/vendor/composer" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-migration" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-captcha" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-installer" />
++    </include_path>
++  </component>
++  <component name="ProjectFrameBounds">
++    <option name="x" value="763" />
++    <option name="y" value="476" />
++    <option name="width" value="1578" />
++    <option name="height" value="964" />
++  </component>
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
++  <component name="ProjectView">
++    <navigator proportions="" version="1">
++      <foldersAlwaysOnTop value="true" />
++    </navigator>
++    <panes>
++      <pane id="Scope" />
++      <pane id="ProjectPane">
++        <subPane>
++          <expand>
++            <path>
++              <item name="gzck" type="b2602c69:ProjectViewProjectNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="gzck" type="b2602c69:ProjectViewProjectNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++              <item name="application" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="gzck" type="b2602c69:ProjectViewProjectNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++              <item name="application" type="462c0819:PsiDirectoryNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="gzck" type="b2602c69:ProjectViewProjectNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++              <item name="application" type="462c0819:PsiDirectoryNode" />
++              <item name="gzck" type="462c0819:PsiDirectoryNode" />
++              <item name="controller" type="462c0819:PsiDirectoryNode" />
++            </path>
++          </expand>
++          <select />
++        </subPane>
++      </pane>
++    </panes>
++  </component>
++  <component name="PropertiesComponent">
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
++    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
++    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
++  </component>
++  <component name="RunDashboard">
++    <option name="ruleStates">
++      <list>
++        <RuleState>
++          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
++        </RuleState>
++        <RuleState>
++          <option name="name" value="StatusDashboardGroupingRule" />
++        </RuleState>
++      </list>
++    </option>
++  </component>
++  <component name="SvnConfiguration">
++    <configuration />
++  </component>
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="1c5df4f8-acf1-4484-a8c7-62a3d0a7cda9" name="Default Changelist" comment="" />
++      <created>1535772550368</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1535772550368</updated>
++      <workItem from="1535772551435" duration="311000" />
++      <workItem from="1536045473779" duration="599000" />
++    </task>
++    <servers />
++  </component>
++  <component name="TimeTrackingManager">
++    <option name="totallyTimeSpent" value="910000" />
++  </component>
++  <component name="ToolWindowManager">
++    <frame x="763" y="476" width="1578" height="964" extended-state="0" />
++    <layout>
++      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532637" />
++      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
++      <window_info id="Favorites" order="2" side_tool="true" />
++      <window_info anchor="bottom" id="Message" order="0" />
++      <window_info anchor="bottom" id="Find" order="1" />
++      <window_info anchor="bottom" id="Run" order="2" />
++      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
++      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
++      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
++      <window_info anchor="bottom" id="TODO" order="6" />
++      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
++      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
++      <window_info anchor="bottom" id="Version Control" order="9" />
++      <window_info anchor="bottom" id="Terminal" order="10" />
++      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
++      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
++      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
++      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
++      <window_info anchor="right" id="Database" order="3" />
++    </layout>
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="1" />
++  </component>
++  <component name="VcsContentAnnotationSettings">
++    <option name="myLimit" value="2678400000" />
++  </component>
++  <component name="editorHistoryManager">
++    <entry file="file://$PROJECT_DIR$/application/gzck/controller/Worldcup.php">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/application/database.php">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="306">
++          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
++        </state>
++      </provider>
++    </entry>
++  </component>
++</project>
+\ No newline at end of file
+Index: login/application/index/controller/Tools.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/controller/Tools.php	(date 1535767546000)
++++ login/application/index/controller/Tools.php	(date 1535767546000)
+@@ -0,0 +1,69 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-9-1
++ * Time: 上午10:44
++ */
++namespace app\index\controller;
++use think\Controller;
++
++class Tools extends Controller
++{
++    ///Laypage 分页插件演示
++    public  function laypage()
++    {
++        if(request()->isAjax()){
++
++            //模拟八页的数据
++            return json(['code'=>1,'page'=>8,'content'=>'模拟数据']);
++        }
++        return $this ->fetch();
++    }
++    //模板渲染接口
++    public function template()
++    {
++        if(request()->isAjax()){
++            $cards =[
++                ['code'=>'A','name'=>'南京'],
++                ['code'=>'B','name'=>'无锡'],
++                ['code'=>'C','name'=>'徐州'],
++                ['code'=>'D','name'=>'常州'],
++                ['code'=>'E','name'=>'苏州'],
++                ['code'=>'F','name'=>'南通'],
++                ['code'=>'G','name'=>'连云港'],
++                ['code'=>'H','name'=>'淮安'],
++                ['code'=>'J','name'=>'盐城'],
++                ['code'=>'K','name'=>'扬州'],
++                ['code'=>'L','name'=>'镇江'],
++                ['code'=>'M','name'=>'泰州'],
++            ];
++            return json(['code'=>1,'data'=>$cards,'msg'=>'江苏各市车牌号码']);
++        }
++        return $this->fetch();
++    }
++    //bootstrap-table
++        public function bootstraptable()
++        {
++            if(request()->isAjax()){
++                $param = input('param.');
++                $where = '';
++                if(!empty($param['name'])){
++                    $where['name'] = $param['name'];
++                }
++                $limit = $param['pageSize'];
++                $offset = ($param['pageNumber']-1)*$limit;
++                //此处自己处理分页
++                $selectResult = db('area')->where($where)->limit($offset,$limit)->select();
++                foreach($selectResult as $key=>$vo){
++                    $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button">编辑</button>';
++                }
++                $return['total'] = db('area')->where($where)->count();//data
++                $return['rows'] = $selectResult;
++                return json($return);
++            }
++            return $this->fetch();
++
++        }
++
++}
+Index: gzck/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/misc.xml	(date 1535772550000)
++++ gzck/.idea/misc.xml	(date 1535772550000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="JavaScriptSettings">
++    <option name="languageLevel" value="ES6" />
++  </component>
++</project>
+\ No newline at end of file
+Index: login/application/index/model/ZtManage.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/model/ZtManage.php	(date 1535771042000)
++++ login/application/index/model/ZtManage.php	(date 1535771042000)
+@@ -0,0 +1,15 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-9-1
++ * Time: 下午7:01
++ */
++namespace app\index\model;
++
++use think\Model;
++
++class ZtManage extends  Model
++{
++
++}
+\ No newline at end of file
+Index: gzck/.idea/gzck.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/gzck.iml	(date 1535772563000)
++++ gzck/.idea/gzck.iml	(date 1535772563000)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" packagePrefix="app\" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-captcha" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-helper" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-image" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-installer" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-migration" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-mongo" />
++      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-queue" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: login/application/index/controller/Zt.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/controller/Zt.php	(date 1536309945000)
++++ login/application/index/controller/Zt.php	(date 1536309945000)
+@@ -0,0 +1,122 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-9-1
++ * Time: 下午6:58
++ */
++namespace app\index\controller;
++
++
++use app\index\model\ZtManage;
++use app\index\model\ZtType;
++use think\db;
++use think\Controller;
++use think\Validate;
++
++
++class Zt extends Controller
++{
++    // 展示列表
++    public function index()
++    {
++        $ztModel = new ZtManage();
++     //   $zttypeModel = new ZtType();
++        // dump($userModel);
++//        $ztList = $ztModel->select();
++        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
++        $ztList = db::query($sql_str);
++
++//        echo json_encode(['code'=>1,'data'=>$typeName],JSON_UNESCAPED_UNICODE);
++
++        //dump($userList);die;
++//        $this->assign([
++//            'zt_list' => $ztList,
++//            'type_name'=> $typeName,
++//            'df'=>123
++//        ]);
++        $this->assign('zt_list',$ztList);
++
++//        echo json_encode(['code'=>1,'data'=>$ztList],JSON_UNESCAPED_UNICODE);
++
++        return $this->fetch();
++    }
++    //添加专题
++    public  function addZt()
++    {
++        if(request()->isPost()){
++            $param = input('post.');
++            $rule = [
++                ['name','require|unique:ZtManage','专题名必须|该专题已经存在'],
++            ];
++            $validate = new Validate($rule);
++            $result = $validate->check($param);
++            if(!$result){
++                return json(['code'=>-1,'data'=> '','msg' => $validate->getError()]);
++            }
++            $ztModel = new ZtManage();
++    //        echo json_encode(['code'=>1,'data'=>$param],JSON_UNESCAPED_UNICODE);
++            $flag = $ztModel->insert($param);
++            if(empty($flag)){
++                return json(['code'=>-2,'data'=>'','msg'=>'系统错误']);
++            }
++            return json(['code'=>1,'data'=>'','msg'=>'添加专题成功']);
++        }
++        $id = input('param.uid');
++        $ztModel = new ZtManage();
++        $ztInfo = $ztModel->where('id',$id)->find();
++        return json(['code'=>1,'data'=>$ztInfo,'msg'=>'同类专题信息']);
++    }
++    //编辑专题
++    public function editZt()
++    {
++        if(request()->isPost()){
++            $param = input('post.');
++            //验证数据
++            if(empty($param['name'])){
++                return json(['code' => -1, 'data' => '', 'msg' => '专题名不能为空']);
++            }
++            $editParam = [
++                'id' => $param['id'],
++                'name' => $param['name'],
++                'yes_no'=> $param['yes_no'],
++                'type_id'=> $param['type_id'],
++                'bg_image'=> $param['bg_image'],
++                'top_image'=> $param['top_image'],
++                'share_title'=> $param['share_title'],
++                'share_des'=> $param['share_des'],
++                'share_image'=> $param['share_image'],
++            ];
++        //echo json_encode(['code'=>1,'data'=>$editParam,'msg'=>'同类专题信息'],JSON_UNESCAPED_UNICODE);
++            // 检测新修改的专题名，表中是否已经存在
++            $ztModel = new ZtManage();
++            $has = $ztModel->field('id')
++                ->where("name = '" . $param['name'] . "' and id != " . $param['id'])
++                ->find();
++            if(!empty($has)){
++                return json(['code' => -2, 'data' => '', 'msg' => '该专题名已经存在']);
++            }
++            //$flag = $ztModel->insert('');
++            $flag = $ztModel->where('id', $param['id'])->update($editParam);
++            if(false === $flag){
++                return json(['code' => -7, 'data' => '', 'msg' => '系统错误']);
++            }
++            return json(['code' => 1, 'data' => '', 'msg' => '修改成功']);
++        }
++        $id = input('param.uid');
++        $ztModel = new ZtManage();
++        $ztInfo = $ztModel->where('id',$id)->find();
++        return json(['code'=>1,'data'=>$ztInfo,'msg'=>' 专题信息']);
++    }
++    public function delZt()
++    {
++        $id = input('param.uid');
++        $ztModel = new ZtManage();
++        $flag = $ztModel->where('id',$id)->delete();
++        if(false == $flag){
++            return json(['code'=>-1,'data'=>'','msg'=>'系统错误']);
++        }else{
++            return json(['code'=>1,'data'=>'','msg'=>'删除成功']);
++        }
++    }
++}
+\ No newline at end of file
+Index: login/application/index/view/zt/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/zt/index.html	(date 1536315968000)
++++ login/application/index/view/zt/index.html	(date 1536315968000)
+@@ -0,0 +1,391 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>专题列表</title>
++    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++
++</head>
++<body>
++<div class="container">
++    <div class="row">
++        <div class="col-sm-12">
++            <table class="table table-striped">
++                <thead>
++                <tr>
++                    <th>专题ID</th>
++                    <th>专题名</th>
++                    <th>是否可分享</th>
++                    <th>专题类型</th>
++                </tr>
++                </thead>
++                <tbody>
++                {foreach name="zt_list" item = "vo"}
++                <tr>
++                    <td>{$vo.id}</td>
++                    <td>{$vo.name}</td>
++                    <td>{$vo.yes_no}</td>
++                    <td>{$vo.type_name}</td>
++                    <td>
++                        <!--//window.open('http://localhost/login/public/index.php/gzck/Worldcup/show/id/{$vo.id}','_self')-->
++                        <button type="button" class="btn btn-primary" onclick="ztType({$vo.id},{$vo.type_id})">管理</button>
++                        <button type="button" class="btn btn-info" onclick="addZt({$vo.id})">增加</button>
++                        <button type="button" class="btn btn-primary" onclick="editZt({$vo.id})">编辑</button>
++                        <!--<a href="">-->
++                            <!--<button type="button" class="btn btn-danger">删除</button>-->
++                        <!--</a>-->
++                        <button type="button" class="btn btn-danger" onclick="delZt({$vo.id})">删除</button>
++                    </td>
++                </tr>
++                {/foreach}
++                </tbody>
++            </table>
++        </div>
++    </div>
++</div>
++
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
++<script src="/login/public/static/layer/layer.js"></script>
++<!-- 页面层增加zt开始 -->
++<div class="form-horizontal col-sm-12" id="box" style="display:none;margin-top: 18px">
++    <div class="form-group">
++        <label for="name" class="col-sm-12 ">专题名：</label>
++        <div class="col-sm-12">
++            <input type="text" class="form-control"  id="name" placeholder="专题名">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="yes_no" class="col-sm-12 ">是否可分享：</label>
++        <div class="col-sm-10" id="yes_no" >
++            <input type="radio"  name="yes_no"  value="是" checked="true" >是
++            <input type="radio"  name="yes_no"  value="否" >否
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="type_id" class="col-sm-12 ">专题类型：</label>
++        <div class="col-sm-12" >
++           <select id="type_id"  class="form-control">
++               <option value="1" selected="selected">时间轴类型</option>
++               <option value="2" selected="selected">亚运会类型</option>
++           </select>
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="bg_image" class="col-sm-12 ">背景图链接：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="bg_image" placeholder="背景图链接">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="top_image" class="col-sm-12 ">顶部图链接：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="top_image" placeholder="顶部图链接">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="share_title" class="col-sm-12 ">分享标题：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="share_title" placeholder="分享标题">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="share_des" class="col-sm-12 ">分享描述：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="share_des" placeholder="分享描述">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="share_image" class="col-sm-12 ">分享图片：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="share_image" placeholder="分享图片">
++        </div>
++    </div>
++    <div class="form-group">
++        <div class="col-sm-offset-6 col-sm-6">
++            <button type="button" class="btn btn-info" id="btn">保存</button>
++        </div>
++    </div>
++</div>
++<!-- 页面层增加专题结束 -->
++
++<!-- 页面层编辑专题开始 -->
++<div class="form-horizontal col-sm-12" id="edit_box" style="display:none;margin-top: 15px">
++    <input type="hidden" id="id">
++    <div class="form-group">
++        <label for="e_name" class="col-sm-12 ">专题名：</label>
++        <div class="col-sm-12">
++            <input type="text" class="form-control" id="e_name" placeholder="专题名">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_yes_no" class="col-sm-12">是否可分享：</label>
++        <div class="col-sm-10" id="e_yes_no">
++            <input type="radio"  name="e_yes_no"  value="是" checked="true">是
++            <input type="radio"  name="e_yes_no"  value="否" >否
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_type_id" class="col-sm-12">专题类型：</label>
++        <div class="col-sm-12">
++           <select id="e_type_id" class="form-control" >
++               <option value="1" selected="selected">时间轴类型</option>
++               <option value="2" selected="selected">亚运会类型</option>
++           </select>
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_bg_image" class="col-sm-12 ">背景图链接：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="e_bg_image" placeholder="背景图链接">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_top_image" class="col-sm-12 ">顶部图链接：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="e_top_image" placeholder="顶部图链接">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_share_title" class="col-sm-12 ">分享标题：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="e_share_title" placeholder="分享标题">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_share_des" class="col-sm-12 ">分享描述：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="e_share_des" placeholder="分享描述">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="e_share_image" class="col-sm-12 ">分享图片：</label>
++        <div class="col-sm-12" >
++                <input type="text" class="form-control"  id="e_share_image" placeholder="分享图片">
++        </div>
++    </div>
++    <div class="form-group" >
++        <div class="col-sm-offset-6 col-sm-6" >
++         <button type="button" class="btn btn-info" id="btn_edit">保存</button>
++        </div>
++    </div>
++</div>
++
++<!-- 页面层编辑专题结束 -->
++<script>
++    //专题类型判断
++    function ztType(uid,type_id) {
++        if(1==type_id){
++            window.open('http://localhost/login/public/index.php/gzck/Worldcup/show/id/'+uid,'_self');
++        }
++        if(2==type_id){
++            window.open('http://localhost/login/public/index.php/gzck/yayun2018/show','_self')
++        }
++    }
++</script>
++<script>
++    // 页面层增加专题
++    var box;
++    function addZt(uid){
++        $.getJSON("{:url('Zt/addZt')}", {uid: uid}, function(res) {
++            $("#id").val(res.data.id);
++            $("#name").val(res.data.name);
++         //   $("#is_share").val(res.data.is_share);
++            $("#yes_no").val(res.data.yes_no);
++            $("#type_id").val(res.data.type_id);
++            $("#bg_image").val(res.data.bg_image);
++            $("#top_image").val(res.data.top_image);
++            $("#share_title").val(res.data.share_title);
++            $("#share_des").val(res.data.share_des);
++            $("#share_image").val(res.data.share_image);
++
++            box = layer.open({
++                title: '增加同类专题',
++                type: 1,
++                skin: 'layui-layer-lan', //加上边框
++                area: ['450px', '700px'], //宽高
++                content: $("#box")
++            });
++        });
++    }
++</script>
++<script>
++
++    //对专题添加进行校验
++    $(function () {
++        $("#btn").click(function () {
++            console.log(1);
++            var name = $("#name").val();
++           // var yes_no = ($("#yes_no"));
++            var yes_no = $("input:radio[name='yes_no']:checked").val();
++            console.log({yes_no:yes_no});
++          //  var type_id = $("#type_id").val();
++            var type_id = $("#type_id").val();
++            var bg_image = $("#bg_image").val();
++            var top_image = $("#top_image").val();
++            var share_title = $("#share_title").val();
++            var share_des = $("#share_des").val();
++            var share_image = $("#share_image").val();
++            console.log({type_id:type_id});
++            if(''== name){
++                layer.tips('专题名不能为空','#name');
++                return false;
++            }
++            if(''== yes_no){
++                layer.tips('是否可分享不能为空','#yes_no');
++                return false;
++            }
++            if(''== type_id){
++                layer.tips('专题不能为空','#type_id');
++                return false;
++            }
++            if(''== bg_image){
++                layer.tips('背景图片不能为空','#bg_image');
++                return false;
++            }
++            if(''== top_image){
++                layer.tips('顶部图不能为空','#top_image');
++                return false;
++            }
++            if(''== share_title){
++                layer.tips('分享标题不能为空','#share_title');
++                return false;
++            }
++            if(''== share_des){
++                layer.tips('分享描述不能为空','#share_des');
++                return false;
++            }
++            if(''== share_image){
++                layer.tips('分享图片不能为空','#share_image');
++                return false;
++            }
++            console.log({name:name,yes_no:yes_no,type_id:type_id});
++            $.post("{:url('Zt/addZt')}",
++                {name:name,yes_no:yes_no,type_id:type_id,bg_image:bg_image,top_image:top_image,share_title:share_title,share_des:share_des,share_image:share_image},
++                function (res) {
++                if(1 == res.code){
++                    window.location.reload();
++                }else {
++                    layer.alert(res.msg,{icon:2,title: '错误提示'});
++                }
++
++            },'json');
++
++        });
++
++    });
++</script>
++<script>
++
++    // 页面层编辑专题
++    function editZt(uid){
++
++        $.getJSON("{:url('Zt/editZt')}", {uid: uid}, function(res){
++            $("#id").val(res.data.id);
++            $("#e_name").val(res.data.name);
++           // $("#e_is_share").val(res.data.is_share);
++            $("#e_yes_no").val(res.data.yes_no);
++            $("#e_type_id").val(res.data.type_id);
++            $("#e_bg_image").val(res.data.bg_image);
++            $("#e_top_image").val(res.data.top_image);
++            $("#e_share_title").val(res.data.share_title);
++            $("#e_share_des").val(res.data.share_des);
++            $("#e_share_image").val(res.data.share_image);
++
++            box = layer.open({
++                title: '编辑专题',
++                type: 1,
++                skin: 'layui-layer-lan', //加上边框
++                area: ['450px', '700px'], //宽高
++                content: $("#edit_box")
++            });
++        });
++    }
++    //点击编辑专题按钮
++    $("#btn_edit").click(function () {
++        var id = $("#id").val();
++        var name = $("#e_name").val();
++        //var is_share = $("#e_is_share").val();
++        var yes_no =  $("input:radio[name='e_yes_no']:checked").val();
++        var type_id = $("#e_type_id").val();
++        var bg_image = $("#e_bg_image").val();
++        var top_image = $("#e_top_image").val();
++        var share_title = $("#e_share_title").val();
++        var share_des = $("#e_share_des").val();
++        var share_image = $("#e_share_image").val();
++        if ('' == name){
++            layer.tips('专题名不能为空','#e_name');
++            return false;
++        }
++        if ('' == yes_no){
++            layer.tips('是否可分享不能为空','#yes_no');
++            return false;
++        }
++        if(''== type_id){
++            layer.tips('专题不能为空','#type_id');
++            return false;
++        }
++        if(''== bg_image){
++            layer.tips('背景图片不能为空','#bg_image');
++            return false;
++        }
++        if(''== top_image){
++            layer.tips('顶部图不能为空','#top_image');
++            return false;
++        }
++        if(''== share_title){
++            layer.tips('分享标题不能为空','#share_title');
++            return false;
++        }
++        if(''== share_des){
++            layer.tips('分享描述不能为空','#share_des');
++            return false;
++        }
++        if(''== share_image){
++            layer.tips('分享图片不能为空','#share_image');
++            return false;
++        }
++        console.log({name:name,yes_no:yes_no,type_id:type_id});
++        $.post("{:url('zt/editzt')}",
++            {
++                id:id,
++                name:name,
++                yes_no:yes_no,
++                type_id:type_id,
++                bg_image: bg_image,
++                top_image: top_image,
++                share_title: share_title,
++                share_des: share_des,
++                share_image: share_image
++            },function (res) {
++                if (1 == res.code){
++                    window.location.reload();
++                } else{
++                    layer.alert(res.msg,{icon:2,title:'错误提示'});
++                }
++            },'json');
++    });
++</script>
++<script>
++    //删除专题
++    function delZt(uid) {
++        //询问框
++        layer.confirm('确定删除此专题？',{
++            title:'友情提示',
++            icon:3,
++            closeBtn:0,
++            btn:['确定','取消']//按钮
++        },function () {
++            $.getJSON("{:url('zt/delzt')}",{uid:uid},function(res){
++                if (1== res.code){
++                    window.location.reload();
++                } else{
++                    layer.alert(res.msg,{icon:2,title:'错误提示'});
++                }
++            });
++        },function () {
++        });
++    }
++</script>
++</body>
++</html>
+Index: gzck/.idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/modules.xml	(date 1535772550000)
++++ gzck/.idea/modules.xml	(date 1535772550000)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/gzck.iml" filepath="$PROJECT_DIR$/.idea/gzck.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: login/application/index/view/tools/laypage.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/tools/laypage.html	(date 1535742996000)
++++ login/application/index/view/tools/laypage.html	(date 1535742996000)
+@@ -0,0 +1,47 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>laypage插件的应用</title>
++    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++</head>
++
++<body>
++<div id="view"></div>  <!-- 内容显示部分 -->
++<div id="page"></div>  <!-- 分页码显示部分 -->
++
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
++<script src="/login/public/static/laypage/laypage.js"></script>
++<script>
++    //以下将以jquery.ajax为例，演示一个异步分页
++    function demo(curr){
++        $.getJSON("{:url('tools /laypage')}", {
++            page: curr || 1 //向服务端传的参数，此处只是演示
++        }, function(res){
++
++            //此处仅仅是为了演示变化的内容
++            var demoContent = (new Date().getTime()/Math.random()/1000)|0;
++            document.getElementById('view').innerHTML = res.content + demoContent;
++
++            //显示分页
++            laypage({
++                cont: 'page', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
++                pages: res.pages, //通过后台拿到的总页数
++                curr: curr || 1, //当前页
++                skin:'yahei',//加载内置皮肤，也可以直接赋值16进制颜色值,如#c00
++                jump: function(obj, first){ //触发分页后的回调
++                    if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
++                        demo(obj.curr);
++                    }
++                }
++            });
++        });
++    };
++
++    //运行
++    demo();
++</script>
++</body>
++</html>
+\ No newline at end of file
+Index: gzck/.idea/php.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/php.xml	(date 1535772563000)
++++ gzck/.idea/php.xml	(date 1535772563000)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="PhpIncludePathManager">
++    <include_path>
++      <path value="$PROJECT_DIR$/vendor/topthink/think-image" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-mongo" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-queue" />
++      <path value="$PROJECT_DIR$/vendor/composer" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-migration" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-captcha" />
++      <path value="$PROJECT_DIR$/vendor/topthink/think-installer" />
++    </include_path>
++  </component>
++  <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
++</project>
+\ No newline at end of file
+Index: login/application/index/model/ZtType.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/model/ZtType.php	(date 1535966766000)
++++ login/application/index/model/ZtType.php	(date 1535966766000)
+@@ -0,0 +1,15 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-9-3
++ * Time: 下午5:25
++ */
++namespace app\index\model;
++
++use think\Model;
++
++class ZtType extends  Model
++{
++
++}
+\ No newline at end of file
+Index: login/.idea/login.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/.idea/login.iml	(date 1535771570000)
++++ login/.idea/login.iml	(date 1535771570000)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" packagePrefix="app\" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: login/application/index/model/ImmSysUsers.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/model/ImmSysUsers.php	(date 1535658716000)
++++ login/application/index/model/ImmSysUsers.php	(date 1535658716000)
+@@ -0,0 +1,13 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-8-31
++ * Time: 上午11:37
++ */
++namespace app\index\model;
++use think\Model;
++class ImmSysUsers extends Model
++{
++
++}
+\ No newline at end of file
+Index: gzck/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gzck/.idea/vcs.xml	(date 1535772563000)
++++ gzck/.idea/vcs.xml	(date 1535772563000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: login/application/index/controller/User.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/controller/User.php	(date 1535762290000)
++++ login/application/index/controller/User.php	(date 1535762290000)
+@@ -0,0 +1,138 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-8-31
++ * Time: 上午11:35
++ */
++namespace app\index\controller;
++
++use app\index\model\ImmSysUsers;
++use think\Controller;
++use think\Validate;
++use think\Request;
++
++class User extends Controller
++{
++    // 展示用户列表
++    public function index()
++    {
++        $userModel = new ImmSysUsers();
++       // dump($userModel);
++        $userList = $userModel ->select();
++        //dump($userList);die;
++        $this->assign([
++           'user_list' =>$userList
++        ]);
++        return $this->fetch();
++    }
++    //添加用户
++    public  function addUser()
++    {
++        if(request()->isPost()){
++            $param = input('post.');
++            echo $param['user_name'];
++            echo $param['user_pw'];
++
++            $userModel = new ImmSysUsers();
++
++
++            $rule =[
++                ['user_name','require|unique:ImmSysUsers','用户名必须|该用户名已经存在'],
++                ['user_pw','require|min:5','密码必须|密码至少5位'],
++
++            ];
++
++            $validate = new Validate($rule);
++            $result = $validate ->check($param);
++
++            if($result){
++                return json(['code'=>0,'data'=>'','msg'=>$validate->getError()]);
++            }
++
++
++            $flag = $userModel->insert($param);
++            if(empty($flag)){
++                return json(['code'=>-2,'data'=>'','msg'=>'系统错误']);
++            }
++            return json(['code'=>1,'data'=> '','msg'=>'添加成功']);
++
++        }
++        return $this->fetch('user/adduser');
++    }
++    //编辑用户
++    public function editUser()
++    {
++        if(request()->isPost()){
++            $param = input('post.');
++
++            // 验证数据
++            if(empty($param['user_name'])){
++                return json(['code' => -1, 'data' => '', 'msg' => '用户名不能为空']);
++            }
++
++            $editParam = [
++                'user_name' => $param['user_name']
++            ];
++
++            // 检测新修改的用户名，表中是否已经存在
++            $userModel = new ImmSysUsers();
++            $has = $userModel->field('id')
++                ->where("user_name = '" . $param['user_name'] . "' and id != " . $param['id'])
++                ->find();
++
++            if(!empty($has)){
++                return json(['code' => -2, 'data' => '', 'msg' => '该用户已经存在']);
++            }
++
++            // 查看用户是否要求改密码
++            if(!empty($param['old_pwd']) && empty($param['new_pwd'])){
++                return json(['code' => -3, 'data' => '', 'msg' => '修改密码需要输入新密码']);
++            }
++
++            if(empty($param['old_pwd']) && !empty($param['new_pwd'])){
++                return json(['code' => -4, 'data' => '', 'msg' => '旧密码不对']);
++            }
++
++            if(!empty($param['old_pwd']) && !empty($param['new_pwd'])){
++
++                if(strlen($param['new_pwd']) < 5){
++                    return json(['code' => -5, 'data' => '', 'msg' => '新密码不得少于5位']);
++                }
++
++                $userInfo = $userModel->where('id', $param['id'])->find();
++                if($param['old_pwd'] != $userInfo->user_pwd){
++                    return json(['code' => -6, 'data' => '', 'msg' => '旧密码不对']);
++                }
++
++                $editParam['user_pwd'] = md5($param['new_pwd']);
++            }
++
++            $flag = $userModel->where('id', $param['id'])->update($editParam);
++            if(false === $flag){
++                return json(['code' => -7, 'data' => '', 'msg' => '系统错误']);
++            }
++
++            return json(['code' => 1, 'data' => '', 'msg' => '修改成功']);
++        }
++        $id = input('param.uid');
++        $userModel = new ImmSysUsers();
++        $userInfo = $userModel->where('id',$id)->find();
++        return json(['code'=>1,'data'=>$userInfo,'msg'=>'user information']);
++    }
++
++    //删除用户
++    public function delUser()
++    {
++        $uid = input('param.id');
++        $userModel = new ImmSysUsers();
++
++        $flag = $userModel->where('id',$uid)->delete();
++        if(false==$flag){
++            return json(['code'=>1,'data'=>'','msg'=>'系统错误']);
++
++        }
++        return json(['code'=>1,'data'=>'','msg'=>'删除成功']);
++    }
++
++}
+\ No newline at end of file
+Index: login/application/index/view/user/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/user/index.html	(date 1536025186000)
++++ login/application/index/view/user/index.html	(date 1536025186000)
+@@ -0,0 +1,221 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>用户列表</title>
++    <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
++</head>
++<body>
++<div class="container">
++    <div class="row">
++        <div class="col-sm-12">
++
++            <button type="button" class="btn btn-info" onclick="addUser()">增加用户</button>
++
++            <table class="table table-striped" id = "view">
++                <thead>
++                <tr>
++                    <th>用户ID</th>
++                    <th>用户名</th>
++                    <th>操作</th>
++                </tr>
++                </thead>
++                <tbody>
++                {foreach name="$user_list" item="vo"}
++                <tr>
++                    <td>{$vo->id}</td>
++                    <td>{$vo->user_name}</td>
++
++                    <td>
++                        <button type="button" class="btn btn-primary" onclick="editUser({$vo:id})">编辑</button>
++                        <!--<a href="{:url('user/userDel', ['uid' => $vo->id])}">-->
++                            <!--<button type="button" class="btn btn-danger">删除</button>-->
++                        <!--</a>-->
++                        <button type="button" class="btn btn-danger" onclick="delUser({$vo:id})">删除</button>
++                    </td>
++                </tr>
++                {/foreach}
++                </tbody>
++            </table>
++        </div>
++    </div>
++</div>
++
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
++
++<!-- 页面层增加用户开始 -->
++<div class="form-horizontal col-sm-12" id="box" style="display:none;margin-top: 15px">
++    <div class="form-group">
++        <label for="user_name" class="col-sm-2 control-label">用户名</label>
++        <div class="col-sm-10">
++            <input type="text" class="form-control" id="user_name" placeholder="用户名">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="user_pwd" class="col-sm-2 control-label">密码</label>
++        <div class="col-sm-10">
++            <input type="password" class="form-control" id="user_pwd" placeholder="密码">
++        </div>
++    </div>
++    <div class="form-group">
++        <div class="col-sm-offset-6 col-sm-6">
++            <button type="button" class="btn btn-default" id="btn">提交</button>
++        </div>
++    </div>
++</div>
++<!-- 页面层增加用户结束 -->
++
++
++<!-- 页面层编辑用户开始 -->
++<div class="form-horizontal col-sm-12" id="edit_box" style="display:none;margin-top: 15px">
++    <input type="hidden" id="id">
++    <div class="form-group">
++        <label for="user_name" class="col-sm-2 control-label">用户名</label>
++        <div class="col-sm-10">
++            <input type="text" class="form-control" id="e_user_name" placeholder="用户名">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="user_pwd" class="col-sm-2 control-label">旧密码</label>
++        <div class="col-sm-10">
++            <input type="password" class="form-control" id="old_user_pwd" placeholder="旧密码">
++        </div>
++    </div>
++    <div class="form-group">
++        <label for="user_pwd" class="col-sm-2 control-label">新密码</label>
++        <div class="col-sm-10">
++            <input type="password" class="form-control" id="new_user_pwd" placeholder="新密码">
++        </div>
++    </div>
++    <div class="form-group">
++        <div class="col-sm-offset-6 col-sm-6">
++            <button type="button" class="btn btn-default" id="btn_edit">提交</button>
++        </div>
++    </div>
++</div>
++<!-- 页面层编辑用户结束 -->
++
++
++<script src="/login/public/static/layer/layer.js"></script>
++<script>
++    $(function(){
++        $("#btn").click(function(){
++
++            var user_name = $("#user_name").val();
++            var user_pwd = $("#user_pwd").val();
++            if('' == user_name){
++                layer.tips('用户名不能为空', '#user_name');
++                return false;
++            }
++            if('' == user_pwd){
++                layer.tips('密码不能为空', '#user_pwd');
++                return false;
++            }
++
++            $.post("{:url('User/addUser')}", {user_name: user_name, user_pwd: user_pwd}, function(res){
++                if(1 == res.code){
++                    window.location.reload();
++                }else{
++                    layer.alert(res.msg, {icon:2, title: '错误提示'});
++                }
++            }, 'json');
++        });
++
++    });
++    // 页面层增加用户
++    var box;
++    function addUser(){
++
++        // box = layer.open({
++        //     title: '增加用户',
++        //     type: 1,
++        //     skin: 'layui-layer-rim', //加上边框
++        //     area: ['450px', '240px'], //宽高
++        //     content: $("#box")
++        // });
++        box = layer.open({
++             title: '增加用户',
++             type:2,
++             skin:'layui-layer-rim',//加上边框
++             area:['480px','290'],
++             content:"{:url('user/adduser')}"
++         });
++     }
++     function refresh() {
++         window.location.reload();
++     }
++    //页面编辑用户
++    // 页面层编辑用户
++    function editUser(uid){
++
++        $.getJSON("{:url('user/edituser')}", {uid: uid}, function(res){
++            $("#id").val(res.data.id);
++            $("#e_user_name").val(res.data.user_name);
++
++            box = layer.open({
++                title: '编辑用户',
++                type: 1,
++                skin: 'layui-layer-rim', //加上边框
++                area: ['500px', '270px'], //宽高
++                content: $("#edit_box")
++            });
++        });
++    }
++
++    // 点击编辑用户按钮
++    $("#btn_edit").click(function(){
++
++        var user_name = $("#e_user_name").val();
++        var old_pwd = $("#old_user_pwd").val();
++        var new_pwd = $("#new_user_pwd").val();
++        var id = $("#id").val();
++
++        if('' == user_name){
++            layer.tips('用户名不能为空', '#e_user_name');
++            return false;
++        }
++
++        $.post("{:url('user/edituser')}",
++            {
++                user_name: user_name,
++                old_pwd: old_pwd,
++                new_pwd: new_pwd,
++                id: id
++            }, function(res){
++                if(1 == res.code){
++                    window.location.reload();
++                }else{
++                    layer.alert(res.msg, {icon:2, title: '错误提示'});
++                }
++            }, 'json');
++    });
++
++    // 删除用户
++    function delUser(uid){
++
++        //询问框
++        layer.confirm('确定删除此用户？', {
++            title: '友情提示',
++            icon: 3,
++            closeBtn: 0,
++            btn: ['确定','取消'] //按钮
++        }, function(){
++
++            $.getJSON("{:url('user/deluser')}", {uid: uid}, function(res){
++
++                if(1 == res.code){
++                    window.location.reload();
++                }else{
++                    layer.alert(res.msg, {icon:2, title: '错误提示'});
++                }
++            });
++        }, function(){
++
++        });
++    }
++
++</script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: login/application/index/view/tools/template.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/view/tools/template.html	(date 1535758564000)
++++ login/application/index/view/tools/template.html	(date 1535758564000)
+@@ -0,0 +1,53 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>传统方式渲染页面</title>
++</head>
++
++<body>
++
++<span id="title"></span>
++<ul id="content"></ul>
++
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script>
++    $(function(){
++
++        $.getJSON("{:url('tools/template')}", function(res){
++
++            var _html = '';
++            $("#title").text(res.msg);
++            $.each(res.data, function(k, v){
++
++                _html += '<li> 车牌： 苏' + v.code + ', 城市： ' + v.name;
++            });
++
++            $("#content").html(_html);
++            //通过laytpl 进行渲染
++            var gettpl = document.getElementById('demo').innerHTML;
++            laytpl(gettpl).render(res,function (html) {
++                document.getElementById('view').innerHTML = html;
++            });
++        });
++    });
++</script>
++
++
++<div id="view"></div> <!-- laytpl渲染的数据展示区域 -->
++
++<!-- 需要渲染的模板结构 -->
++<script id="demo" type="text/html">
++    <span>{{ d.msg }}</span>
++    <ul>
++        {{# for(var i = 0, len = d.data.length; i < len; i++){ }}
++        <li>车牌： 苏{{ d.data[i].code }}, 城市： {{ d.data[i].name }}</li>
++        {{# } }}
++    </ul>
++</script>
++<!-- 需要渲染的模板结构  -->
++<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
++<script src="/login/public/static/laytpl/laytpl.js"></script>
++</body>
++</html>
+\ No newline at end of file
+Index: worldCup2/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- worldCup2/.idea/vcs.xml	(date 1536290494000)
++++ worldCup2/.idea/vcs.xml	(date 1536290494000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: login/application/index/controller/Login.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- login/application/index/controller/Login.php	(date 1535656236000)
++++ login/application/index/controller/Login.php	(date 1535656236000)
+@@ -0,0 +1,70 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: wang
++ * Date: 18-8-31
++ * Time: 上午10:07
++ */
++namespace app\index\controller;
++
++use think\Controller;
++
++class Login extends Controller
++{
++    public function index()
++    {
++        echo 'nihaoya';
++        return $this->fetch();
++    }
++    // 处理登录逻辑
++    public function doLogin()
++    {
++        $param = input('post.');
++        if(empty($param['user_name'])){
++
++            $this->error('用户名不能为空');
++        }
++
++        if(empty($param['user_pwd'])){
++
++            $this->error('密码不能为空');
++        }
++        if(empty($param['captcha'])){
++
++            $this->error('验证码不能为空');
++        }
++
++        // 处理验证码
++        if(!captcha_check($param['captcha'])){
++
++            $this->error('验证码错误');
++        };
++
++        // 验证用户名
++        $has = db('imm_sys_users')->where('user_name', $param['user_name'])->find();
++        if(empty($has)){
++
++            $this->error('用户名错误');
++        }
++
++        // 验证密码
++        if($has['user_pw'] != $param['user_pwd']){
++
++            $this->error('密码错误');
++        }
++
++        // 记录用户登录信息
++        cookie('user_id', $has['id'], 3600);  // 一个小时有效期
++        cookie('user_name', $has['user_name'], 3600);
++
++        $this->redirect(url('index/index'));
++    }
++    // 退出登录
++    public function loginOut()
++    {
++        cookie('user_id', null);
++        cookie('user_name', null);
++
++        $this->redirect(url('login/index'));
++    }
++}
+\ No newline at end of file
+diff --git public/favicon.ico public/favicon.ico
+deleted file mode 100644
+index e71815a6618c6ef19c78d27840b8995fb2521499..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git think think
+deleted file mode 100644
+index 6a923b354081654c3f607a048c45e8ef8d733b25..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+

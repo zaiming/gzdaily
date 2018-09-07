@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>广州参考世界杯</title>
+
+    <!-- bootstrap bootstrap-table  jquery -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table1/bootstrap-table.css">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table.js"></script>
+    <!-- put your locale files after bootstrap-table.js -->
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table-zh-CN.js"></script>
+
+    <!-- x-editable -->
+    <link href="http://localhost/login/public/static/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="http://localhost/login/public/static/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+    <!-- bootstrap extensions table-editable -->
+    <script src="http://localhost/login/public/static/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
+    <!-- 所有文件加载结束 -->
+
+</head>
+
+<body style="margin: 50px;">
+<!--<h1>广州参考世界杯附加文章链接页面</h1>-->
+<!--<h2><a href="http://localhost/login/public/index.php/gzck/Worldcup/show"> 返回</a> </h2>-->
+<button type="button" class="btn btn-info" onclick="window.open('/login/public/index.php/gzck/worldcup/show/id/{$id}','_self')">返回专题管理</button>
+
+<table id="tb_user"></table>
+</body>
+<script>
+    //php 变量
+    var apiUrl = "{$API_URL}";
+    var nid = "{$Nid}";
+    var loadDataUrl = apiUrl + "/linkload/nid/" + nid;
+
+    var editUrl = apiUrl + "/linkedit";
+
+    var keyIdName = "lid";
+
+    $table = $("#tb_user");
+
+
+    $(function () {
+        $table.bootstrapTable({
+            toolbar: "#toolbar",
+            idField: keyIdName,
+            pagination: true,
+            showRefresh: true,
+            search: true,
+            clickToSelect: true,
+            queryParams: function (param) {
+                return {};
+            },
+            url: loadDataUrl,
+            columns: [
+                {
+                    field: "lid",
+                    title: "分享文章id"
+                },
+                {
+                    field: "title",
+                    title: "标题",
+                    editable: {
+                        type: 'text',
+                        title: '标题',
+                        validate: function (v) {
+                            if (!v) return '标题不能为空';
+
+                        }
+                    }
+                },
+                {
+                    field: "link",
+                    title: "链接",
+                    editable: {
+                        type: 'text',
+                        title: '链接'
+                    }
+                },
+                {
+                    field: "type",
+                    title: "类型",
+                    editable: {
+                        type: 'text',
+                        title: '1为普通文章,2为直播'
+                    }
+                },
+                {
+                    field: "status",
+                    title: "状态",
+                    editable: {
+                        type: 'text',
+                        title: '1为有效，0为失效'
+                    }
+                },
+                {
+                    field: "ctime",
+                    title: "创建日期",
+                }
+
+            ],
+            onEditableSave: function (field, row, oldValue, $el) {
+                $.ajax({
+                    type: "post",
+                    url: editUrl,
+                    data: row,
+                    dataType: 'JSON',
+                    success: function (data, status) {
+                        if (status == "success") {
+                            console.log(data);
+                            alert('提交数据成功');
+                        }
+                    },
+                    error: function () {
+                        alert('编辑失败');
+                    },
+                    complete: function () {
+
+                    }
+
+                });
+            }
+
+
+        });
+    });
+</script>
+</html>
