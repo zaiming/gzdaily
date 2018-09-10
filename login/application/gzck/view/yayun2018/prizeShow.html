@@ -52,6 +52,7 @@
     var item_link = document.getElementById("item_link");
     var iurl = apiUrl + "/prizeShow/iid/";
     addbtn(item_link,itemlist,iurl);
+    console.log({iurl});
 
     function addbtn(appendobj,list,url) {
         for(var i=0;i<list.length;i++) {
@@ -68,7 +69,6 @@
     }
 
     $table = $("#tb_user");
-
     $(function () {
         $table.bootstrapTable({
             toolbar: "#toolbar",

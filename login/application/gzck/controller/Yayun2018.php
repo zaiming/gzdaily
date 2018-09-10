@@ -255,7 +255,7 @@ class Yayun2018 extends Controller
 
     public function prizeShow(Request $request)
     {
-        $api_url = "http://localhost/gzck/public/index.php/gzck/Yayun2018";
+        $api_url = "";
         $this->assign("API_URL",$api_url);
 
         $nid = intval($request->param("nid"));
@@ -270,7 +270,6 @@ class Yayun2018 extends Controller
         $this->assign("LOAD_URL", $loadUrl);
 
         $nation = Db::query("SELECT id,name FROM zt_yy_nation WHERE status=1");
-
         $this->assign("NATION", json_encode($nation));
 
         $nation = Db::query("SELECT id,name FROM zt_yy_item WHERE status=1");

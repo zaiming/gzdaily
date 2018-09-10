@@ -26,7 +26,12 @@ class Zt extends Controller
 //        $ztList = $ztModel->select();
         $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
         $ztList = db::query($sql_str);
-
+//        if(1==$ztList[0]['type_id']){
+//
+//        }
+//        if(2==$ztList[0]['type_id']){
+//
+//        }
 //        echo json_encode(['code'=>1,'data'=>$typeName],JSON_UNESCAPED_UNICODE);
 
         //dump($userList);die;
