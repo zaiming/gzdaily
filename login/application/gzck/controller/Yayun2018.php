@@ -23,14 +23,17 @@ class Yayun2018 extends Controller
     }
     public function show()
     {
-        $api_url = ".";
+        $tid = input('param.id');
+        $api_url = "http://localhost/login/public/index.php/gzck/yayun2018";
+        $this->assign('tid',$tid);
         $this->assign("API_URL",$api_url);
         return $this->fetch('index');
     }
 
     public function load()
     {
-        $sql = "SELECT * FROM zt_all_newslist WHERE a_id=1 ORDER by iorder DESC ,id DESC ";
+        $tid = input('param.id');
+        $sql = "SELECT * FROM zt_all_newslist WHERE a_id=1 and zt_id = $tid ORDER by iorder DESC ,id DESC ";
         $res = Db::query($sql);
         foreach ($res as $key=>$val) {
             if (!empty($res[$key]["link_ids"])) {
@@ -65,8 +68,6 @@ class Yayun2018 extends Controller
                 }
                 $res[$key]["map_b"] = $str;
             }
-
-
         }
         return json($res);
     }
@@ -156,7 +157,6 @@ class Yayun2018 extends Controller
     {
         $r = $request->param();
         $nid = $r['nid'];
-
         $data['title'] = $r['title'];
         $data['link'] = $r['link'];
         $data['type'] = $r['type'];
@@ -247,7 +247,7 @@ class Yayun2018 extends Controller
         $data["map_b"] =",".  implode(",",$p["map_b"]) . ",";
         $res = Db::table("zt_all_newslist")->update($data);
         if($res){
-            $this->success("修改成功", "http://localhost/gzck/public/index.php/gzck/Yayun2018/show");
+            $this->success("修改成功", "http://localhost/login/public/index.php/gzck/Yayun2018/show");
         }else{
             $this->error($res);
         }
@@ -255,7 +255,7 @@ class Yayun2018 extends Controller
 
     public function prizeShow(Request $request)
     {
-        $api_url = "";
+        $api_url = "http://localhost/login/public/index.php/gzck/Yayun2018";
         $this->assign("API_URL",$api_url);
 
         $nid = intval($request->param("nid"));

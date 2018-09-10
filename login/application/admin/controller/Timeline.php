@@ -28,19 +28,11 @@ class Timeline extends Controller
     {
 
          $id = input('param.id');
-//        $sql = "SELECT n.zt_id FROM zt_manage m,zt_wc_newslist n  where m.id = $id and m.id = n.zt_id ";
-//        $zt_id = Db::query($sql);
-//        echo json_encode(['code'=>1,'data'=>$zt_id[0]],JSON_UNESCAPED_UNICODE);
-//        if ($id==$zt_id[0]["zt_id"]){
-//            $api_url = "/login/public/index.php/gzck/Worldcup/";
-//            $this->assign("API_URL",$api_url);
-//            return $this->fetch('index');
-//        }
-//            echo json_encode(['code'=>1,'data'=>$id],JSON_UNESCAPED_UNICODE);
-            $api_url = "/login/public/index.php/gzck/Worldcup";
-            $this->assign("API_URL",$api_url);
-            $this->assign('id',$id);
-            return $this->fetch('index');
+//       echo json_encode(['code'=>1,'data'=>$id],JSON_UNESCAPED_UNICODE);
+         $api_url = "/login/public/index.php/gzck/Worldcup";
+         $this->assign("API_URL",$api_url);
+         $this->assign('id',$id);
+         return $this->fetch('index');
     }
 
     public function load()

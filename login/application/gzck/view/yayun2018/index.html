@@ -34,13 +34,14 @@
 </body>
 <script>
     //php 变量
+    var tid ="{$tid}";
     var apiUrl = "{$API_URL}";
-    var loadDataUrl = apiUrl + "/load";
+    var loadDataUrl = apiUrl + "/load/id/"+tid;
 
-    var editUrl = apiUrl + "/edit";
+    var editUrl = apiUrl + "/edit/id/"+tid;
 
     var keyIdName = "id";
-
+console.log({$tid},loadDataUrl);
     $table = $("#tb_user");
 
     function operateFormatter(value, row, index) {
@@ -60,15 +61,15 @@
     window.operateEvents = {
         'click .addlink': function (e,value,row,index) {
             var rowid = row.id;
-            window.location.href= apiUrl + "/showaddlink" + "/nid/" + rowid;
+            window.location.href= apiUrl + "/showaddlink" + "/id/"+tid+ "/nid/" + rowid;
         },
         'click .showlink': function (e, val,row,index) {
             var rowid = row.id
-            window.location.href= apiUrl + "/showlink" + "/nid/" + rowid;
+            window.location.href= apiUrl + "/showlink" + "/id/"+tid+ "/nid/" + rowid;
         },
         'click .changemap': function (e, val,row,index) {
             var rowid = row.id
-            window.location.href= apiUrl + "/changemap" + "/id/" + rowid;
+            window.location.href= apiUrl + "/changemap" +  "/id/"+tid+"/nid/" + rowid;
         }
     };
 
