@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>运动专题</title>
+
+    <!-- bootstrap bootstrap-table  jquery -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table1/bootstrap-table.css">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/bootstrap-table1/bootstrap-table.js"></script>
+    <!-- put your locale files after bootstrap-table.js -->
+    <script src="__PUBLIC__/bootstrap-table1/bootstrap-table-zh-CN.js"></script>
+
+    <!-- x-editable -->
+    <link href="__PUBLIC__/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="__PUBLIC__/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+    <!-- bootstrap extensions table-editable -->
+    <script src="__PUBLIC__/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
+    <!-- 所有文件加载结束 -->
+
+</head>
+
+<body style="margin: 50px;">
+<h1>
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}"> 亚运会新闻管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}"> -&#45;&#45;奖牌管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}"> -&#45;&#45;奖牌修改记录</a>-->
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/admin/sports/show/id/{$tid}','_self')">运动新闻管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/admin/sports/prizeShow/tid/{$tid}','_self')">奖牌信息管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/admin/sports/showlog/id/{$tid}','_self')">奖牌修改记录</button>
+    </td>
+</h1>
+<div id="nation_link">
+</div>
+<p> </p>
+<div id="item_link">
+</div>
+<table id="tb_user" class="table table-striped" ></table>
+</body>
+<script>
+    //php 变量
+    var nationlist = {$NATION};
+    var itemlist = {$ITEM};
+    var apiUrl = "{$API_URL}";
+    var loadDataUrl = "{$LOAD_URL}";
+    var editUrl = apiUrl + "/prizeEdit";
+    var keyIdName = "id";
+
+    var nation_link = document.getElementById("nation_link");
+    var nurl = apiUrl + "/prizeShow/nid/";
+    addbtn(nation_link,nationlist,nurl);
+
+    var item_link = document.getElementById("item_link");
+    var iurl = apiUrl + "/prizeShow/iid/";
+    addbtn(item_link,itemlist,iurl);
+    console.log({iurl});
+
+    function addbtn(appendobj,list,url) {
+        for(var i=0;i<list.length;i++) {
+            var btn = document.createElement("BUTTON");
+            var t = document.createTextNode(list[i].name);
+            btn.value = list[i].id;
+            btn.onclick = function (ev) {
+                var v = ev.toElement.value;
+                window.location.href=url + v;
+            };
+            btn.appendChild(t);
+            appendobj.appendChild(btn);
+        }
+    }
+
+    $table = $("#tb_user");
+    $(function () {
+        $table.bootstrapTable({
+            toolbar: "#toolbar",
+            idField: keyIdName,
+            pagination: true,
+            showRefresh: true,
+            search: true,
+            clickToSelect: true,
+            queryParams: function (param) {
+                return {};
+            },
+            url: loadDataUrl,
+            pageSize: 50,
+            columns: [
+                {
+                    field: "id",
+                    title: "id"
+                },
+                {
+                    field: "n_id",
+                    title: "国家id"
+                },
+                {
+                    field: "n_name",
+                    title: "国家名称"
+                },
+                {
+                    field: "i_id",
+                    title: "项目"
+                },
+                {
+                    field: "i_name",
+                    title: "项目名称"
+                },
+                {
+                    field: "gold",
+                    title: "此项目的金牌总数",
+                    editable: {
+                        type: 'number',
+                        title: '此项目的金牌总数'
+                    }
+                },
+                {
+                    field: "silver",
+                    title: "此项目的银牌总数",
+                    editable: {
+                        type: 'number',
+                        title: '此项目的银牌总数'
+                    }
+                },
+                {
+                    field: "copper",
+                    title: "此项目的铜牌总数",
+                    editable: {
+                        type: 'number',
+                        title: '此项目的铜牌总数'
+                    }
+                },
+            ],
+            onEditableSave: function (field, row, oldValue, $el) {
+                $.ajax({
+                    type: "post",
+                    url: editUrl,
+                    data: row,
+                    dataType: 'JSON',
+                success: function (data, status) {
+                        if (status == "success") {
+                            console.log(editUrl,data);
+                            alert('提交数据成功');
+                        }
+                    },
+                    error: function () {
+                        console.log(editUrl,row);
+                        alert('编辑失败');
+                    },
+                    complete: function () {
+
+                    }
+
+                });
+            }
+
+
+        });
+    });
+</script>
+</html>
