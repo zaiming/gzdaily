@@ -2,27 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>亚运会</title>
+    <title>运动专题添加文章</title>
     <!-- bootstrap bootstrap-table  jquery -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table1/bootstrap-table.css">
     <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="__PUBLIC__/bootstrap-table/bootstrap-table.js"></script>
+    <script src="__PUBLIC__/bootstrap-table1/bootstrap-table.js"></script>
     <!-- put your locale files after bootstrap-table.js -->
-    <script src="__PUBLIC__/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="__PUBLIC__/bootstrap-table1/bootstrap-table-zh-CN.js"></script>
 
     <!-- x-editable -->
     <link href="__PUBLIC__/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <script src="__PUBLIC__/bootstrap3-editable/js/bootstrap-editable.js"></script>
 
     <!-- bootstrap extensions table-editable -->
-    <script src="__PUBLIC__/bootstrap-table/editable/bootstrap-table-editable.js"></script>
+    <script src="__PUBLIC__/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
     <!-- 所有文件加载结束 -->
 </head>
 <body>
 <div style="margin: 50px;">
-    <h1>亚运会</h1>
+    <!--<h1>添加文章</h1>-->
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}','_self')">返回</button>
+
+    </td>
+
     <form id="formid" method="post" action="{$POST_URL}" >
         <div class="form-group">
             <label>标题</label>

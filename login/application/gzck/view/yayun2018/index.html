@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>亚运会</title>
+    <title>运动专题</title>
 
     <!-- bootstrap bootstrap-table  jquery -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -25,11 +25,29 @@
 
 <body style="margin: 50px;">
 <h1>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/show"> 亚运会新闻管理页</a>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow"> ---奖牌管理页</a>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog"> ---奖牌修改记录</a>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}','_self')">运动新闻管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}','_self')">奖牌信息管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}','_self')">奖牌修改记录</button>
+    </td>
+    <td>
+    <button type="button" class="btn btn-info" onclick="window.open('/login/public/index.php/index/zt/index','_self')">返回专题列表</button>
+    </td>
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}"> 亚运会新闻管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}"> -&#45;&#45;奖牌管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}"> -&#45;&#45;奖牌修改记录</a>-->
 </h1>
-<h2> <a href="./showadd" target="_blank" >---添加文章</a></h2>
+
+<!--<h2> <a href="http://localhost/login/public/index.php/gzck/Yayun2018/showadd/id/{$tid}" target="_self" >-&#45;&#45;添加文章</a></h2>-->
+<h2>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/showadd/id/{$tid}','_self')">添加文章</button>
+    </td>
+</h2>
 <table id="tb_user"></table>
 </body>
 <script>
@@ -41,9 +59,8 @@
     var editUrl = apiUrl + "/edit/id/"+tid;
 
     var keyIdName = "id";
-console.log({$tid},loadDataUrl);
     $table = $("#tb_user");
-
+    console.log(tid);
     function operateFormatter(value, row, index) {
         return [
             '<a class="addlink" href="javascript:void(0)" title="添加附加文章链接">',
@@ -61,15 +78,15 @@ console.log({$tid},loadDataUrl);
     window.operateEvents = {
         'click .addlink': function (e,value,row,index) {
             var rowid = row.id;
-            window.location.href= apiUrl + "/showaddlink" + "/id/"+tid+ "/nid/" + rowid;
+            window.location.href= apiUrl + "/showaddlink" + "/nid/" + rowid + "/id/"+tid;
         },
         'click .showlink': function (e, val,row,index) {
             var rowid = row.id
-            window.location.href= apiUrl + "/showlink" + "/id/"+tid+ "/nid/" + rowid;
+            window.location.href= apiUrl + "/showlink" + "/nid/" + rowid+ "/id/"+tid;
         },
         'click .changemap': function (e, val,row,index) {
             var rowid = row.id
-            window.location.href= apiUrl + "/changemap" +  "/id/"+tid+"/nid/" + rowid;
+            window.location.href= apiUrl + "/changemap" +"/id/" + rowid+  "/tid/"+tid;
         }
     };
 

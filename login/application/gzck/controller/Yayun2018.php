@@ -2,6 +2,7 @@
 
 namespace app\gzck\Controller;
 
+use think\Console;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -87,19 +88,22 @@ class Yayun2018 extends Controller
 
     public function showadd()
     {
-        $post_url = "./add";
+        $tid = input('param.id');
+        $post_url = "http://localhost/login/public/index.php/gzck/Yayun2018/add/id/$tid";
         $this->assign("POST_URL",$post_url);
 
         $map_a = Db::table('zt_yy_nation')->select();
         $map_b = Db::table('zt_yy_item') ->select();
         $this->assign("map_a", $map_a);
         $this->assign("map_b", $map_b);
-
+        $this->assign("tid",$tid);
         return $this->fetch('add');
 
     }
     public function add(Request $request)
     {
+        $tid = input('param.id');
+        $data['zt_id'] = $tid;
         $r = $request->param();
         //活动id
         $data['a_id'] = 1;
@@ -111,8 +115,10 @@ class Yayun2018 extends Controller
         $data['map_a'] = "," . trim(implode(",",$r['map_a']),",") . ",";
         $data['map_b'] ="," .  trim(implode(",",$r['map_b']),",") . ",";
         $res = Db::table('zt_all_newslist')->insert($data);
+  //      echo json_encode(['code'=>1,'data'=>$res],JSON_UNESCAPED_UNICODE);
+        //Console.log($r);
         if ($res >= 1) {
-            $this->success("新增成功",'Yayun2018/show');
+            $this->success("新增成功","http://localhost/login/public/index.php/gzck/Yayun2018/show/id/$tid");
         }else {
             $this->error('新增失败');
         }
@@ -120,9 +126,10 @@ class Yayun2018 extends Controller
 
     public function linkload(Request $request)
     {
+        $tid = input('param.id');
         $r = $request->param();
         $nid = $r["nid"];
-        $linkIds = Db::table('zt_all_newslist')->where('id',$nid)->field('link_ids')->find();
+        $linkIds = Db::table('zt_all_newslist')->where('id',$nid,'zt_id',$tid)->field('link_ids')->find();
         if (empty($linkIds["link_ids"])) {
             return json([]);
         }else {
@@ -133,28 +140,33 @@ class Yayun2018 extends Controller
 
     public function showlink(Request $request)
     {
+        $tid = input('param.id');
         $r = $request->param();
         $nid = $r["nid"];
 
         $api_url = "http://localhost/gzck/public/index.php/gzck/Yayun2018";
         $this->assign("API_URL",$api_url);
         $this->assign('Nid',$nid);
+        $this->assign('tid',$tid);
         return $this->fetch('showlink');
     }
 
     public function showaddlink(Request $request)
     {
+        $tid = input('param.id');
         $r = $request->param();
         $nid = $r["nid"];
-        $api_url = "http://localhost/gzck/public/index.php/gzck/Yayun2018";
-        $this->assign("POST_URL",$api_url . "/addlink/nid/" . $nid);
+        $api_url = "http://localhost/login/public/index.php/gzck/Yayun2018";
+        $this->assign("POST_URL",$api_url . "/addlink/nid/" . $nid."/id/".$tid);
         $this->assign('Nid',$nid);
+        $this->assign('tid',$tid);
         return $this->fetch('addlink');
 
     }
 
     public function addlink(Request $request)
     {
+        $tid = input('param.id');
         $r = $request->param();
         $nid = $r['nid'];
         $data['title'] = $r['title'];
@@ -171,7 +183,7 @@ class Yayun2018 extends Controller
                $ids = $linkIds["link_ids"] . "," . $lastInsId;
             }
             Db::table('zt_all_newslist')->where('id',$nid)->update(array("link_ids"=>$ids));
-            $this->success("新增成功",'Yayun2018/show');
+            $this->success("新增成功","http://localhost/login/public/index.php/gzck/Yayun2018/show/id/".$tid);
         }else {
             $this->error('新增失败');
         }
@@ -211,10 +223,13 @@ class Yayun2018 extends Controller
 
     public function changeMap(Request $request)
     {
+        $tid = input('param.tid');
+//        echo json_encode(['code'=>1,'data'=>$tid],JSON_UNESCAPED_UNICODE);
+//."and zt_id=". $tid
         $id = $request->param("id");
         $nation = Db::query("SELECT id,name FROM zt_yy_nation WHERE status=1");
         $item = Db::query("SELECT id, name FROM zt_yy_item WHERE status=1");
-        $new = Db::query("SELECT * FROM zt_all_newslist WHERE id=" . $id);
+        $new = Db::query("SELECT * FROM zt_all_newslist WHERE id =" . $id);
         $map_a = explode(",",trim($new[0]["map_a"],","));
         $map_b = explode(",",trim($new[0]["map_b"],","));
         foreach ($nation as $key =>$v) {
@@ -233,21 +248,25 @@ class Yayun2018 extends Controller
                 }
             }
         }
+//        echo json_encode(['code'=>1,'data'=>$tid&&$id],JSON_UNESCAPED_UNICODE);
+
         $this->assign("nation_list", $nation);
         $this->assign("item_list", $item);
         $this->assign("new", $new[0]);
+        $this->assign("tid",$tid);
         return $this->fetch("changemap");
     }
 
     public function change(Request $request)
     {
+        $tid = input('param.tid');
         $p = $request->param();
         $data["id"] = $p["newid"] ;
         $data["map_a"] = "," . implode(",",$p["map_a"]) . ",";
         $data["map_b"] =",".  implode(",",$p["map_b"]) . ",";
         $res = Db::table("zt_all_newslist")->update($data);
         if($res){
-            $this->success("修改成功", "http://localhost/login/public/index.php/gzck/Yayun2018/show");
+            $this->success("修改成功", "http://localhost/login/public/index.php/gzck/Yayun2018/show/id/$tid");
         }else{
             $this->error($res);
         }
@@ -255,17 +274,18 @@ class Yayun2018 extends Controller
 
     public function prizeShow(Request $request)
     {
+        $tid = input('param.tid');
         $api_url = "http://localhost/login/public/index.php/gzck/Yayun2018";
         $this->assign("API_URL",$api_url);
-
+        $this->assign('tid',$tid);
         $nid = intval($request->param("nid"));
         $iid = intval($request->param("iid"));
         if($nid > 0) {
-            $loadUrl = $api_url . "/prizeLoad/nid/"  . $nid;
+            $loadUrl = $api_url . "/prizeLoad/nid/"  . $nid."/tid/".$tid;
         }elseif($iid > 0) {
-            $loadUrl = $api_url . "/prizeLoad/iid/"  . $iid;
+            $loadUrl = $api_url . "/prizeLoad/iid/"  . $iid."/tid/".$tid;
         }else {
-            $loadUrl = $api_url . "/prizeLoad/nid/"  . $nid;
+            $loadUrl = $api_url . "/prizeLoad/nid/"  . $nid."/tid/".$tid;
         }
         $this->assign("LOAD_URL", $loadUrl);
 
@@ -294,6 +314,7 @@ class Yayun2018 extends Controller
 
     public function prizeEdit(Request $request)
     {
+       // $tid = input('param.tid');
         $r = $request->param();
         $data["id"] = $r["id"];
         $data["n_id"] = $r["n_id"];
@@ -306,6 +327,7 @@ class Yayun2018 extends Controller
         $this->log($data);
 
         $res = Db::table('zt_yy_statistic')->update($data);
+
         return json($res);
     }
 
@@ -323,13 +345,15 @@ class Yayun2018 extends Controller
             $msg =$msg .  "由铜牌" . $srcArray["silver"] . " 改为 " . $data["silver"];
         }
         $idata["msg"] = $msg;
-        Db::table("yy_log")->insert($idata);
+        Db::table("zt_yy_log")->insert($idata);
     }
 
     public function showlog()
     {
+        $tid = input('param.id');
         $data = Db::query("SELECT * FROM zt_yy_log ORDER BY id DESC limit 200");
         $this->assign("data", $data);
+        $this->assign('tid',$tid);
         return $this->fetch("log");
 
     }

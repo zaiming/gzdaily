@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>广州参考世界杯</title>
+    <title>运动专题附加文章链接</title>
 
     <!-- bootstrap bootstrap-table  jquery -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -24,17 +24,22 @@
 </head>
 
 <body style="margin: 50px;">
-<h1>亚运会附加文章链接页面</h1>
-<h2><a href="http://localhost/gzck/public/index.php/gzck/Yayun2018/show"> 返回</a> </h2>
+<!--<h1>运动专题附加文章链接</h1>-->
+<td>
+    <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}','_self')">返回</button>
+
+</td>
+<!--<h2><a href="http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}"> 返回</a> </h2>-->
 <table id="tb_user"></table>
 </body>
 <script>
     //php 变量
     var apiUrl = "{$API_URL}";
     var nid = "{$Nid}";
-    var loadDataUrl = apiUrl + "/linkload/nid/" + nid;
+    var tid = "{$tid}";
+    var loadDataUrl = apiUrl + "/linkload/"+"/nid/" + nid+"id/"+tid;
 
-    var editUrl = apiUrl + "/linkedit";
+    var editUrl = apiUrl + "/linkedit"+"/id/"+tid;
 
     var keyIdName = "lid";
 

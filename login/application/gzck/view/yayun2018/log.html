@@ -2,13 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>运动专题</title>
+
+    <!-- bootstrap bootstrap-table  jquery -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-table1/bootstrap-table.css">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table.js"></script>
+    <!-- put your locale files after bootstrap-table.js -->
+    <script src="http://localhost/login/public/static/bootstrap-table1/bootstrap-table-zh-CN.js"></script>
+
+    <!-- x-editable -->
+    <link href="__PUBLIC__/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="__PUBLIC__/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+    <!-- bootstrap extensions table-editable -->
+    <script src="__PUBLIC__/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
+    <!-- 所有文件加载结束 -->
 </head>
 <body>
 <h1>
-    <a href="http://localhost/gzck/public/index.php/gzck/Yayun2018/show"> 亚运会新闻管理页</a>
-    <a href="http://localhost/gzck/public/index.php/gzck/Yayun2018/prizeShow"> ---奖牌管理页</a>
-    <a href="http://localhost/gzck/public/index.php/gzck/Yayun2018/showlog"> ---奖牌修改记录</a>
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}"> 亚运会新闻管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}"> -&#45;&#45;奖牌管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}"> -&#45;&#45;奖牌修改记录</a>-->
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}','_self')">运动新闻管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}','_self')">奖牌信息管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}','_self')">奖牌修改记录</button>
+    </td>
 </h1>
 <table border="1px" >
 {volist name="data" id="vo"}

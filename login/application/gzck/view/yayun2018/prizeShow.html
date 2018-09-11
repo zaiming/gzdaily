@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>亚运会</title>
+    <title>运动专题</title>
 
     <!-- bootstrap bootstrap-table  jquery -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +25,18 @@
 
 <body style="margin: 50px;">
 <h1>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/show"> 亚运会新闻管理页</a>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow"> ---奖牌管理页</a>
-    <a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog"> ---奖牌修改记录</a>
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}"> 亚运会新闻管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}"> -&#45;&#45;奖牌管理页</a>-->
+    <!--<a href="http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}"> -&#45;&#45;奖牌修改记录</a>-->
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/show/id/{$tid}','_self')">运动新闻管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/prizeShow/tid/{$tid}','_self')">奖牌信息管理</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-info" onclick="window.open('http://localhost/login/public/index.php/gzck/Yayun2018/showlog/id/{$tid}','_self')">奖牌修改记录</button>
+    </td>
 </h1>
 <div id="nation_link">
 </div>
@@ -134,13 +143,14 @@
                     url: editUrl,
                     data: row,
                     dataType: 'JSON',
-                    success: function (data, status) {
+                success: function (data, status) {
                         if (status == "success") {
-                            console.log(data);
+                            console.log(editUrl,data);
                             alert('提交数据成功');
                         }
                     },
                     error: function () {
+                        console.log(editUrl,row);
                         alert('编辑失败');
                     },
                     complete: function () {
