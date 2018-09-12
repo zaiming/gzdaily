@@ -361,5 +361,181 @@ class Sports extends Controller
 
     }
 
+
+    //前端调用接口，函数代码
+    public function initData()
+    {
+        header("access-control-allow-origin:*");
+        $nation = Db::table("zt_yy_nation")->field(["id","name"])->where("status","eq",1)->select();
+        $item = Db::table("zt_yy_item")->field(["id","name"])->where("status","eq", 1) ->select();
+        $data["nation"] = $nation;
+        $data["item"] = $item;
+
+        $prize_list = $this->prizeList();
+        $sorted_prize_list = $this->sort($prize_list, "gold");
+        $data["prize"] = $sorted_prize_list;
+        return json($data);
+    }
+    public function listPrize($nid, $iid)
+    {
+        $data = array(
+            "nation_prize" => array(),
+            "item_prize" => array()
+        );
+
+    }
+
+    private function prizeList($nid=0,$iid=0)
+    {
+        if($iid > 0 && $nid > 0) {
+            $sql = "SELECT s.n_id, n.name, sum(gold) as goldnum, sum(silver) as silvernum,sum(copper) as coppernum FROM zt_yy_statistic as s LEFT JOIN zt_yy_nation as n ON s.n_id=n.id WHERE s.i_id = "
+                . $iid
+                . " AND s.n_id="
+                . $nid
+                . " GROUP BY s.n_id ";
+        }elseif($iid > 0) {
+            $sql = "SELECT s.n_id, n.name, sum(gold) as goldnum, sum(silver) as silvernum,sum(copper) as coppernum FROM zt_yy_statistic as s LEFT JOIN zt_yy_nation as n ON s.n_id=n.id WHERE s.i_id = "
+                . $iid
+                . " GROUP BY s.n_id ";
+        }elseif($nid > 0) {
+            $sql = "SELECT s.n_id, n.name, sum(gold) as goldnum, sum(silver) as silvernum,sum(copper) as coppernum FROM zt_yy_statistic as s LEFT JOIN zt_yy_nation as n ON s.n_id=n.id WHERE s.n_id = "
+                . $nid
+                . " GROUP BY s.n_id ";
+        }else {
+            $sql = "SELECT s.n_id, n.name, sum(gold) as goldnum, sum(silver) as silvernum,sum(copper) as coppernum FROM zt_yy_statistic as s LEFT JOIN zt_yy_nation as n ON s.n_id=n.id GROUP BY s.n_id ";
+        }
+        $res = Db::query($sql);
+        foreach ($res as $key => $v) {
+            $res[$key]["allprize"] = $v["goldnum"] + $v["silvernum"] + $v["coppernum"];
+        }
+        return $res;
+    }
+
+    private function sort($prizelist, $sorted)
+    {
+        //国家排序(总奖牌排列，金牌排列)，项目排列(all,gold,item)
+        $sorted_array = $prizelist;
+        switch ($sorted){
+            case "all":
+                usort($sorted_array, function($a,$b){
+                    if($a["allprize"] != $b["allprize"]) {
+                        return $a["allprize"] > $b["allprize"] ? -1:1;
+                    }elseif($a["goldnum"] != $b["goldnum"]) {
+                        return $a["goldnum"] > $b["goldnum"] ? -1:1;
+                    }elseif($a["silvernum"] != $b["silvernum"]) {
+                        return $a["silvernum"] > $b["silvernum"] ? -1:1;
+                    }elseif($a["coppernum"] != $b["coppernum"]) {
+                        return $a["coppernum"] > $b["coppernum"] ? -1:1;
+                    }else {
+                        return 0;
+                    }
+                });
+                break;
+            case "gold":
+                usort($sorted_array, function($a,$b){
+                    if($a["goldnum"] != $b["goldnum"]) {
+                        return $a["goldnum"] > $b["goldnum"] ? -1:1;
+                    }elseif($a["silvernum"] != $b["silvernum"]) {
+                        return $a["silvernum"] > $b["silvernum"] ? -1:1;
+                    }elseif($a["coppernum"] != $b["coppernum"]) {
+                        return $a["coppernum"] > $b["coppernum"] ? -1:1;
+                    }else {
+                        return 0;
+                    }
+                });
+                break;
+            case "item":
+                usort($sorted_array, function($a,$b){
+                    if($a["goldnum"] != $b["goldnum"]) {
+                        return $a["goldnum"] > $b["goldnum"] ? -1:1;
+                    }elseif($a["silvernum"] != $b["silvernum"]) {
+                        return $a["silvernum"] > $b["silvernum"] ? -1:1;
+                    }elseif($a["coppernum"] != $b["coppernum"]) {
+                        return $a["coppernum"] > $b["coppernum"] ? -1 : 1;
+                    }else{
+                        return 0;
+                    }
+                });
+                break;
+        }
+        return $sorted_array;
+    }
+
+    public function listNews(Request $request)
+    {
+        header("access-control-allow-origin:*");
+        $nid = intval($request->param("nation_id"));
+        $iid = intval($request->param("item_id"));
+        //专题ID
+        $tid = input('param.tid');
+        $data = array(
+            "prize" =>array(),//排行榜
+            "nation" =>array(),
+            "item" =>array(),
+            "repeat" => array(),
+        );
+        if ($nid > 0) {
+            $sql = "SELECT * FROM zt_all_newslist WHERE a_id=1 AND zt_id = $tid AND status=1 AND map_a LIKE " . "'%," . $nid . ",%' order by date desc ";
+            $res = Db::query($sql);
+            $res = $this->linkNews($res);
+            $data["nation"] = $res;
+        }
+        if($iid > 0) {
+            $sql = "SELECT * FROM zt_all_newslist WHERE a_id=1 AND zt_id = $tid AND status=1 AND map_b LIKE " . "'%," . $iid . ",%' order by date desc";
+            $res = Db::query($sql);
+            $res = $this->linkNews($res);
+            $data["item"] = $res;
+        }
+        if($nid > 0 && $iid > 0) {
+            foreach ($data["nation"] as $nv) {
+                foreach ($data["item"] as $iv) {
+                    if ($iv["id"] == $nv["id"]) {
+                        array_push($data["repeat"], $iv);
+                    }
+                }
+            }
+        }
+        foreach ($data as $key=>$v) {
+            if(!empty($v)){
+                $data[$key] = $this->formatData($data[$key]);
+            }
+        }
+        $data["prize"] = $this->prizeList($nid,$iid);
+        return json($data);
+    }
+
+    private function formatData($srcArray)
+    {
+        $returnArray = [];
+        foreach ($srcArray as $key=>$val) {
+            if (!key_exists($val["date"], $returnArray)){
+                $returnArray[$val["date"]] = [];
+            }
+            array_push($returnArray[$val["date"]],$srcArray[$key]);
+        }
+        return $returnArray;
+    }
+
+    private function linkNews($res)
+    {
+        foreach ($res as $key=>$val) {
+            if ($val["link_ids"] != "" ) {
+                $sql1 = "SELECT * FROM zt_all_link WHERE lid IN (" . $val["link_ids"] . ") AND status=1 ";
+                $link_title_list = Db::query($sql1);
+                $res[$key]["link_title_list"] = $link_title_list;
+            }else {
+                $res[$key]["link_title_list"] = [];
+            }
+        }
+        $returnArray = [];
+        foreach ($res as $key=>$val) {
+            if (!key_exists($val["date"], $returnArray)){
+                $returnArray[$val["date"]] = [];
+            }
+            array_push($returnArray[$val["date"]],$res[$key]);
+        }
+        return $res;
+    }
+
 }
 

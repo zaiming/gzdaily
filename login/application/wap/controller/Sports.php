@@ -1,32 +1,28 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: wenfei
- * Date: 2018/6/25
- * Time: 10:37
+ * User: wang
+ * Date: 18-9-12
+ * Time: 下午12:16
  */
-
-
 namespace app\wap\Controller;
 
 use think\Controller;
 use think\Db;
 use think\Request;
 
-
-
-class Timeline extends Controller
+class Sports extends Controller
 {
-
     public function index()
     {
         echo "HH;";
 
     }
-    //前端展示
+
     public function frontshow()
     {
-        $id = input('param.id');
+
+        $id = input('param.tid');
         $sql = "SELECT m.* FROM zt_manage m where $id  = m.id ";
         $res = Db::query($sql);
         $this->assign("BG_IMAGE",$res[0]['bg_image']);
@@ -38,8 +34,5 @@ class Timeline extends Controller
         return $this->fetch('frontshow');
 
 //        echo json_encode(['code'=>1,'data'=>$res[0]['bg_image']],JSON_UNESCAPED_UNICODE);
-//        echo json_encode(['code'=>1,'data'=>$res[0]],JSON_UNESCAPED_UNICODE);
     }
-
-
 }

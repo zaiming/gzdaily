@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+</head>
+
+<body>
+<form action="{:url('tools/ueditor')}" method="post">
+    <!-- 加载编辑器的容器 -->
+    <script id="container" name="content" type="text/plain">
+
+    </script>
+    <input type="submit" value="提交">
+</form>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/login/public/static/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/login/public/static/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var editor = UE.getEditor('container');
+</script>
+</body>
+</html>
