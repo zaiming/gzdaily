@@ -131,7 +131,7 @@ class Sports extends Controller
         $tid = input('param.id');
         $r = $request->param();
         $nid = $r["nid"];
-        $linkIds = Db::table('zt_all_newslist')->where('id',$nid,'zt_id',$tid)->field('link_ids')->find();
+        $linkIds = Db::table('zt_all_newslist')->where('id',$nid)->where('zt_id',$tid)->field('link_ids')->find();
         if (empty($linkIds["link_ids"])) {
             return json([]);
         }else {
@@ -146,7 +146,7 @@ class Sports extends Controller
         $r = $request->param();
         $nid = $r["nid"];
 
-        $api_url = "http://localhost/gzck/public/index.php/admin/sports";
+        $api_url = "http://localhost/login/public/index.php/admin/sports";
         $this->assign("API_URL",$api_url);
         $this->assign('Nid',$nid);
         $this->assign('tid',$tid);
@@ -193,6 +193,7 @@ class Sports extends Controller
 
     public function linkedit(Request $request)
     {
+       // $tid = input('param.id');
         $r = $request->param();
         $res = Db::table('zt_all_link')->update($r);
         return json($res);

@@ -129,7 +129,7 @@ class Yayun2018 extends Controller
         $tid = input('param.id');
         $r = $request->param();
         $nid = $r["nid"];
-        $linkIds = Db::table('zt_all_newslist')->where('id',$nid,'zt_id',$tid)->field('link_ids')->find();
+        $linkIds = Db::table('zt_all_newslist')->where('id',$nid)->where('zt_id',$tid)->field('link_ids')->find();
         if (empty($linkIds["link_ids"])) {
             return json([]);
         }else {
