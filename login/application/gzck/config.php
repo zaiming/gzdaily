@@ -7,6 +7,6 @@
  */
 return [
     'view_replace_str' => [
-        '__PUBLIC__' => 'http://localhost/login/public/static'
+        '__PUBLIC__' => '/login/public/static'
     ]
 ];

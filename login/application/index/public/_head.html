@@ -1,0 +1,90 @@
+<style>
+    .nav-content {
+        height: 55px;
+        background-color: #104E8B;
+        width: 100%;
+        color: #fff;
+    }
+    .nav-content::after {
+        clear: both;
+    }
+    .nav-content .nav-title {
+        color: #fff;
+        font-size: 22px;
+        float: left;
+        height: 55px;
+        line-height: 55px;
+        margin-left: 150px;
+    }
+    .nav-content .nav-text {
+        float: right;
+        font-size: 16px;
+        color: #fff;
+        height: 55px;
+        line-height: 55px;
+    }
+    .nav-content a {
+        height: 55px;
+        line-height: 55px;
+        color: #fff;
+        text-decoration: none;
+        float: right;
+        margin-right: 150px;
+    }
+    .nav-content button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+        color: #fff;
+        height: 55px;
+        line-height: 55px;
+        float: right;
+        margin-right: 10px;
+    }
+</style>
+<div class="nav-content">
+    <span class="nav-title">智能媒体管理系统</span>
+    <?php
+    if(session_status()!==2) {
+        session_start();
+    }
+    if(!isset($_SESSION['user_id'])){
+        print <<<EOT
+        <a href="login" class="nav-text">登录</a>
+EOT;
+    } else {
+        $str = $_SESSION['user_name'];
+        print <<<EOT
+        <a href="firstbody">前往首页</a>
+        <button id="logout">，退出</button>
+        <span class="nav-text">$str</span>
+EOT;
+    }
+    ?>
+</div>
+<script>
+    $('#logout').click(function (ev) {
+        $.ajax({
+            url: 'Basefn/logout',
+            method: 'POST',
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 1) {
+                    layer.open({
+                        icon: 6,
+                        content: '退出成功',
+                        time: 2000,
+                        btn: []
+                    })
+                    location.href='login'
+                } else {
+                    layer.open({
+                        icon: 5,
+                        content: res.message,
+                        time: 2000,
+                        btn: []
+                    })
+                }
+            }
+        })
+    })
+</script>

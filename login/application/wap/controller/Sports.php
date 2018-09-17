@@ -22,7 +22,7 @@ class Sports extends Controller
     public function frontshow()
     {
 
-        $id = input('param.tid');
+        $tid = input('param.tid');
         $sql = "SELECT m.* FROM zt_manage m where $id  = m.id ";
         $res = Db::query($sql);
         $this->assign("BG_IMAGE",$res[0]['bg_image']);
@@ -30,7 +30,7 @@ class Sports extends Controller
         $this->assign("SHARE_TITLE",$res[0]['share_title']);
         $this->assign("SHARE_DES",$res[0]['share_title']);
         $this->assign("SHARE_IMGAE",$res[0]['share_image']);
-        $this->assign('id',$id);
+        $this->assign('tid',$tid);
         return $this->fetch('frontshow');
 
 //        echo json_encode(['code'=>1,'data'=>$res[0]['bg_image']],JSON_UNESCAPED_UNICODE);

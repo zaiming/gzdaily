@@ -1,0 +1,139 @@
+<style>
+    #first-menu {
+        width: 275px;
+        height: calc(100% - 55px);
+        background-color: #f2f2f2;
+        position: fixed;
+        top: 55px;
+        left: 0px;
+    }
+    #first-menu .menu-parent-box {
+        width: 100%;
+        text-align: left;
+        min-height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        background-color: #f2f2f2;
+        color: #000;
+        cursor: pointer;
+    }
+    #first-menu .menu-parent-box:hover {
+        background-color: #e2e2e2;
+    }
+    #first-menu .menu-parent-box p {
+        padding: 0px 20px;
+    }
+    #first-menu .is-open {
+        background-color: #ddd !important;
+    }
+    #first-menu .menu-parent-box .layui-icon-right {
+        float: right;
+    }
+    #first-menu .menu-parent-box .layui-icon-down {
+        display: none;
+        float: right;
+    }
+    #first-menu .menu-parent-box .ul-box {
+        height: 0px;
+        list-style: none;
+        overflow: hidden;
+    }
+    #first-menu .ul-box .li-box {
+        width: 100%;
+        text-align: left;
+        padding: 0px 30px;
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        background-color: #f2f2f2;
+        color: #000;
+        cursor: pointer;
+    }
+    #first-menu .ul-box .li-box:hover {
+        background-color: #e2e2e2;
+    }
+    #first-menu .ul-box .is-active {
+        background-color: #ddd;
+        /*color: #fff;*/
+    }
+    #first-menu .is-open .ul-box {
+        display: block !important;
+    }
+    #first-menu .is-open .layui-icon-down {
+        display: block !important;
+    }
+    #first-menu .is-open .layui-icon-right {
+        display: none !important;
+    }
+</style>
+<div id="first-menu">
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'Basefn/getFirMenus',
+            method: 'GET',
+            data: {},
+            dataType: 'json',
+            success:function (res) {
+                if(res.code == 1) {
+                    let menuArr = res.data
+                    let idArr = {}
+                    let menuObj = {}
+                    if(menuArr.length) {
+                        menuArr.map(item => {
+                            if(item.menu_is_group) {
+                                idArr[item.id] = item.menu_name
+                                menuObj[item.menu_name] = []
+                            }
+                        })
+                        menuArr.map(item => {
+                            if (!item.menu_is_group) {
+                                menuObj[idArr[item.menu_parent_id]].push(item)
+                            }
+                        })
+                        let keys = Object.keys(menuObj)
+                        let htmlStr = ''
+                        let keyIndex = 0
+                        keys.map(key => {
+                            let liStr = ''
+                            menuObj[key].map(item => {
+                                liStr += `<li class="li-box" id="${item.menu_execute}" onclick="showContent('${item.menu_name}','${item.menu_execute}')">${item.menu_name}</li>`
+                            })
+                            htmlStr += `<div class="menu-parent-box" id="id${keyIndex}">
+                                    <p onclick="showChild(${keyIndex})">${key}
+                                        <i class="layui-icon layui-icon-right"></i>
+                                        <i class="layui-icon layui-icon-down"></i>
+                                    </p>
+                                    <ul class="ul-box" style="display: none">${liStr}</ul>
+                                </div>`
+                            keyIndex++;
+                        })
+                        $('#first-menu')[0].innerHTML = htmlStr
+                    }
+                } else {
+                    layer.open({
+                        title: '提示',
+                        icon: 5,
+                        time: 2000,
+                        content: res.message,
+                        btn: []
+                    })
+                }
+            }
+        })
+    })
+    function showChild(index) {
+        let id = '#id' + index
+        $(id).toggleClass('is-open')
+        if ($(id).hasClass('is-open')) {
+            let len = $(id + ' .ul-box li').length
+            let str = 50 * len + 'px'
+            $(id + ' .ul-box').animate({height: str})
+        } else {
+            $(id + ' .ul-box').animate({height: '0px'})
+        }
+    }
+</script>

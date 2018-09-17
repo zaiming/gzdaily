@@ -1,0 +1,20 @@
+<script src="__STATIC__/assets/js/jquery.min.js"></script>
+<script src="__STATIC__/assets/js/bootstrap.min.js"></script>
+<script src="__STATIC__/assets/js/bootstrap-editable.js"></script>
+<script src="__STATIC__/assets/js/bootstrap-table.min.js"></script>
+<script src="__STATIC__/assets/js/bootstrap-table-zh-CN.js"></script>
+<script src="__STATIC__/assets/js/bootstrap-table-editable.js"></script>
+<script src="__STATIC__/assets/layui/layui.all.js"></script>
+<script>
+    function getUrlSearch(url) {
+        let arr1 = url.split('?')
+        let searchUrl = arr1[1]
+        let arr2 = searchUrl.split('&')
+        let obj = {}
+        arr2.forEach(item => {
+            let arr = item.split('=')
+            obj[arr[0]] = arr[1]
+        })
+        return obj
+    }
+</script>

@@ -1,0 +1,192 @@
+<style>
+    #material-content {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.3);
+        position: fixed;
+        z-index: 10000;
+        display: none;
+    }
+    #material-body {
+        padding: 15px;
+        display: none;
+        width: 700px;
+        height: 500px;
+        background-color: #fff;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10001;
+        overflow-y: auto;
+    }
+    #material-box {
+        height: 400px;
+    }
+    #material-box .material-title {
+        font-size: 20px;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+    #material-box .layui-icon-close {
+        font-size: 25px;
+        float: right;
+        marign-right: 20px;
+        cursor: pointer;
+        margin-top: -10px;
+        transition: transform 0.5s;
+    }
+    #material-box .layui-icon-close:hover {
+        transform: rotate(90deg);
+    }
+    .is-show {
+        display: block !important;
+    }
+    #material-body .page-box {
+        position: absolute;
+        top: 450px;
+        right: 50px;
+    }
+    #material-body .page-box #err-msg {
+        color: #ff0000;
+        font-size: 12px;
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+    }
+    #material-body .page-box .layui-icon-left {
+        font-size: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    #material-body .page-box .layui-icon-right {
+        font-size: 20px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+    #material-body .page-box #current-page {
+        border: 1px solid #1E9FFF;
+        color: #666;
+        text-align: center;
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+    }
+    #material-body #material-box {
+        padding: 5px;
+    }
+    #material-body #material-box .ul-box {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+    }
+    #material-body #material-box .ul-box .li-box {
+        height: auto;
+        text-align: center;
+        padding: 10px 0px;
+        border: 1px solid #e2e2e2;
+    }
+    #material-body #material-box .ul-box .li-box img {
+        cursor: pointer;
+    }
+</style>
+<div id="material-content"></div>
+<div id="material-body">
+    <div id="material-box"></div>
+    <div class="page-box">
+        <p id="err-msg">&nbsp;</p>
+        <i class="layui-icon layui-icon-left" onclick="changePage(-1)"></i>
+        <input id="current-page"/>
+        <i class="layui-icon layui-icon-right" onclick="changePage(1)"></i>
+        <span class="page-text">共
+            <span id="totalPage">0</span>
+            页
+        </span>
+    </div>
+</div>
+<script>
+    let totalPage = 0
+    let currentPage = 1
+    $(document).ready(function() {
+        getImageData()
+        $('#current-page').bind('keydown',function(event){
+            if(event.keyCode == "13") {
+                let page = $('#current-page').val()
+                if(page > 0 && page <= totalPage) {
+                    getImageData(page)
+                } else {
+                    $('#err-msg')[0].innerHTML = '错误页码'
+                    setTimeout(function () {
+                        $('#err-msg')[0].innerHTML = '&nbsp;'
+                        $('#current-page').val(currentPage)
+                    },2000)
+                }
+            }
+        })
+    })
+    function getImageData(page = 1) {
+        currentPage = page
+        $.ajax({
+            url: 'Basefn/getImages',
+            method: 'GET',
+            data: {
+                page: page,
+                pageSize: 20
+            },
+            dataType: 'json',
+            success: function (res) {
+                if(res.code == 1) {
+                    let resImageArr = res.data.imagesArr
+                    let count = res.data.count
+                    totalPage = Math.ceil(Number(count) / 20)
+                    $('#totalPage')[0].innerHTML = totalPage
+                    $('#current-page').val(currentPage)
+                    let ulHtml = ''
+                    for(let i = 0; i < count;) {
+                        let liHtml = ''
+                        for(let j = 0; j < 4; j++) {
+                            if(i >= count) {
+                                break
+                            }
+                            liHtml += `<li class="li-box col-md-3">
+                                    <img onclick="selectImg('${resImageArr[i].imgurl}')" src="${resImageArr[i].imgurl}" width="100px" height="100px">
+                                </li>`
+                            i++;
+                        }
+                        ulHtml += `<ul class="ul-box">${liHtml}</ul>`
+                    }
+                    $('#material-box')[0].innerHTML = ulHtml
+                } else {
+                    layer.open({
+                        title: '提示',
+                        icon: 5,
+                        time: 2000,
+                        content: res.message,
+                        btn: []
+                    })
+                }
+            }
+        })
+    }
+    function changePage(page) {
+        if(currentPage == 1 && page == -1){
+            $('#err-msg')[0].innerHTML = '已到最小页'
+            setTimeout(function () {
+                $('#err-msg')[0].innerHTML = '&nbsp;'
+            },2000)
+        } else if (currentPage == totalPage && page == 1) {
+            $('#err-msg')[0].innerHTML = '已到最大页'
+            setTimeout(function () {
+                $('#err-msg')[0].innerHTML = '&nbsp;'
+            },2000)
+        } else {
+            currentPage = currentPage + page
+            getImageData(currentPage)
+        }
+    }
+    function closeMaterialDialog() {
+        $('#material-content').removeClass('is-show')
+        $('#material-body').removeClass('is-show')
+    }
+</script>

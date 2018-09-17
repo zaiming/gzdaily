@@ -44,48 +44,48 @@ class Tools extends Controller
         return $this->fetch();
     }
     //bootstrap-table
-//        public function bootstraptable()
-//        {
-//            if(request()->isAjax()){
-//                $param = input('param.');
-//                $where = '';
-//                if(!empty($param['name'])){
-//                    $where['name'] = $param['name'];
-//                }
-//                $limit = $param['pageSize'];
-//                $offset = ($param['pageNumber']-1)*$limit;
-//                //此处自己处理分页
-//                $selectResult = db('area')->where($where)->limit($offset,$limit)->select();
-//                foreach($selectResult as $key=>$vo){
-//                    $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button">编辑</button>';
-//                }
-//                $return['total'] = db('area')->where($where)->count();//data
-//                $return['rows'] = $selectResult;
-//                return json($return);
-//            }
-//            return $this->fetch();
-//
-//        }
         public function bootstraptable()
         {
             if(request()->isAjax()){
                 $param = input('param.');
                 $where = '';
-                if(!empty($param['aname'])){
-                    $where['name'] = $param['aname'];
+                if(!empty($param['name'])){
+                    $where['name'] = $param['name'];
                 }
                 $limit = $param['pageSize'];
                 $offset = ($param['pageNumber']-1)*$limit;
+                //此处自己处理分页
                 $selectResult = db('area')->where($where)->limit($offset,$limit)->select();
-                foreach ($selectResult as  $key=>$vo){
-                    $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button"> bianji</button>';
+                foreach($selectResult as $key=>$vo){
+                    $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button">编辑</button>';
                 }
-                $return['total'] = db('area')->where($where)->count();
+                $return['total'] = db('area')->where($where)->count();//data
                 $return['rows'] = $selectResult;
-                 return json($return);
+                return json($return);
             }
             return $this->fetch();
+
         }
+//        public function bootstraptable()
+//        {
+//            if(request()->isAjax()){
+//                $param = input('param.');
+//                $where = '';
+//                if(!empty($param['aname'])){
+//                    $where['name'] = $param['aname'];
+//                }
+//                $limit = $param['pageSize'];
+//                $offset = ($param['pageNumber']-1)*$limit;
+//                $selectResult = db('area')->where($where)->limit($offset,$limit)->select();
+//                foreach ($selectResult as  $key=>$vo){
+//                    $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button"> bianji</button>';
+//                }
+//                $return['total'] = db('area')->where($where)->count();
+//                $return['rows'] = $selectResult;
+//                 return json($return);
+//            }
+//            return $this->fetch();
+//        }
 //        //ueditor 编辑器
 //        public function ueditor()
 //        {

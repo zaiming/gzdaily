@@ -28,7 +28,7 @@ class Sports extends Controller
     public function show()
     {
         $tid = input('param.id');
-        $api_url = "http://localhost/login/public/index.php/admin/sports";
+        $api_url = "/login/public/index.php/admin/sports";
         $this->assign('tid',$tid);
         $this->assign("API_URL",$api_url);
         return $this->fetch('index');
@@ -91,7 +91,7 @@ class Sports extends Controller
     public function showadd()
     {
         $tid = input('param.id');
-        $post_url = "http://localhost/login/public/index.php/admin/sports/add/id/$tid";
+        $post_url = "/public/index.php/admin/sports/add/id/$tid";
         $this->assign("POST_URL",$post_url);
 
         $map_a = Db::table('zt_yy_nation')->select();

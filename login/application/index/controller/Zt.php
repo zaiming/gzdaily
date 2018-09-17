@@ -10,38 +10,55 @@ namespace app\index\controller;
 
 use app\index\model\ZtManage;
 use app\index\model\ZtType;
-use think\db;
+use think\Db;
 use think\Controller;
 use think\Validate;
 
 
 class Zt extends Controller
 {
+    public function upload(){
+        //获取表单上传文件
+        $file = request()->file('image');
+        //移动到框架应用根目录public/uploads
+        if($file){
+            $info = $file->move(ROOT_PATH.'public'.DS.'uploads');
+            if($info){
+                //成功上传后获取上传信息
+                //输出jpg
+                echo $info->getExtension();
+                echo $info->getSaveName();
+                echo $info->getFilename();
+            }else{
+                //上传失败获取错误信息
+                echo $file->getError();
+            }
+        }
+    }
+    public function laypage()
+    {
+//        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
+//        $ztList = Db::query($sql_str)->paginate(10);
+          $ztList = Db::name('zt_type')->alias(['zt_type'=>'t','zt_manage'=>'m'])->join('zt_manage','t.id=m.type_id')->paginate(10);
+
+        $this->assign('zt_list',$ztList);
+        return $this->fetch();
+    }
     // 展示列表
     public function index()
     {
         $ztModel = new ZtManage();
-     //   $zttypeModel = new ZtType();
-        // dump($userModel);
-//        $ztList = $ztModel->select();
+     // $zttypeModel = new ZtType();
+        //// dump($userModel);
+//      $ztList = $ztModel->select();
         $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
-        $ztList = db::query($sql_str);
-//        if(1==$ztList[0]['type_id']){
-//
-//        }
-//        if(2==$ztList[0]['type_id']){
-//
-//        }
-//        echo json_encode(['code'=>1,'data'=>$typeName],JSON_UNESCAPED_UNICODE);
+        $ztList = Db::query($sql_str);
 
-        //dump($userList);die;
-//        $this->assign([
-//            'zt_list' => $ztList,
-//            'type_name'=> $typeName,
-//            'df'=>123
-//        ]);
         $this->assign('zt_list',$ztList);
 
+        if(request()->isAjax()){
+
+        }
 //        echo json_encode(['code'=>1,'data'=>$ztList],JSON_UNESCAPED_UNICODE);
 
         return $this->fetch();
@@ -124,4 +141,39 @@ class Zt extends Controller
             return json(['code'=>1,'data'=>'','msg'=>'删除成功']);
         }
     }
+
+
+//    //bootstrap-table page
+//    public function bootstraptable()
+//    {
+//
+//        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
+//        $ztList = Db::query($sql_str);
+//
+//        $this->assign('zt_list',$ztList);
+//
+////        echo json_encode(['code'=>1,'data'=>$ztList],JSON_UNESCAPED_UNICODE);
+//
+//        if(request()->isAjax()){
+//
+//            $param = input('param.');
+//            $where = '';
+//            if(!empty($param['name'])){
+//                $where['name'] = $param['name'];
+//            }
+//            $limit = $param['pageSize'];
+//            $offset = ($param['pageNumber']-1)*$limit;
+//            //此处自己处理分页
+//            $selectResult = db('zt_manage')->where($where)->limit($offset,$limit)->select();
+//            foreach($selectResult as $key=>$vo){
+////                $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button">编辑</button>';
+//                $selectResult[$key]['operate'] = '';
+//            }
+//            $return['total'] = db('zt_manage')->where($where)->count();//data
+//            $return['rows'] = $selectResult;
+//            return json($return);
+//        }
+//        return $this->fetch();
+//
+//    }
 }

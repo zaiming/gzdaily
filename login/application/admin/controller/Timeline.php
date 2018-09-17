@@ -29,7 +29,7 @@ class Timeline extends Controller
 
          $id = input('param.id');
 //       echo json_encode(['code'=>1,'data'=>$id],JSON_UNESCAPED_UNICODE);
-         $api_url = "/login/public/index.php/gzck/Worldcup";
+         $api_url = "/login/public/index.php/admin/Timeline";
          $this->assign("API_URL",$api_url);
          $this->assign('id',$id);
          return $this->fetch('index');
@@ -72,7 +72,7 @@ class Timeline extends Controller
     public function showadd()
     {
         $id = input('param.id');
-        $post_url = "/login/public/index.php/gzck/Worldcup/add/id/$id";
+        $post_url = "/login/public/index.php/admin/Timeline/add/id/$id";
         $this->assign("POST_URL",$post_url);
         $this->assign('id',$id);
         return $this->fetch('add');
@@ -91,7 +91,7 @@ class Timeline extends Controller
         $data['zt_id'] = $id;
         $res = Db::table('zt_wc_newslist')->insert($data);
         if ($res >= 1) {
-            $this->success("新增成功",'/login/public/index.php/gzck/Worldcup/show/id/'.$id);
+            $this->success("新增成功",'/login/public/index.php/admin/Timeline/show/id/'.$id);
         }else {
             $this->error('新增失败');
         }
@@ -116,7 +116,7 @@ class Timeline extends Controller
         $nid = $r["nid"];
         //专题ID
         $id = input('param.id');
-        $api_url = "/login/public/index.php/gzck//Worldcup";
+        $api_url = "/login/public/index.php/admin//Timeline";
         $this->assign("API_URL",$api_url);
         $this->assign('Nid',$nid);
         $this->assign('id',$id);
@@ -130,7 +130,7 @@ class Timeline extends Controller
         //专题ID
         $id = input('param.id');
         $nid = $r["nid"];
-        $api_url = "/login/public/index.php/gzck/Worldcup";
+        $api_url = "/login/public/index.php/admin/Timeline";
         $this->assign("POST_URL",$api_url . "/addlink/id/".$id."/nid/" . $nid);
         $this->assign('Nid',$nid);
         $this->assign('id',$id);
@@ -158,7 +158,7 @@ class Timeline extends Controller
                $ids = $linkIds["link_ids"] . "," . $lastInsId;
             }
             Db::table('zt_wc_newslist')->where('id',$nid)->update(array("link_ids"=>$ids));
-            $this->success("新增成功",'/login/public/index.php/gzck/Worldcup/show/id/'.$id);
+            $this->success("新增成功",'/login/public/index.php/admin/Timeline/show/id/'.$id);
         }else {
             $this->error('新增失败');
         }
