@@ -108,5 +108,50 @@ class Slide extends Controller
         $this->assign('nid',$nid);
         return $this->fetch('showlink');
     }
+    public function showaddlink(Request $request)
+    {
+        $r = $request->param();
+        //专题id
+        $id = input('param.id');
+        $nid = $r["nid"];
+        $api_url = "/login/public/index.php/admin/slide/";
+        $this->assign("POST_URL",$api_url."/addlink/id/".$id."/nid/".$nid);
+        $this->assign('nid',$nid);
+        $this->assign("id",$id);
+        return $this->fetch('addlink');
+    }
+    public function addlink(Request $request)
+    {
+        $r = $request->param();
+        //专题ID
+        $id = input('param.id');
+        $nid = $r['nid'];
+        $data['title'] = $r['title'];
+        $data['link'] = $r['link'];
+        $data['type'] = $r['type'];
+        $data['status'] = $r['status'];
+        $lastInsId = Db::table('zt_slide_link')->insert($data,false,true);
+        if($lastInsId > 0){
+            $linkIds = Db::table('zt_slide_newslist')->where('id',$nid)->field('link_ids')->find();
+            $ids ="";
+            if(empty($linkIds["link_ids"])){
+                $ids = $lastInsId;
+            }else{
+                $ids = $linkIds['link_ids'].".".$lastInsId;
+            }
+            Db::table('zt_slide_newslist')->where('id',$nid)->update(array("link_ids"=>$ids));
+            $this->success("新增成功",'/login/public/index.php/admin/slide/show/id/'.$id);
+
+        }else{
+            $this->error('新增失败');
+        }
+    }
+    public function linkedit(Request $request)
+    {
+        $r = $request->param();
+        $res = Db::table('zt_slide_link')->update($r);
+        return json($res);
+    }
+
 
 }

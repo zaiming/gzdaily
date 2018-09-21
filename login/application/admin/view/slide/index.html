@@ -36,7 +36,7 @@
     var loadDataUrl = apiUrl +"/load/id/"+id;
     var editUrl = apiUrl + "/edit/tid/" +id;
     var keyIdName = "key";
-    console.log(apiUrl,id);
+   // console.log(apiUrl,id);
     $table =$("#tb_user");
     function operateFormatter( value,row,index) {
         return [
@@ -50,20 +50,32 @@
     }
 
     window.operateEvents = {
-        'click.addlink':function (e,value,row,index) {
+        'click .addlink': function (e,value,row,index) {
             var rowid = row.id;
-
             console.log({apiUrl,id});
             window.location.href = apiUrl+"/showaddlink"+"/id/"+id+"/nid/"+rowid;
         },
-        'click.showlink':function (e,value,row,index) {
+        'click .showlink':function (e,value,row,index) {
             var rowid = row.id;
-
             console.log({id,editUrl});
             window.location.href = apiUrl +"/showlink"+"/id/"+id+"/nid/"+rowid;
 
         }
     };
+    // window.operateEvents = {
+    //     'click .addlink': function (e,value,row,index) {
+    //         var rowid = row.id;
+    //         var id = "{$id}";
+    //         console.log({ apiUrl,id});
+    //         window.location.href= apiUrl + "/showaddlink" + "/id/"+id+"/nid/" + rowid;
+    //     },
+    //     'click .showlink': function (e, val,row,index) {
+    //         var rowid = row.id;
+    //         window.location.href= apiUrl + "/showlink"+ "/id/"+id+ "/nid/" + rowid;
+    //
+    //     }
+    // };
+
     $(function () {
         $table.bootstrapTable({
             toolbar: "#toolbar",
@@ -150,11 +162,11 @@
                     title:"创建日期",
                 },
                 {
-                    field:'operate',
-                    title:'附加文章操作选项',
-                    align:'center',
-                    events:operateEvents,
-                    formatter:operateFormatter
+                    field:"operate",
+                    title:"附加文章操作选项",
+                    align:"center",
+                    events: operateEvents,
+                    formatter: operateFormatter
                 }
             ],
             onEditableSave:function(filed,row,oldValue ,$el){
