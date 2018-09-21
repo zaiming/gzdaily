@@ -17,6 +17,35 @@ use think\Validate;
 
 class Zt extends Controller
 {
+
+    //qrcode
+    public function qrcode(){
+        $savePath = APP_PATH . '/public/qrcode/';
+        $webPath =   '/login/application/public/qrcode/';
+//        $qrData = 'http://134.175.190.102/index.php/wap/timeline/frontshow/id/1';
+        $qrData = 'http://134.175.190.102/index.php/wap/sports/frontshow/tid/2';
+
+        $qrLevel = 'H';
+        $qrSize = '8';
+        $savePrefix = 'BrightKing';
+        if($filename = createQRcode($savePath, $qrData, $qrLevel, $qrSize, $savePrefix)){
+            $pic = $webPath . $filename;
+        }
+        echo "<img src='".$pic."'>";
+        echo json_encode(['code'=>1,'data'=>$pic],JSON_UNESCAPED_UNICODE);
+        $this->assign('pic',$pic);
+//        return $this->fetch('zt/index');
+    }
+    //preview专题
+    public  function viewZt()
+    {
+
+        $id = input('param.uid');
+        $ztModel = new ZtManage();
+        $ztInfo = $ztModel->where('id',$id)->find();
+        return json(['code'=>1,'data'=>$ztInfo,'msg'=>'同类专题信息']);
+
+    }
     public function upload(){
         //获取表单上传文件
         $file = request()->file('image');
@@ -51,9 +80,9 @@ class Zt extends Controller
      // $zttypeModel = new ZtType();
         //// dump($userModel);
 //      $ztList = $ztModel->select();
-        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
-        $ztList = Db::query($sql_str);
-
+//        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
+//        $ztList = Db::query($sql_str);
+        $ztList = Db::name('zt_type')->alias(['zt_type'=>'t','zt_manage'=>'m'])->join('zt_manage','t.id=m.type_id')->paginate(10);
         $this->assign('zt_list',$ztList);
 
         if(request()->isAjax()){
@@ -143,37 +172,4 @@ class Zt extends Controller
     }
 
 
-//    //bootstrap-table page
-//    public function bootstraptable()
-//    {
-//
-//        $sql_str = "SELECT m.*, t.type_name  from zt_type t ,zt_manage m where t.id = m.type_id";
-//        $ztList = Db::query($sql_str);
-//
-//        $this->assign('zt_list',$ztList);
-//
-////        echo json_encode(['code'=>1,'data'=>$ztList],JSON_UNESCAPED_UNICODE);
-//
-//        if(request()->isAjax()){
-//
-//            $param = input('param.');
-//            $where = '';
-//            if(!empty($param['name'])){
-//                $where['name'] = $param['name'];
-//            }
-//            $limit = $param['pageSize'];
-//            $offset = ($param['pageNumber']-1)*$limit;
-//            //此处自己处理分页
-//            $selectResult = db('zt_manage')->where($where)->limit($offset,$limit)->select();
-//            foreach($selectResult as $key=>$vo){
-////                $selectResult[$key]['operate'] = '<button class="btn btn-info" type="button">编辑</button>';
-//                $selectResult[$key]['operate'] = '';
-//            }
-//            $return['total'] = db('zt_manage')->where($where)->count();//data
-//            $return['rows'] = $selectResult;
-//            return json($return);
-//        }
-//        return $this->fetch();
-//
-//    }
 }

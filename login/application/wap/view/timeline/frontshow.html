@@ -269,19 +269,19 @@
     <div id="test"></div>
 </div>
 <script>
-    //微信验证
-    //wx.config({
-    //    debug: false,//调试开关
-    //    appId: '<?php //echo $signPackage["appId"];?>//',
-    //    timestamp: <?php //echo $signPackage["timestamp"];?>//,
-    //    nonceStr: '<?php //echo $signPackage["nonceStr"];?>//',
-    //    signature: '<?php //echo $signPackage["signature"];?>//',
-    //    jsApiList: [
-    //        // 所有要调用的 API 都要加到这个列表中
-    //        'onMenuShareTimeline', //分享到朋友圈
-    //        'onMenuShareAppMessage'//分享给朋友
-    //    ]
-    //});
+     // 微信验证
+    wx.config({
+       debug: false,//调试开关
+       appId: '<?php //echo $signPackage["appId"];?>//',
+       timestamp: <?php //echo $signPackage["timestamp"];?>//,
+       nonceStr: '<?php //echo $signPackage["nonceStr"];?>//',
+       signature: '<?php //echo $signPackage["signature"];?>//',
+       jsApiList: [
+           // 所有要调用的 API 都要加到这个列表中
+           'onMenuShareTimeline', //分享到朋友圈
+           'onMenuShareAppMessage'//分享给朋友
+       ]
+    });
     wx.ready(function () {
         //config后系统自动调用
         //分享到朋友圈”

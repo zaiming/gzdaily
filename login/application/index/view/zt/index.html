@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>专题列表</title>
     <link href="/login/public/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="/login/public//static/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <style type="text/css">
+        .display{width:96%;height:100%;align-self: center}
+    </style>
 </head>
 <body>
-<div class="container">
+<div class="display">
     <div class="row">
         <div class="col-sm-12">
             <!--&lt;!&ndash;搜索框开始&ndash;&gt;-->
@@ -25,16 +30,17 @@
                 <!--</div>-->
             <!--</form>-->
             <!--&lt;!&ndash;搜索框结束&ndash;&gt;-->
-
-            <table  class="table table-striped">
+            <table  class="table table-" border="0" cellspacing="0">
                 <thead>
+                <br>
+                <br>
+                <button type="button" class="btn btn-info" onclick="addZt()">添加专题</button>
                 <tr>
-
-
                     <th>专题ID</th>
                     <th>专题名</th>
                     <th>是否可分享</th>
                     <th>专题类型</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,18 +53,24 @@
                     <td>
                         <!--//window.open('http://localhost/login/public/index.php/gzck/Worldcup/show/id/{$vo.id}','_self')-->
                         <button type="button" class="btn btn-primary" onclick="ztType({$vo.id},{$vo.type_id})">管理</button>
-                        <button type="button" class="btn btn-info" onclick="addZt({$vo.id})">增加</button>
+                        <!--<button type="button" class="btn btn-info" onclick="addZt({$vo.id})">增加</button>-->
                         <button type="button" class="btn btn-primary" onclick="editZt({$vo.id})">编辑</button>
                         <!--<a href="">-->
                             <!--<button type="button" class="btn btn-danger">删除</button>-->
                         <!--</a>-->
                         <button type="button" class="btn btn-danger" onclick="delZt({$vo.id})">删除</button>
+                        <button type="button" class="btn btn-info" onclick="viewZt({$vo.id},{$vo.type_id})">预览</button>
+                        <button type="button" class="btn btn-primary" onclick="scanZt({$vo.id},{$vo.type_id})">扫码</button>
+
+                        <!--<button type="button" id="btn_url" class="btn btn-info" onclick="copyZt({$vo.id},{$vo.type_id})">复链</button>-->
+
                     </td>
                 </tr>
                 {/foreach}
                 </tbody>
             </table>
         </div>
+        {$zt_list->render()}
     </div>
 </div>
 
@@ -93,10 +105,18 @@
         <label for="bg_image" class="col-sm-12 ">背景图链接：</label>
         <div class="col-sm-8" >
                 <input type="text" class="form-control"  id="bg_image" placeholder="背景图链接">
-                 <form action="/login/public/index.php/index/zt/upload" enctype="multipart/form-data" method="post">
-                <button type="file" name="image"/>
-                <button type="submit" value="上传"/>
-            </form>
+                 <!--<form action="/login/public/index.php/index/zt/upload" enctype="multipart/form-data" method="post">-->
+                <!--<input type="file" name="image"/>-->
+                <!--<input type="submit" value="上传"/>-->
+            <!--</form>-->
+            <!--<img id="preview" alt=""/>-->
+            <!--<form class="am-form" method="post" value="选择图片" enctype="multipart/form-data">-->
+                <!--<input type="file" id="head" name="head"   onchange="previewImage(this)">-->
+                <!--<button type="submit" class="am-btn am-btn-primary am-btn-xs">保存</button>-->
+            <!--</form>-->
+            <div>
+                <form action="" ></form>
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -165,7 +185,6 @@
                 <input type="submit" value="上传"/>
             </form>
         </div>
-
     </div>
 
     <div class="form-group">
@@ -198,8 +217,56 @@
 
     </div>
 </div>
-
 <!-- 页面层编辑专题结束 -->
+
+
+<script>
+    //js图片上传前进行预览
+    function previewImage(file) {
+        var MAXWIDTH = 120;//最大图片宽度
+        var MAXHEIGHT = 120;//最大图片高度
+        if( file.files && file.files[0]){
+            var img = document.getElementById('preview');
+            img.onload = function () {
+                var  rect = getZoomParam(MAXWIDTH,MAXHEIGHT,img.offsetHeight,img.offsetWidth);
+                img.width = rect.width;
+                img.height = rect.height;
+
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                img.src = evt.target.result;
+
+            }
+            reader.readAsDataURL(file.files[0]);
+        }else{
+            //兼容IE
+            file.select();
+            var src = cleardoc.selection.createRange().test;
+            var img = document.getElementById('preview');
+            img.filters.item('DXImageTransform.Microsof.AlphaImageLoader').src = src;
+        }
+        //获取图片的尺寸
+        function getZoomParam( maxWidth,maxHeight,width,height) {
+            var param = {top:0,left:0,width:width,height:height};
+            if(width>maxWidth|| height>maxHeight){
+                rateWidth = width/ maxWidth;
+                rateHeight = height/maxHeight;
+                if(rateWidth>rateHeight){
+                    param.width = maxWidth;
+                    param.height = Math.round(height/rateWidth);
+                }else {
+                    param.width = Math.round(width/rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            param.left = Math.round((maxWidth-param.width)/2);
+            param.top = Math.round((maxHeight-param.height)/2);
+            return param;
+        }
+
+    }
+</script>
 <script>
     //专题类型判断
     function ztType(uid,type_id) {
@@ -214,18 +281,18 @@
 <script>
     // 页面层增加专题
     var box;
-    function addZt(uid){
-        $.getJSON("{:url('Zt/addZt')}", {uid: uid}, function(res) {
-            $("#id").val(res.data.id);
-            $("#name").val(res.data.name);
-         //   $("#is_share").val(res.data.is_share);
-            $("#yes_no").val(res.data.yes_no);
-            $("#type_id").val(res.data.type_id);
-            $("#bg_image").val(res.data.bg_image);
-            $("#top_image").val(res.data.top_image);
-            $("#share_title").val(res.data.share_title);
-            $("#share_des").val(res.data.share_des);
-            $("#share_image").val(res.data.share_image);
+    function addZt(){
+        $.getJSON("{:url('Zt/addZt')}", function(res) {
+           // $("#id").val(res.data.id);
+           //  $("#name").val(res.data.name);
+           //  //   $("#is_share").val(res.data.is_share);
+           //  $("#yes_no").val(res.data.yes_no);
+           //  $("#type_id").val(res.data.type_id);
+           //  $("#bg_image").val(res.data.bg_image);
+           //  $("#top_image").val(res.data.top_image);
+           //  $("#share_title").val(res.data.share_title);
+           //  $("#share_des").val(res.data.share_des);
+           //  $("#share_image").val(res.data.share_image);
 
             box = layer.open({
                 title: '增加同类专题',
@@ -237,17 +304,42 @@
         });
     }
 </script>
-<script>
+<!--<script>-->
+    <!--// 页面层增加专题-->
+    <!--var box;-->
+    <!--function addZt(uid){-->
+        <!--$.getJSON("{:url('Zt/addZt')}", {uid: uid}, function(res) {-->
+            <!--$("#id").val(res.data.id);-->
+            <!--$("#name").val(res.data.name);-->
+         <!--//   $("#is_share").val(res.data.is_share);-->
+            <!--$("#yes_no").val(res.data.yes_no);-->
+            <!--$("#type_id").val(res.data.type_id);-->
+            <!--$("#bg_image").val(res.data.bg_image);-->
+            <!--$("#top_image").val(res.data.top_image);-->
+            <!--$("#share_title").val(res.data.share_title);-->
+            <!--$("#share_des").val(res.data.share_des);-->
+            <!--$("#share_image").val(res.data.share_image);-->
 
+            <!--box = layer.open({-->
+                <!--title: '增加同类专题',-->
+                <!--type: 1,-->
+                <!--skin: 'layui-layer-lan', //加上边框-->
+                <!--area: ['600px', '700px'], //宽高-->
+                <!--content: $("#box")-->
+            <!--});-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->
+<script>
     //对专题添加进行校验
     $(function () {
         $("#btn").click(function () {
             console.log(1);
             var name = $("#name").val();
-           // var yes_no = ($("#yes_no"));
+            // var yes_no = ($("#yes_no"));
             var yes_no = $("input:radio[name='yes_no']:checked").val();
             console.log({yes_no:yes_no});
-          //  var type_id = $("#type_id").val();
+            //  var type_id = $("#type_id").val();
             var type_id = $("#type_id").val();
             var bg_image = $("#bg_image").val();
             var top_image = $("#top_image").val();
@@ -291,13 +383,13 @@
             $.post("{:url('Zt/addZt')}",
                 {name:name,yes_no:yes_no,type_id:type_id,bg_image:bg_image,top_image:top_image,share_title:share_title,share_des:share_des,share_image:share_image},
                 function (res) {
-                if(1 == res.code){
-                    window.location.reload();
-                }else {
-                    layer.alert(res.msg,{icon:2,title: '错误提示'});
-                }
+                    if(1 == res.code){
+                        window.location.reload();
+                    }else {
+                        layer.alert(res.msg,{icon:2,title: '错误提示'});
+                    }
 
-            },'json');
+                },'json');
 
         });
 
@@ -416,53 +508,128 @@
     }
 </script>
 
-<!--<script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>-->
-<!--<script src="/login/public//static/bootstrap-table/bootstrap-table.min.js"></script>-->
-<!--<script src="/login/public//static/bootstrap-table/bootstrap-table-mobile.min.js"></script>-->
-<!--<script src="/login/public//static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>-->
-<!--<script src="/login/public//static/layer/layer.js"></script>-->
-<!--<script>-->
-    <!--function initTable() {-->
-        <!--//先销毁表格-->
-        <!--$('#cusTable').bootstrapTable('destroy');-->
-        <!--//初始化表格,动态从服务器加载数据-->
-        <!--$("#cusTable").bootstrapTable({-->
-            <!--method: "get",  //使用get请求到服务器获取数据-->
-            <!--url: "{:url('zt/bootstrapTable')}", //获取数据的地址-->
-            <!--striped: true,  //表格显示条纹-->
-            <!--pagination: true, //启动分页-->
-            <!--pageSize: 10,  //每页显示的记录数-->
-            <!--pageNumber:1, //当前第几页-->
-            <!--pageList: [5, 10, 15, 20, 25],  //记录数可选列表-->
-            <!--sidePagination: "server", //表示服务端请求-->
-            <!--//设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder-->
-            <!--//设置为limit可以获取limit, offset, search, sort, order-->
-            <!--queryParamsType : "undefined",-->
-            <!--queryParams: function queryParams(params) {   //设置查询参数-->
-                <!--var param = {-->
-                    <!--pageNumber: params.pageNumber,-->
-                    <!--pageSize: params.pageSize,-->
-                    <!--aname:$('#aname').val()-->
-                <!--};-->
-                <!--console.log({param});-->
-                <!--return param;-->
-            <!--},-->
-            <!--onLoadSuccess: function(){  //加载成功时执行-->
-                <!--layer.msg("加载成功", {time : 1000});-->
-            <!--},-->
-            <!--onLoadError: function(){  //加载失败时执行-->
-                <!--layer.msg("加载数据失败");-->
-            <!--}-->
-        <!--});-->
-    <!--}-->
+<script>
+    // 页面层preview专题
+    function viewZt(uid,type_id){
+        $.getJSON("{:url('Zt/editZt')}", {uid: uid}, function(res){
+            $("#url").val(res.data.url);
+            console.log({uid});
+            layer.open({
+                title: '预览页面',
+                type: 2,
+                skin: 'layui-layer-demo', //加上边框
+                area: ['600px', '850px'], //宽高
+                closeBtn:1,
+                btn:['复制链接','关闭' ],
+                content: viewtype(uid,type_id),
+                yes:function(index,layero){
+                    // if(1==type_id)
+                    // {
+                    //     location.href=('/login/public/index.php/wap/timeline/frontshow/id/'+uid);
+                    // }
+                    // if(2==type_id)
+                    // {
+                    //     location.href=('/login/public/index.php/wap/sports/frontshow/tid/'+uid);
+                    // }
+                        const input = document.createElement('input');
+                        document.body.appendChild(input);
+                        if(1==type_id){
+                            input.setAttribute('value','localhost/login/public/index.php/wap/timeline/frontshow/id/'+uid );
+                        }
+                        if(2==type_id){
+                            input.setAttribute('value', 'localhost/login/public/index.php/wap/sports/frontshow/tid/'+uid);
 
-    <!--$(document).ready(function () {-->
-        <!--//调用函数，初始化表格-->
-        <!--initTable();-->
+                        }
+                        // input.setAttribute('value', '听说你想复制我呀');
+                        input.select();
+                        if (document.execCommand('copy')) {
+                            document.execCommand('copy');
+                            console.log('复制成功');
+                            alert('复制成功');
+                        }
+                        document.body.removeChild(input);
 
-        <!--//当点击查询按钮的时候执行-->
-        <!--$("#search").bind("click", initTable);-->
-    <!--});-->
-<!--</script>-->
+                },
+                cancel:function(index,layero){
+                    layer.open({content:'执行删除操作'})
+                }
+            });
+        });
+    }
+    function viewtype(uid,type_id) {
+        if(1==type_id){
+            return '/login/public/index.php/wap/timeline/frontshow/id/'+uid
+        }
+        if(2==type_id){
+            return '/login/public/index.php/wap/sports/frontshow/tid/'+uid
+        }
+    }
+</script>
+<script>
+    //ios 兼容性问题
+    // const btn = document.querySelector('#btn_url');
+    // btn.addEventListener('click',() => {
+    //     const input = document.createElement('input');
+    //     input.setAttribute('readonly', 'readonly');
+    //     input.setAttribute('value', 'hello world');
+    //     document.body.appendChild(input);
+    //     input.setSelectionRange(0, 9999);
+    //     if (document.execCommand('copy')) {
+    //         document.execCommand('copy');
+    //         console.log('复制成功');
+    //     }
+    //     document.body.removeChild(input);
+    // })
+    //复制链接
+    function copyZt(uid,type_id) {
+        const btn = document.querySelector('#btn_url');
+        btn.addEventListener('click',() => {
+            const input = document.createElement('input');
+            document.body.appendChild(input);
+            if(1==type_id){
+                input.setAttribute('value','/login/public/index.php/wap/timeline/frontshow/id/'+uid );
+
+            }
+            if(2==type_id){
+                input.setAttribute('value', '/login/public/index.php/wap/sports/frontshow/tid/'+uid);
+
+            }
+           // input.setAttribute('value', '听说你想复制我呀');
+            input.select();
+            if (document.execCommand('copy')) {
+                document.execCommand('copy');
+                console.log('复制成功');
+                alert('复制成功');
+            }
+            document.body.removeChild(input);
+        })
+    }
+</script>
+<script>
+    function scanZt(uid,type_id) {
+
+        layer.open({
+            title: '扫码展示专题',
+            type: 1,
+            skin: 'layui-layer-demo', //加上边框
+            area: ['205px', '260px'], //宽高
+            closeBtn:1,
+            content: scanimg(uid,type_id)
+        });
+        function  scanimg(uid,type_id){
+            if(1==type_id){
+                var timeline_img ="<img src='/login/application/public/qrcode/BrightKing3a30ea3574a84d87bad9167ea5a1447c.png' id ='timelineimg' width='200px' height='200px'/>"
+                return timeline_img;
+            }
+            if(2==type_id){
+                var sports_img ="<img src='/login/application/public/qrcode/BrightKing63dc5db473254c606917c9502c5d5a2d.png' id ='sportsimg' width='200px' height='200px'/>"
+                return sports_img;
+            }
+        }
+    }
+
+
+</script>
+
 </body>
 </html>

@@ -8,9 +8,23 @@
 namespace app\index\controller;
 use think\Build;
 use think\Controller;
+use think;
 
 class Tools extends Controller
 {
+    //qrcode
+    public function qrcode(){
+        $savePath = APP_PATH . '/public/qrcode/';
+        $webPath =   '/login/application/Public/qrcode/';
+        $qrData = 'http://www.gzdaily.com/';
+        $qrLevel = 'H';
+        $qrSize = '8';
+        $savePrefix = 'NickBai';
+        if($filename = createQRcode($savePath, $qrData, $qrLevel, $qrSize, $savePrefix)){
+            $pic = $webPath . $filename;
+        }
+        echo "<img src='".$pic."'>";
+    }
     ///Laypage 分页插件演示
     public  function laypage()
     {

@@ -10,6 +10,9 @@
       <path value="$PROJECT_DIR$/vendor/topthink/think-image" />
       <path value="$PROJECT_DIR$/vendor/topthink/think-queue" />
       <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
+      <path value="$PROJECT_DIR$/vendor/aferrandini/phpqrcode" />
+      <path value="$PROJECT_DIR$/vendor/electrolinux/phpquery" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpexcel" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
