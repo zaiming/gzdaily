@@ -61,9 +61,9 @@
                         <button type="button" class="btn btn-danger" onclick="delZt({$vo.id})">删除</button>
                         <button type="button" class="btn btn-info" onclick="viewZt({$vo.id},{$vo.type_id})">预览</button>
                         <button type="button" class="btn btn-primary" onclick="scanZt({$vo.id},{$vo.type_id})">扫码</button>
+                        <button type="button" class="btn btn-primary" onclick="slideZt({$vo.id},{$vo.type_id})">幻灯片</button>
 
                         <!--<button type="button" id="btn_url" class="btn btn-info" onclick="copyZt({$vo.id},{$vo.type_id})">复链</button>-->
-
                     </td>
                 </tr>
                 {/foreach}
@@ -105,18 +105,7 @@
         <label for="bg_image" class="col-sm-12 ">背景图链接：</label>
         <div class="col-sm-8" >
                 <input type="text" class="form-control"  id="bg_image" placeholder="背景图链接">
-                 <!--<form action="/login/public/index.php/index/zt/upload" enctype="multipart/form-data" method="post">-->
-                <!--<input type="file" name="image"/>-->
-                <!--<input type="submit" value="上传"/>-->
-            <!--</form>-->
-            <!--<img id="preview" alt=""/>-->
-            <!--<form class="am-form" method="post" value="选择图片" enctype="multipart/form-data">-->
-                <!--<input type="file" id="head" name="head"   onchange="previewImage(this)">-->
-                <!--<button type="submit" class="am-btn am-btn-primary am-btn-xs">保存</button>-->
-            <!--</form>-->
-            <div>
-                <form action="" ></form>
-            </div>
+
         </div>
     </div>
     <div class="form-group">
@@ -144,7 +133,7 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-6 col-sm-6">
+        <div class="col-sm-offset-5 col-sm-5">
             <button type="button" class="btn btn-info" id="btn">保存</button>
         </div>
     </div>
@@ -186,7 +175,6 @@
             </form>
         </div>
     </div>
-
     <div class="form-group">
         <label for="e_top_image" class="col-sm-12 ">顶部图链接：</label>
         <div class="col-sm-8" >
@@ -211,15 +199,108 @@
                 <input type="text" class="form-control"  id="e_share_image" placeholder="分享图片">
         </div>
     </div>
-    <div class="form-group" >
-
+    <div class="col-sm-offset-5 col-sm-5" >
          <button type="button" class="btn btn-info" id="btn_edit">保存</button>
-
     </div>
 </div>
 <!-- 页面层编辑专题结束 -->
+<!-- 页面层幻灯片开始 -->
+<div class="form-horizontal col-sm-12" id="slide_box" style="display:none;margin-top: 15px">
+    <input type="hidden" id="id">
+    <div class="form-group">
+        <label for="slide_name" class="col-sm-12 ">幻灯片名：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="slide_name" placeholder="幻灯片名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="slide_add" class="col-sm-12">跳转地址(不设置不跳转)：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="slide_add" placeholder="跳转地址">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="slide_image1" class="col-sm-12 ">幻灯片1链接：</label>
+        <div class="col-sm-8" >
+            <input type="text" class="form-control"  id="slide_image1" placeholder="幻灯片1链接">
+            <form action="/index/zt/upload" enctype="multipart/form-data" method="post">
+                <input type="file" name="image"/><br>
+                <input type="submit" value="上传"/>
+            </form>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="slide_image2" class="col-sm-12 ">幻灯片2链接：</label>
+        <div class="col-sm-8" >
+            <input type="text" class="form-control"  id="slide_image2" placeholder="幻灯片2链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="slide_image3" class="col-sm-12 ">幻灯片3链接：</label>
+        <div class="col-sm-8" >
+            <input type="text" class="form-control"  id="slide_image3" placeholder="幻灯片3链接">
+        </div>
+    </div>
+    <div class="form-group" >
+        <div class="col-sm-offset-5 col-sm-5" >
+            <button type="button" class="btn btn-info" id="slide_save">保存</button>
+        </div>
 
+    </div>
+</div>
+<!-- 页面层幻灯片结束 -->
+<script>
+    // 页面层幻灯片
+    var box;
+    function slideZt(uid, type_id){
+        $.getJSON("{:url('Zt/slideZt')}",{uid: uid}, function(res) {
+              $("#id").val(res.data.id);
+              $("#slide_name").val(res.data.name);
+              $("#slide_add").val(res.data.slide_add);
+              $("#slide_image1").val(res.data.slide1);
+              $("#slide_image2").val(res.data.slide2);
+              $("#slide_image3").val(res.data.slide3);
 
+            box = layer.open({
+                title: '幻灯片编辑',
+                type: 1,
+                skin: 'layui-layer-lan', //加上边框
+                area: ['600px', '550px'], //宽高
+                content: $("#slide_box")
+            });
+        });
+    }
+</script>
+<script>
+    //对幻灯片进行校验
+    $(function () {
+        $("#slide_save").click(function () {
+            console.log(1);
+            var id = $("#id").val();
+            var name = $("#slide_name").val();
+            var slide_add = $("#slide_add").val();
+            var slide1 = $("#slide_image1").val();
+            var slide2 = $("#slide_image2").val();
+            var slide3 = $("#slide_image3").val();
+            console.log({type_id:type_id});
+            if(''== name){
+                layer.tips('幻灯片名不能为空','#name');
+                return false;
+            }
+
+            $.post("{:url('Zt/slideZt')}",
+                {id:id,name:name,slide_add:slide_add,slide1:slide1,slide2:slide2,slide3:slide3},
+                function (res) {
+                    if(1 == res.code){
+                        window.location.reload();
+                    }else {
+                        layer.alert(res.msg,{icon:2,title: '错误提示'});
+                    }
+                },'json');
+        });
+
+    });
+</script>
 <script>
     //js图片上传前进行预览
     function previewImage(file) {
@@ -283,16 +364,6 @@
     var box;
     function addZt(){
         $.getJSON("{:url('Zt/addZt')}", function(res) {
-           // $("#id").val(res.data.id);
-           //  $("#name").val(res.data.name);
-           //  //   $("#is_share").val(res.data.is_share);
-           //  $("#yes_no").val(res.data.yes_no);
-           //  $("#type_id").val(res.data.type_id);
-           //  $("#bg_image").val(res.data.bg_image);
-           //  $("#top_image").val(res.data.top_image);
-           //  $("#share_title").val(res.data.share_title);
-           //  $("#share_des").val(res.data.share_des);
-           //  $("#share_image").val(res.data.share_image);
 
             box = layer.open({
                 title: '增加同类专题',

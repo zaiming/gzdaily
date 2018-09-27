@@ -5,6 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta name="format-detection" content="telephone=no, email=no">
+
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/default.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/flickity-docs.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/normalize.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/style.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="/login/application/wap/view/slide/js/flickity-docs.min.js"></script>
     <title>2018雅加达亚运会</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script>
@@ -342,9 +349,25 @@
 
 <body>
 <div class="conn" id="conn">
-    <div class="banner">
-        <img src="{$TOP_IMAGE}"
-             alt="" class="bannerImg">
+    <!--<div class="banner">-->
+        <!--<img src="{$TOP_IMAGE}"-->
+             <!--alt="" class="bannerImg">-->
+    <!--</div>-->
+    <div class="top">
+        <div class="gallery gallery--margin gallery--line-dots js-flickity">
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE1}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE2}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 325px">
+                <a href=""><img src="{$SLIDE3}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE1}" alt=""></a>
+            </div>
+        </div>
     </div>
     <div class="wrap" id="wrap">
         <div class="searchDiv">

@@ -9,6 +9,7 @@ namespace app\index\controller;
 
 
 use app\index\model\ZtManage;
+use app\index\model\ZtSlide;
 use app\index\model\ZtType;
 use think\Db;
 use think\Controller;
@@ -17,14 +18,43 @@ use think\Validate;
 
 class Zt extends Controller
 {
-
+    //幻灯片
+    public  function slideZt()
+    {
+        if(request()->isPost()){
+          $param = input('post.');
+            $editParam = [
+                'id' => $param['id'],
+                'name' => $param['name'],
+                'slide_add'=> $param['slide_add'],
+                'slide1'=> $param['slide1'],
+                'slide2'=> $param['slide2'],
+                'slide3'=> $param['slide3'],
+            ];
+          $slideModel = new ZtSlide();
+          $has = $slideModel->field('id')
+                ->where("name = '" . $param['name'] . "' and id != " . $param['id'])
+                ->find();
+          if(!empty($has)){
+                return json(['code' => -2, 'data' => '', 'msg' => '幻灯片名已经存在']);
+          }
+            $flag = $slideModel->where('id', $param['id'])->update($editParam);
+            if(false === $flag){
+                return json(['code' => -7, 'data' => '', 'msg' => '系统错误']);
+            }
+            return json(['code' => 1, 'data' => '', 'msg' => '幻灯片保存成功']);
+        }
+        $id = input('param.uid');
+        $slideModel = new ZtSlide();
+        $slideInfo = $slideModel->where('id',$id)->find();
+        return json(['code'=>1,'data'=>$slideInfo,'msg'=>'幻灯片信息']);
+    }
     //qrcode
     public function qrcode(){
         $savePath = APP_PATH . '/public/qrcode/';
         $webPath =   '/login/application/public/qrcode/';
 //        $qrData = 'http://134.175.190.102/index.php/wap/timeline/frontshow/id/1';
         $qrData = 'http://134.175.190.102/index.php/wap/sports/frontshow/tid/2';
-
         $qrLevel = 'H';
         $qrSize = '8';
         $savePrefix = 'BrightKing';
@@ -97,6 +127,7 @@ class Zt extends Controller
     {
         if(request()->isPost()){
             $param = input('post.');
+            $slidename = input('post.name');
             $rule = [
                 ['name','require|unique:ZtManage','专题名必须|该专题已经存在'],
             ];
@@ -108,6 +139,7 @@ class Zt extends Controller
             $ztModel = new ZtManage();
     //        echo json_encode(['code'=>1,'data'=>$param],JSON_UNESCAPED_UNICODE);
             $flag = $ztModel->insert($param);
+
             if(empty($flag)){
                 return json(['code'=>-2,'data'=>'','msg'=>'系统错误']);
             }

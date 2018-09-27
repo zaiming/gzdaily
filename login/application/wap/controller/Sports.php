@@ -23,8 +23,11 @@ class Sports extends Controller
     {
 
         $tid = input('param.tid');
-        $sql = "SELECT m.* FROM zt_manage m where $tid  = m.id ";
+        $sql = "SELECT m.*,s.* FROM zt_manage m,zt_slide s where $tid  = m.id AND s.id =$tid";
         $res = Db::query($sql);
+        $this->assign("SLIDE1",$res[0]['slide1']);
+        $this->assign("SLIDE2",$res[0]['slide2']);
+        $this->assign("SLIDE3",$res[0]['slide3']);
         $this->assign("BG_IMAGE",$res[0]['bg_image']);
         $this->assign("TOP_IMAGE",$res[0]['top_image']);
         $this->assign("SHARE_TITLE",$res[0]['share_title']);

@@ -9,6 +9,12 @@
     <title>2018俄罗斯世界杯</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/default.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/flickity-docs.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/normalize.css">
+    <link rel="stylesheet" href="/login/application/wap/view/slide/css/style.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="/login/application/wap/view/slide/js/flickity-docs.min.js"></script>
     <script>
         (function(doc, win) {
             var docEl = doc.documentElement,
@@ -254,10 +260,42 @@
 </head>
 
 <body>
+<!--<div class="top">-->
+    <!--<div class="gallery gallery&#45;&#45;margin gallery&#45;&#45;line-dots js-flickity">-->
+        <!--<div class="gallery-cell">-->
+            <!--<a href=""><img src="{$SLIDE1}" alt=""></a>-->
+        <!--</div>-->
+        <!--<div class="gallery-cell">-->
+            <!--<a href=""><img src="{$SLIDE2}" alt=""></a>-->
+        <!--</div>-->
+        <!--<div class="gallery-cell">-->
+            <!--<a href=""><img src="{$SLIDE3}" alt=""></a>-->
+        <!--</div>-->
+        <!--<div class="gallery-cell">-->
+            <!--<a href=""><img src="{$SLIDE1}" alt=""></a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="conn" id="conn">
-    <div class="banner">
+    <!--<div class="banner">-->
 
-        <img src="{$TOP_IMAGE}" alt="" class="bannerImg">
+        <!--<img src="{$TOP_IMAGE}" alt="" class="bannerImg">-->
+    <!--</div>-->
+    <div class="top">
+        <div class="gallery gallery--margin gallery--line-dots js-flickity">
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE1}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE2}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE3}" alt=""></a>
+            </div>
+            <div class="gallery-cell" style="height: 375px">
+                <a href=""><img src="{$SLIDE1}" alt=""></a>
+            </div>
+        </div>
     </div>
     <div class="wrap" id="wrap">
         <ul class="wrapUl" id="wrapUl">
@@ -270,18 +308,18 @@
 </div>
 <script>
      // 微信验证
-    wx.config({
-       debug: false,//调试开关
-       appId: '<?php //echo $signPackage["appId"];?>//',
-       timestamp: <?php //echo $signPackage["timestamp"];?>//,
-       nonceStr: '<?php //echo $signPackage["nonceStr"];?>//',
-       signature: '<?php //echo $signPackage["signature"];?>//',
-       jsApiList: [
-           // 所有要调用的 API 都要加到这个列表中
-           'onMenuShareTimeline', //分享到朋友圈
-           'onMenuShareAppMessage'//分享给朋友
-       ]
-    });
+    // wx.config({
+    //    debug: false,//调试开关
+    //    appId: '<?php //echo $signPackage["appId"];?>//',
+    //    timestamp: <?php //echo $signPackage["timestamp"];?>//,
+    //    nonceStr: '<?php //echo $signPackage["nonceStr"];?>//',
+    //    signature: '<?php //echo $signPackage["signature"];?>//',
+    //    jsApiList: [
+    //        // 所有要调用的 API 都要加到这个列表中
+    //        'onMenuShareTimeline', //分享到朋友圈
+    //        'onMenuShareAppMessage'//分享给朋友
+    //    ]
+    // });
     wx.ready(function () {
         //config后系统自动调用
         //分享到朋友圈”

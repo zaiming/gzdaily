@@ -28,6 +28,7 @@
     <button type="button" class="btn btn-info" onclick="window.open('/login/public/index.php/index/zt/index','_self')">返回专题列表</button>
 </td>
 <table id ="tb_user"></table>
+
 </body>
 <script>
     //php var
@@ -40,26 +41,42 @@
     $table =$("#tb_user");
     function operateFormatter( value,row,index) {
         return [
-            '<a class="addlink" href="javascript:void(0)" title="添加附加文章链接">',
+            '<a class="addlink" href="javascript:void(0)" title="添加文章链接">',
             '<i class="glyphicon glyphicon-plus"></i>',
-            '</a> | ',
-            '<a class="showlink" href="javascript:void(0)" title="显示所有附加文章">',
+            '</a> &nbsp;&nbsp;| ',
+            // '<a class="showimage" href="javascript:void(0)" title="显示所有图片链接">',
+            // '<i class="glyphicon glyphicon-th-list"></i>',
+            // '</a> | ',
+            '<a class="showlink" href="javascript:void(0)" title="显示所有文章内容">',
             '<i class="glyphicon glyphicon-th-list"></i>',
-            '</a> | '
+            '</a> &nbsp;&nbsp;| ',
+            // '<button id="TableDelete" type="button" class="btn btn-danger">删除</button> &nbsp;&nbsp;'
         ].join('');
     }
-
     window.operateEvents = {
+        // 'click .addimage': function (e,value,row,index) {
+        //     var rowid = row.id;
+        //     console.log({apiUrl,id});
+        //     window.location.href = apiUrl+"/showaddimage"+"/id/"+id+"/nid/"+rowid;
+        // },
         'click .addlink': function (e,value,row,index) {
             var rowid = row.id;
             console.log({apiUrl,id});
             window.location.href = apiUrl+"/showaddlink"+"/id/"+id+"/nid/"+rowid;
         },
+        // 'click .showimage':function (e,value,row,index) {
+        //     var rowid = row.id;
+        //     console.log({id,editUrl});
+        //     window.location.href = apiUrl +"/showimage"+"/id/"+id+"/nid/"+rowid;
+        //
+        // },
         'click .showlink':function (e,value,row,index) {
             var rowid = row.id;
             console.log({id,editUrl});
             window.location.href = apiUrl +"/showlink"+"/id/"+id+"/nid/"+rowid;
-
+        },
+        'click #TableDelete':function (e,value,row,index) {
+            $(this).parent().parent().remove();
         }
     };
     // window.operateEvents = {
@@ -75,7 +92,6 @@
     //
     //     }
     // };
-
     $(function () {
         $table.bootstrapTable({
             toolbar: "#toolbar",
@@ -96,7 +112,7 @@
                 },
                 {
                     field:"date",
-                    title:"归档日期",
+                    title:"创建日期",
                     edittable:{
                         type:"text",
                         title:'归类的日期',
@@ -127,18 +143,22 @@
                         title:'子标题',
                     }
                 },
-
+                // {
+                //     field:"image_ids",
+                //     title:"标题图片",
+                //
+                // },
                 {
                     field:"image_url",
                     title:"标题图片链接",
-                    editable:{
+                    editable: {
                         type:'text',
-                        title:'标题图片',
+                        title:'图片链接',
                     }
                 },
                 {
                     field:"link_ids",
-                    title:"附加新闻",
+                    title:"文章内容",
 
                 },
                 {
@@ -163,7 +183,7 @@
                 },
                 {
                     field:"operate",
-                    title:"附加文章操作选项",
+                    title:"文章内容操作选项",
                     align:"center",
                     events: operateEvents,
                     formatter: operateFormatter
