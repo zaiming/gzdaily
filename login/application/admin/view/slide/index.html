@@ -18,6 +18,7 @@
     <!-- bootstrap extensions table-editable -->
     <script src="__PUBLIC__/bootstrap-table1/editable/bootstrap-table-editable.js"></script>
     <!-- 所有文件加载结束 -->
+
 </head>
 
 <body>
@@ -41,28 +42,38 @@
     $table =$("#tb_user");
     function operateFormatter( value,row,index) {
         return [
-            '<a class="addlink" href="javascript:void(0)" title="添加文章链接">',
-            '<i class="glyphicon glyphicon-plus"></i>',
-            '</a> &nbsp;&nbsp;| ',
+            // '<a class="addlink" href="javascript:void(0)" title="添加文章链接">',
+            // '<i class="glyphicon glyphicon-plus"></i>',
+            // '</a> &nbsp;&nbsp;| ',
             // '<a class="showimage" href="javascript:void(0)" title="显示所有图片链接">',
             // '<i class="glyphicon glyphicon-th-list"></i>',
             // '</a> | ',
-            '<a class="showlink" href="javascript:void(0)" title="显示所有文章内容">',
-            '<i class="glyphicon glyphicon-th-list"></i>',
+            '<a class="editlink" href="javascript:void(0)" title="编辑文章">',
+            '<i class="glyphicon glyphicon-edit"></i>',
             '</a> &nbsp;&nbsp;| ',
-            // '<button id="TableDelete" type="button" class="btn btn-danger">删除</button> &nbsp;&nbsp;'
+            // '<a class="showlink" href="javascript:void(0)" title="显示文章内容">',
+            // '<i class="glyphicon glyphicon-th-list"></i>',
+            // '</a> &nbsp;&nbsp;| ',
+            '<a class="deletelink" href="javascript:void(0)" title="删除文章">',
+            '<i class="glyphicon glyphicon-alert"></i>',
+            '</a> &nbsp;&nbsp; ',
         ].join('');
     }
-    window.operateEvents = {
+        window.operateEvents = {
         // 'click .addimage': function (e,value,row,index) {
         //     var rowid = row.id;
         //     console.log({apiUrl,id});
         //     window.location.href = apiUrl+"/showaddimage"+"/id/"+id+"/nid/"+rowid;
         // },
-        'click .addlink': function (e,value,row,index) {
+        // 'click .addlink': function (e,value,row,index) {
+        //     var rowid = row.id;
+        //     console.log({apiUrl,id});
+        //     window.location.href = apiUrl+"/showaddlink"+"/id/"+id+"/nid/"+rowid;
+        // },
+        'click .editlink': function (e,value,row,index) {
             var rowid = row.id;
             console.log({apiUrl,id});
-            window.location.href = apiUrl+"/showaddlink"+"/id/"+id+"/nid/"+rowid;
+            window.location.href = apiUrl+"/showeditlink"+"/id/"+id+"/nid/"+rowid;
         },
         // 'click .showimage':function (e,value,row,index) {
         //     var rowid = row.id;
@@ -70,13 +81,34 @@
         //     window.location.href = apiUrl +"/showimage"+"/id/"+id+"/nid/"+rowid;
         //
         // },
-        'click .showlink':function (e,value,row,index) {
-            var rowid = row.id;
-            console.log({id,editUrl});
-            window.location.href = apiUrl +"/showlink"+"/id/"+id+"/nid/"+rowid;
-        },
-        'click #TableDelete':function (e,value,row,index) {
-            $(this).parent().parent().remove();
+        // 'click .showlink':function (e,value,row,index) {
+        //     var rowid = row.id;
+        //     console.log({id,editUrl});
+        //     window.location.href = apiUrl +"/showlink"+"/id/"+id+"/nid/"+rowid;
+        // },
+        'click .deletelink':function (e,value,row,index) {
+             var nid = row.id;
+             deleteurl = apiUrl+"/deletelink"+"/id/"+id+"/nid/"+nid;
+
+            if(confirm("您确认要删除吗")){
+                $.ajax({
+                    url:deleteurl,
+                    type:"POST",
+                    success:function (data) {
+                        if (data.msg == '删除成功'){
+                            console.log(data);
+                            $(this).parent().parent().remove();
+                            alert('删除成功');
+                            window.location.reload();
+                        }
+                    },
+                    error:function () {
+                        console.log("error");
+                        alert("删除失败");
+                        window.location.reload();
+                    }
+                })
+            }
         }
     };
     // window.operateEvents = {
@@ -127,6 +159,7 @@
                 {
                     field:"title",
                     title:"标题",
+                    width:"80px",
                     editable:{
                         type:'text',
                         title:'标题',
@@ -137,7 +170,8 @@
                 },
                 {
                     field:"sub_title",
-                    title:"子标题",
+                    title:"副标题",
+                    width:"80px",
                     editable: {
                         type:'text',
                         title:'子标题',
@@ -151,16 +185,17 @@
                 {
                     field:"image_url",
                     title:"标题图片链接",
+                    width:"80px",
                     editable: {
                         type:'text',
                         title:'图片链接',
                     }
                 },
-                {
-                    field:"link_ids",
-                    title:"文章内容",
-
-                },
+                // {
+                //     field:"link_ids",
+                //     title:"文章内容",
+                //
+                // },
                 {
                     field:"status",
                     title:"状态",

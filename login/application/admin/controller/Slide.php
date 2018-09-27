@@ -82,7 +82,6 @@ class Slide extends Controller
             die;
         }
 
-
        // return $this->fetch();
     }
     public function showadd()
@@ -103,6 +102,10 @@ class Slide extends Controller
         $data['date'] = $r['date'];
         $data['status'] = $r['status'];
         $data['iorder'] =$r['iorder'];
+        //ueditor upload image path
+        $content = input('post.content');
+        //dump($content);
+        $data['edit_url'] = $r['content'];
         //专题ID
         $data['zt_id'] = $id;
         $res = Db::table('zt_slide_newslist')->insert($data);
@@ -183,6 +186,56 @@ class Slide extends Controller
         $this->assign("id",$id);
         return $this->fetch('addlink');
     }
+    public function showeditlink(Request $request)
+    {
+        $r = $request->param();
+        //专题id
+        $id = input('param.id');
+        $nid = $r["nid"];
+        $res = Db::table("zt_slide_newslist")->where('id',$nid)->find();
+        $api_url = "/login/public/index.php/admin/slide/";
+        $this->assign("POST_URL",$api_url."/editlink/id/".$id."/nid/".$nid);
+        $this->assign('nid',$nid);
+        $this->assign("id",$id);
+        $this->assign('RES',$res);
+        return $this->fetch('editlink');
+    }
+    public function editlink(Request $request)
+    {
+        $r = $request->param();
+        //专题ID
+        $id = input('param.id');
+        $nid = $r['nid'];
+        $data['title'] = $r['title'];
+        $data['sub_title'] = $r['subtitle'];
+        $data['image_url'] = $r['imageurl'];
+        $data['edit_url'] = $r['content'];
+        $data['status'] = $r['status'];
+        $data['iorder'] = $r['iorder'];
+        //ueditor upload image path
+        $content = input('post.content');
+       // dump($content);
+        $data['edit_url'] = $r['content'];
+        $lastInsId = Db::table('zt_slide_newslist')->where('id',$nid)->update($data,false,true);
+        if($lastInsId > 0){
+            $this->success("编辑成功",'/login/public/index.php/admin/slide/show/id/'.$id);
+        }else{
+            $this->error('编辑失败');
+        }
+
+    }
+    public function deletelink(Request $request)
+    {
+        $r = $request->param();
+        $id = $r['id'];
+        $nid = $r['nid'];
+        $flag = Db::table('zt_slide_newslist')->where('id',$nid)->delete();
+        if(1==$flag){
+            $this->success("删除成功",'/login/public/index.php/admin/slide/show/id/'.$id);
+        }else{
+            $this->error('删除失败');
+        }
+    }
     public function addlink(Request $request)
     {
         $r = $request->param();
@@ -208,7 +261,6 @@ class Slide extends Controller
             }
             else{
                 $ids = $linkIds['link_ids'].",".$lastInsId;
-
             }
             Db::table('zt_slide_newslist')->where('id',$nid)->update(array("link_ids"=>$ids));
 
