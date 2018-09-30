@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab0e3925bd8a4ba556f4affc782bc633",
+    "content-hash": "e158e4a8b063e9dfc6cb433ead57fea9",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -52,23 +52,117 @@
             "time": "2013-07-08T09:39:08+00:00"
         },
         {
-            "name": "electrolinux/phpquery",
-            "version": "0.9.6",
+            "name": "aliyuncs/oss-sdk-php",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/electrolinux/phpquery.git",
-                "reference": "6cb8afcfe8cd4ce45f2f8c27d561383037c27a3a"
+                "url": "https://github.com/aliyun/aliyun-oss-php-sdk.git",
+                "reference": "e69f57916678458642ac9d2fd341ae78a56996c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/electrolinux/phpquery/zipball/6cb8afcfe8cd4ce45f2f8c27d561383037c27a3a",
-                "reference": "6cb8afcfe8cd4ce45f2f8c27d561383037c27a3a",
+                "url": "https://api.github.com/repos/aliyun/aliyun-oss-php-sdk/zipball/e69f57916678458642ac9d2fd341ae78a56996c8",
+                "reference": "e69f57916678458642ac9d2fd341ae78a56996c8",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~1.0"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "phpQuery/"
+                "psr-4": {
+                    "OSS\\": "src/OSS"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aliyuncs",
+                    "homepage": "http://www.aliyun.com"
+                }
+            ],
+            "description": "Aliyun OSS SDK for PHP",
+            "homepage": "http://www.aliyun.com/product/oss/",
+            "time": "2018-01-08T06:59:35+00:00"
+        },
+        {
+            "name": "chenhua/laravel5-kindeditor",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ichenhua/laravel5-kindeditor.git",
+                "reference": "19e96cd8bf0ff7615557c412bd73411c3120fb29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ichenhua/laravel5-kindeditor/zipball/19e96cd8bf0ff7615557c412bd73411c3120fb29",
+                "reference": "19e96cd8bf0ff7615557c412bd73411c3120fb29",
+                "shasum": ""
+            },
+            "require": {
+                "aliyuncs/oss-sdk-php": "^2.2",
+                "qiniu/php-sdk": "^7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chenhua\\Kindeditor\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "chenhua",
+                    "email": "276004561@qq.com"
+                }
+            ],
+            "description": "The best HTML Editor of Laravel 5 KindEditor",
+            "homepage": "http://www.ichenhua.cn",
+            "keywords": [
+                "editor",
+                "laravel",
+                "markdown"
+            ],
+            "time": "2018-06-15T06:06:19+00:00"
+        },
+        {
+            "name": "qiniu/php-sdk",
+            "version": "v7.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qiniu/php-sdk.git",
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qiniu/php-sdk/zipball/305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qiniu\\": "src/Qiniu"
+                },
+                "files": [
+                    "src/Qiniu/functions.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -77,90 +171,33 @@
             ],
             "authors": [
                 {
-                    "name": "Tobiasz Cudnik",
-                    "email": "tobiasz.cudnik@gmail.com",
-                    "homepage": "https://github.com/TobiaszCudnik",
-                    "role": "Developer"
-                },
-                {
-                    "name": "didier Belot",
-                    "role": "Packager"
+                    "name": "Qiniu",
+                    "email": "sdk@qiniu.com",
+                    "homepage": "http://www.qiniu.com"
                 }
             ],
-            "description": "phpQuery is a server-side, chainable, CSS3 selector driven Document Object Model (DOM) API based on jQuery JavaScript Library",
-            "homepage": "http://code.google.com/p/phpquery/",
-            "time": "2013-03-21T12:39:33+00:00"
-        },
-        {
-            "name": "phpoffice/phpexcel",
-            "version": "1.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPOffice/PHPExcel.git",
-                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
-                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
-                "shasum": ""
-            },
-            "require": {
-                "ext-xml": "*",
-                "ext-xmlwriter": "*",
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PHPExcel": "Classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Maarten Balliauw",
-                    "homepage": "http://blog.maartenballiauw.be"
-                },
-                {
-                    "name": "Mark Baker"
-                },
-                {
-                    "name": "Franck Lefevre",
-                    "homepage": "http://blog.rootslabs.net"
-                },
-                {
-                    "name": "Erik Tilt"
-                }
-            ],
-            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
-            "homepage": "http://phpexcel.codeplex.com",
+            "description": "Qiniu Resource (Cloud) Storage SDK for PHP",
+            "homepage": "http://developer.qiniu.com/",
             "keywords": [
-                "OpenXML",
-                "excel",
-                "php",
-                "spreadsheet",
-                "xls",
-                "xlsx"
+                "cloud",
+                "qiniu",
+                "sdk",
+                "storage"
             ],
-            "abandoned": "phpoffice/phpspreadsheet",
-            "time": "2015-05-01T07:00:55+00:00"
+            "time": "2018-05-18T04:37:29+00:00"
         },
         {
             "name": "topthink/framework",
-            "version": "v5.0.16",
+            "version": "v5.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "e6b7e87586ca86777317ec54c32eaf4e8d2bf211"
+                "reference": "e20f6e8cadbbc6e246a0c121c89bfd278f30c76b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/e6b7e87586ca86777317ec54c32eaf4e8d2bf211",
-                "reference": "e6b7e87586ca86777317ec54c32eaf4e8d2bf211",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/e20f6e8cadbbc6e246a0c121c89bfd278f30c76b",
+                "reference": "e20f6e8cadbbc6e246a0c121c89bfd278f30c76b",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +235,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-03-26T07:06:09+00:00"
+            "time": "2018-05-11T08:02:47+00:00"
         },
         {
             "name": "topthink/think-captcha",
@@ -394,16 +431,16 @@
         },
         {
             "name": "topthink/think-mongo",
-            "version": "v1.8.2",
+            "version": "v1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-mongo.git",
-                "reference": "5433e971b4892b09cbec49090c690f5d4350a981"
+                "reference": "657cc79bd5f090a58b0cc83776073dd69c83a3d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-mongo/zipball/5433e971b4892b09cbec49090c690f5d4350a981",
-                "reference": "5433e971b4892b09cbec49090c690f5d4350a981",
+                "url": "https://api.github.com/repos/top-think/think-mongo/zipball/657cc79bd5f090a58b0cc83776073dd69c83a3d1",
+                "reference": "657cc79bd5f090a58b0cc83776073dd69c83a3d1",
                 "shasum": ""
             },
             "type": "library",
@@ -424,20 +461,20 @@
                 }
             ],
             "description": "mongodb driver for thinkphp5",
-            "time": "2018-01-30T07:12:02+00:00"
+            "time": "2018-06-03T01:51:27+00:00"
         },
         {
             "name": "topthink/think-queue",
-            "version": "v1.1.4",
+            "version": "v1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-queue.git",
-                "reference": "ad709611d516e13d6760234bc98e91faa901cae8"
+                "reference": "465320c9cb7811df22d4ff8f29f58ead7d104348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-queue/zipball/ad709611d516e13d6760234bc98e91faa901cae8",
-                "reference": "ad709611d516e13d6760234bc98e91faa901cae8",
+                "url": "https://api.github.com/repos/top-think/think-queue/zipball/465320c9cb7811df22d4ff8f29f58ead7d104348",
+                "reference": "465320c9cb7811df22d4ff8f29f58ead7d104348",
                 "shasum": ""
             },
             "require": {
@@ -469,7 +506,7 @@
                 }
             ],
             "description": "The ThinkPHP5 Queue Package",
-            "time": "2017-06-25T00:49:56+00:00"
+            "time": "2018-05-04T05:29:53+00:00"
         }
     ],
     "packages-dev": [],
