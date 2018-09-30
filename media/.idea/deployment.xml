@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="134.175.190.102">
+    <serverData>
+      <paths name="134.175.190.102">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/www/web/tp50" local="$PROJECT_DIR$/../tp50" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
