@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>广州日报AI人脸融合</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <link href="https://cdn.gzdaily.com/static/css/swiper.min.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px;
+        font-weight: 500;
+    }
+    html {
+        font-size: 62.5%;
+        width: 100%;
+        height: 100%;
+        background-color: #e3e3e3;
+    }
+    body {
+        margin: 0px auto;
+        max-width: 769px;
+        font-size: 1.4rem;
+        background-color: #fff;
+        min-height: 100%;
+        padding: 15px;
+    }
+    .model {
+        height: 100%;
+        width: 100%;
+    }
+    .model * {
+        text-align: center;
+    }
+    .model-title {
+        font-size: 25px;
+        margin: 0px 0px 10px 0px;
+        color: #63B8FF;
+    }
+    .model-body {
+        border: 3px solid #63B8FF;
+        padding: 15px 0px;
+        background-color: rgba(255,255,224, 0.5);
+    }
+    .swiper-slide {
+        padding: 0px 15px;
+    }
+    .swiper-slide img{
+        border-radius: 8px;
+    }
+    .model-tips {
+        margin: 5px 0px;
+        color: #63B8FF;
+        font-size: 1.4rem;
+    }
+    .model-footer {
+        position: fixed;
+        bottom: 3%;
+        padding: 15px 0px;
+        width: calc(100% - 30px);
+    }
+    .model-button {
+        border: none;
+        border-radius: 10px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.8rem;
+        outline: none;
+        width: 50%;
+        text-align: center;
+        color: #fff;
+        background-color: #63B8FF;
+    }
+    .swiper-container-horizontal>.swiper-pagination-bullets {
+        bottom: 5px !important;
+    }
+    @media screen and (min-width: 769px) {
+        .model ul li img {
+            width: 200px !important;
+        }
+        .model-footer {
+            width: 739px;
+        }
+    }
+</style>
+<body>
+        <div class="model">
+            <p class="model-title">广州日报AI人脸融合</p>
+            <div class="model-body swiper-container"></div>
+        </div>
+            <p class="model-tips">左右滑动可以切换人脸模板</p>
+        <div class="model-footer">
+            <button class="model-button" onclick="changeModel()">立即体验</button>
+        </div>
+</body>
+<script src="https://cdn.gzdaily.com/static/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.gzdaily.com/static/js/swiper.min.js"></script>
+
+<script>
+    let imageObj = {
+        1: 'https://p.qpic.cn/zc_pic/0/90fca3e42ef562339bf641ebb3faa9771536825920027/0',
+        2: 'https://p.qpic.cn/zc_pic/0/97645dedca8cfe86e346a781acaaadb715368259157305/0',
+        3: 'https://p.qpic.cn/zc_pic/0/b04cae6000cf8b5358548ed18c0df19415368259115009/0',
+        4: 'https://p.qpic.cn/zc_pic/0/27274e93fbe02c1d51e34be5f4f1954b15368258976993/0',
+        5: 'https://p.qpic.cn/zc_pic/0/180dea935145c42dd9aeaa5272e5a95115368259071391/0',
+        6: 'https://p.qpic.cn/zc_pic/0/b754ba2bde9190a41313ecbb0d1d099c15368259027714/0',
+        7: 'https://p.qpic.cn/zc_pic/0/122704eb58cdae159d079ab5d01a250415368259373892/0',
+        8: 'https://p.qpic.cn/zc_pic/0/2b346a24346dc8cbfce2173f926f661e15368259243504/0',
+        9: 'https://p.qpic.cn/zc_pic/0/d73ac9c12ce9b5b41452a01f31bfa28015368259327337/0',
+        10: 'https://p.qpic.cn/zc_pic/0/7c90b26a174ece0c1b3a0c63466f5d7615368259284748/0'
+    }
+    let keys = Object.keys(imageObj)
+    let html = ''
+    keys.map(key => {
+        html += `<div class="swiper-slide" id="${key}">
+            <img src="${imageObj[key]}" width="80%" onclick="setModel(${key})">
+        </div>`
+    })
+    $('.model-body')[0].innerHTML = `<div class="swiper-wrapper">${html}</div>
+        <div class="swiper-pagination"></div>`
+
+    var mySwiper = new Swiper ('.model-body', {
+        direction: 'horizontal',
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    })
+    function changeModel() {
+        let model = $('.swiper-slide-active')[0].id
+        setModel(model)
+    }
+    function setModel(model) {
+        window.location.href = 'face/index/images?model=' + model
+    }
+
+</script>
+</html>

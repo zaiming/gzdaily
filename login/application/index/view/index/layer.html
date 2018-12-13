@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layer</title>
+    <script src="/login/public/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/login/public/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/login/public/static/layer/layer.js"></script>
+</head>
+<body>
+    <button onclick="viewlayer()">layer</button>
+<script>
+    function viewlayer() {
+        layer.open({
+            type:2,
+            content:'http://m.baidu.com',
+            btn:['返回'],
+            fix:true,
+            area:['300px','500px'],
+            btn1:function (layer,ev) {
+                // var ht = ev[0].innerHTML;
+                // var iframeID = $(ht).find('iframe')[0].id;
+                // console.log(iframeID);
+                // window[iframeID].history.back();
+                window.history.go(-1);
+                console.log('back success');
+                return false;
+            }
+        })
+    }
+</script>
+</body>
+</html>

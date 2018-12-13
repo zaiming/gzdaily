@@ -5,17 +5,22 @@
     <title>kindEditor</title>
     <script charset="utf-8" src="/login/public/static/kindeditor/kindeditor-all.js"></script>
     <script charset="utf-8" src="/login/public/static/kindeditor/lang/zh-CN.js"></script>
-    <script>
-        KindEditor.ready(function(K) {
-            window.editor = K.create('#editor_id');
-        });
-    </script>
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.js"></script>
 </head>
 
 <body>
-<textarea id="editor_id" name="content" style="width:700px;height:300px;">
-    HTML内容
-</textarea>
+<div class="form-group">
+    <label>文章内容编辑</label>
+    <!-- 加载编辑器的容器 -->
+    <script id="container" name="content" type="text/plain" >
 
+                </script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var editor = UE.getEditor('container',{serverUrl: "{U('ueditor')}"});
+    </script>
+</div>
 </body>
 </html>

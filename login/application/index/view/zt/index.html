@@ -357,6 +357,9 @@
         if(2==type_id){
             window.open('http://localhost/login/public/index.php/admin/sports/show/id/'+uid,'_self')
         }
+        if(3==type_id){
+            window.open('http://localhost/login/public/index.php/admin/slide/show/id/'+uid,'_self')
+        }
     }
 </script>
 <script>
@@ -591,7 +594,7 @@
                 skin: 'layui-layer-demo', //加上边框
                 area: ['600px', '850px'], //宽高
                 closeBtn:1,
-                btn:['复制链接','关闭' ],
+                btn:['复制链接','返回','关闭' ],
                 content: viewtype(uid,type_id),
                 yes:function(index,layero){
                     // if(1==type_id)
@@ -621,8 +624,20 @@
                         document.body.removeChild(input);
 
                 },
+                btn2:function(index,ev){
+                     var ht = ev[0].innerHTML;
+                     var iframeID = $(ht).find('iframe')[0].id;
+                     console.log(iframeID);
+                    //window[iframeID].history.back();
+                    //history.back(iframeID);
+                    //parent.document.getElementById(iframeID).contentWindow.history.back();
+                     console.log('back success');
+                    //window.history.back();
+                    window.history.go(-1);
+                    console.log('forwards');
+                },
                 cancel:function(index,layero){
-                    layer.open({content:'执行删除操作'})
+                    // layer.open({content:'执行删除操作'})
                 }
             });
         });
@@ -632,6 +647,9 @@
             return '/login/public/index.php/wap/timeline/frontshow/id/'+uid
         }
         if(2==type_id){
+            return '/login/public/index.php/wap/sports/frontshow/tid/'+uid
+        }
+        if(3==type_id){
             return '/login/public/index.php/wap/sports/frontshow/tid/'+uid
         }
     }

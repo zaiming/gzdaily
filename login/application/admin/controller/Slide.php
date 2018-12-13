@@ -84,6 +84,7 @@ class Slide extends Controller
 
        // return $this->fetch();
     }
+
     public function showadd()
     {
         $id = input('param.id');
@@ -309,6 +310,20 @@ class Slide extends Controller
         }
         return json($returnArray);
     }
+    //新闻前端接口
+    public function slidelist()
+    {
+        //跨域调用
+        //专题ID
+//        $id = input('param.id');
+//        header("access-control-allow-origin:*");
+        header("access-control-allow-origin:*");
 
+        $tid = input('param.tid');
+        $sql = "SELECT s.* ,n.* FROM zt_manage m ,zt_slide s,zt_slide_newslist n where $tid  = m.id AND n.zt_id = $tid
+                AND s.id=$tid ORDER BY n.id DESC ";
+        $res = Db::query($sql);
+        return json($res);
+    }
 
 }

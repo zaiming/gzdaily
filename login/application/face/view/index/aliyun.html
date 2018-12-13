@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>aliyun</title>
+    <script src="https://cdn.gzdaily.com/static/js/jquery-3.3.1.min.js"></script>
+
+</head>
+
+<body>
+<form enctype="multipart/form-data" method="post" name="fileinfo" action="{:url('index/aliyunup')}">
+    <table>
+        <tr>
+            <td>上传模板图：</td>
+            <br>
+            <td><input type="file" name="image1[]" multiple="multiple"></td>
+        </tr>
+        <!--<tr>-->
+            <!--<td colspan="2"><input type="submit" value="上传" ></td>-->
+        <!--</tr>-->
+        <tr>
+            <td>上传头像：</td>
+            <br>
+            <td><input type="file" name="image2[]" multiple="multiple"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="上传" ></td>
+        </tr>
+    </table>
+</form>
+</body>
+<script>
+
+</script>
+</html>

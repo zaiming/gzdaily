@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预览图</title>
+    <style>
+        /* 图片上传CSS */
+        #uploadimg{display:block; width:180px; height:180px;position:relative; overflow:hidden;}
+        #imgFile{position:absolute; right:0; top:0; font-size:100px; opacity:0; filter:alpha(opacity=0);cursor:pointer}
+
+    </style>
+</head>
+<body>
+
+<div class="from-group clearfix from-group-padding">
+    <label class="col-sm-1 label-right">微缩图 :</label>
+    <div class="col-sm-2">
+        <a href="javascript:;" id="uploadimg">
+            <img src="/images/default-thumbnail.png"  width="180" style="" id="imgpre">
+            <input type="file" id="imgFile" onchange="imgPreview(this);return false;"/>
+            <input type="hidden" name="course_pic" value="" id="getpic">
+        </a>
+    </div>
+    <div class="input-note">尺寸：640px × 363px</div>
+</div>
+<script>
+    function imgPreview(fileDom){
+
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            toastr.error('不支持FileReader API 请升级您的设备');
+        }
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            toastr.error('请选择图片！');
+            return;
+        }
+        //读取完成
+        reader.onload = function(e) {
+            // //获取图片展示的dom
+            // var img = document.getElementById("imgpre");
+            // // 图片路径设置为读取的图片
+            //  img.src = e.target.result;
+            // ajax 上传图片
+            $.post("/Index/uploadimg", {course_img: e.target.result}, function(ret) {
+                if (ret.img!='') {
+                    toastr.success('图片上传成功!');
+                    $('#imgpre').attr('src','/'+ret.img);
+                    $('#getpic').attr('value','/'+ret.img);
+                    alert(ret.img);
+                    // $('#showimg').html('<img src="' + ret.img + '">');
+                    // 返回给前台 图片地址 放到隐藏框中
+                } else {
+                    toastr.error('图片上传错误!');
+                }
+            },'json');
+        };
+        reader.readAsDataURL(file);
+    }//imgPreview结束
+
+</script>
+</body>
+</html>

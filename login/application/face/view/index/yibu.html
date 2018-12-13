@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ajax+PHP实现异步图片上传</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://cdn.gzdaily.com/static/js/jquery-3.3.1.min.js"></script>
+    <style type="text/css">
+        #feedback{
+            height: 200px;
+            text-align: center;
+            height: 160px;
+            border: 1px solid silver;
+            border-radius: 3px;
+        }
+        #feedback img{
+            margin:3px 10px;
+            border: 1px solid silver;
+            border-radius:3px;
+            padding: 6px;
+            width: 35%;
+            height: 85%;
+        }
+        #feedback p{
+            font-family: "微软雅黑";
+            line-height: 120px;
+            color: #ccc;
+        }
+        .file {
+            position: relative;
+            display: inline-block;
+            border: 1px solid #1ab294;
+            border-radius: 4px;
+            padding: 8px 16px;
+            overflow: hidden;
+            color: #fff;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+            color: #1ab294;
+        }
+
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .box{
+            margin-top: 10px;
+            text-align: center;
+        }
+        .box a{
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- 响应返回数据容器 -->
+<div id="feedback">
+</div>
+<div class="box">
+    <a href="javascript:;" class="file">选择图片
+        <input type="file" multiple="multiple" id="inputfile" name="" class="photo">
+    </a>
+    <a href="javascript:;" class="file close">重新选择
+        <input type="buttom" class="photo">
+    </a>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //响应文件添加成功事件
+        var feedback = $("#feedback");
+        $("#inputfile").change(function(){
+            if (feedback.children('img').length>1) {
+                alert("最多只能选择两张图片");
+                return false;
+            }
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each($('#inputfile')[0].files, function(i, file) {
+                data.append('upload_file'+i, file);
+            });
+            $(".loading").show();    //显示加载图片
+            //发送数据
+            $.ajax({
+                url:'up', /*去过那个php文件*/
+                type:'POST',  /*提交方式*/
+                data:data,
+                cache: false,
+                contentType: false,        /*不可缺*/
+                processData: false,         /*不可缺*/
+                success:function(data){
+                    data = $(data).html();        /*转格式*/
+
+                    //第一个feedback数据直接append，其他的用before第1个（ .eq(0).before() ）放至最前面。
+                    //data.replace(/&lt;/g,'<').replace(/&gt;/g,'>') 转换html标签，否则图片无法显示。
+                    if($("#feedback").children('img').length == 0)
+                    {
+                        $("#feedback").append(data.replace(/&lt;/g,'<').replace(/&gt;/g,'>'));
+                    }
+                    else{
+                        $("#feedback").children('img').eq(0).before(data.replace(/&lt;/g,'<').replace(/&gt;/g,'>'));
+                    }
+                },
+                error:function(){
+                    alert('上传出错');
+                }
+            });
+        });
+        $(".close").on("click",function(){
+            $("#feedback").empty();
+        });
+    });
+</script>
+</body>
+</html>

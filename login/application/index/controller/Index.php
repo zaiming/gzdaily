@@ -8,4 +8,7 @@ class Index
         echo "您好： " . cookie('user_name') . ', <a href="' . url('login/loginout') . '">退出</a>';
 
     }
+    public function layer(){
+        return view();
+    }
 }

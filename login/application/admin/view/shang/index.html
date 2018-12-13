@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上拉加载</title>
+</head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+<script src = "http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src = "/login/application/admin/view/shang/jquery-2.2.4.min.js"></script>
+<script src="iscroll.js"></script>
+<style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    html{font-size: 14px;}
+    header{
+        height: 40px;
+        width: 100%;
+        min-width: 320px;
+        background: #000;
+        text-align: center;
+        color:#fff;
+        font-size: 1.2rem;
+        line-height: 40px;
+    }
+    footer{
+        height: 52px;
+        width: 100%;
+        min-width: 320px;
+        background: #000;
+        text-align: center;
+        color:#fff;
+        font-size: 1.2rem;
+        line-height: 52px;
+        position: absolute;
+        bottom:0;
+    }
+    #wrapper{
+        width:100%;
+        min-width: 320px;
+        position: absolute;
+        left:0;
+        top:40px;
+        bottom: 52px;
+        overflow: hidden;
+        z-index: 1;
+        background-color: #eee;
+        /*防止本级windows上的触摸事件*/
+        -ms-touch-action:none;
+        /*防止callout tap-hold和文本选择*/
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        /*防止文本调整取向变化对web应用程序很有用*/
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -o-text-size-adjust:none;
+        text-size-adjust: none;
+    }
+    .pull-loading{
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+    }
+    #scroll ul li{
+        padding: 20px 10px;
+        border-bottom: solid 1px #ccc;
+        background: #fff;
+    }
+
+</style>
+
+<body>
+        <header>上拉加载，下拉刷新</header>
+<div id="wrapper">
+    <div id="scroller">
+        <ul>
+            <li>这里显示部分数据</li>
+            <li>这里显示部分数据</li>
+            <li>这里显示部分数据</li>
+            <li>这里显示部分数据</li>
+            <li>这里显示部分数据</li>
+
+        </ul>
+        <div class="pull-loading">
+            上拉加载
+        </div>
+    </div>
+</div>
+<footer>底部</footer>
+<script type="text/javascript" src="iscroll.js"></script>
+<script type="text/javascript">
+    var myscroll = new iScroll("wrapper",{
+        onScrollMove:function () {
+            //拉动时
+            //上拉加载
+            if(this.y<this.maxScrollY){
+                $(".pull-loading").html("释放加载");
+                $(".pull-loading").addClass("loading");
+            }else {
+                $(".pull-loading").html("上拉加载");
+                $(".pull-loading").removeClass("loading");
+            }
+        },
+        onScrollEnd:function () {
+            //拉动结束时
+            //上拉加载
+            if($(".pull-loading").hasClass('loading')){
+                $(".pull-loading").html("加载中");
+                pullOnload();
+            }
+
+        }
+    });
+    //上拉加载函数.ajax
+    var num = 0;
+    var page = 4; //每次加载4
+    function pullOnload() {
+        setTimeout(function () {
+            $.ajax({
+                url:"json/data.json",
+                type:"get",
+                dataType:'json',
+                success:function (data) {
+                    var data_length = data.length;//数据的总长度
+                    var remainder = data_length % page;//余数
+                    if(data_length>=(num+page)){
+                        for(var j = num;j<num+page;j++){
+                            var text = data[j].text;
+                            $("#scroller ul").append("<li>"+text+"</li>");
+                        }
+                        num+=page;
+                    }else if(remainder != 0 && data_length-num == remainder){
+                        for(var j = num;j<num+remainder;j++){
+                            var  text = data[j].text;
+                            $("#scroller ul").append("<li>"+text+"</li>");
+                        }
+                        num+=page;
+
+                    }else {
+                        $('.pull-loading').html("没有了哟！");
+
+                    }
+                    myscroll.refresh();
+                },
+                error:function () {
+                    console.log("出错了")
+                }
+            });
+            myscroll.refresh();
+
+        },500);
+
+    }
+
+</script>
+</body>
+</html>
